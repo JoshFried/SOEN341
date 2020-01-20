@@ -3,7 +3,7 @@ Instagram style website for the SOEN 341 group project
 
 Josh Fried - 40065326, www.github.com/JoshFried
 
-Sarahh Papadopoli - 26629598,  www.github.com/Salander24
+Sarah Papadopoli - 26629598,  www.github.com/Salander24
 
 Shashank Patel - 40094236,  www.github.com/shash3
 
