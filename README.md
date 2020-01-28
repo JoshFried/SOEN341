@@ -1,4 +1,7 @@
 # SOEN341
+#Objective
+#Description
+#Core Feature
 Instagram style website for the SOEN 341 group project 
 
 Josh Fried - 40065326 --> Github username: JoshFried 
