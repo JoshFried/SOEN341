@@ -2,18 +2,20 @@
 ## **Objective**
 To develop a simplified Instagram web application
 ## **Description**
-For this project we are required to develop a simplified version of Instagram that will enable the user to post a picture with a text description. In addition, the user will be able to follow other users. Moreover, the user will be able to leave comments under a posted picture. Furthermore, we are required to suggest and develop a new feature that will make our project stand out. That feature is still to be determined.
+For this project we are required to develop a simplified version of Instagram that will enable the user to post a picture with a text description. In addition, the user will be able to follow other users. Moreover, the user will be able to leave comments under a posted picture. Furthermore, we are required to suggest and develop 2 new features that will make our project stand out. These features are still to be determined.
 ## **Core Features**
-- Post a picture with some text description
--Following other users
--Leave comments to a posted picture
+* Post a picture with some text description
+* Following other users
+* Leave comments to a posted picture
 ## **Technologies Used**
-###  **Front-End** ###
-Boostrap and React
-###  **Back-End** ###
-Django and MySQL
+### **Front-End** ###
+* Boostrap
+* React
+### **Back-End** ###
+* Django 
+* MySQL
 
-## ** Team Members **
+## **Team Members**
 
 Josh Fried - 40065326 --> Github username: JoshFried 
 
