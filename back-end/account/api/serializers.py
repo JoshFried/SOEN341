@@ -52,3 +52,28 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account.set_password(password)
         account.save()
         return account
+
+
+class AccountInformationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['email', 'username', 'password',
+                  'first_name', 'last_name', 'about', 'profile_pic']
+        extra_kwargs = {
+            'password': {'write_only': True,
+                         'min_length:8'},
+            'username': {'min_length': 3}
+        }
+
+    def update(self, instance, validated_data):
+
+        # Important to note validated_data contains an ordered dictionary,
+        password = validated_data.pop('password')
+        account = super().update(instance, validated_data)
+
+        # if we pass a password to change, update a new hashed password in the database
+        if password:
+            account.set_password(password)
+            account.save()
+
+        return account
