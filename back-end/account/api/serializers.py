@@ -77,3 +77,9 @@ class AccountInformationSerializer(serializers.ModelSerializer):
             account.save()
 
         return account
+
+
+class PostSerializer(serializers.ModelSerialzer):
+    class Meta:
+        model = Post
+        fields = ['picture', 'caption', 'updated_at']
