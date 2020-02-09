@@ -76,6 +76,12 @@ class Account(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
+    # The following fields are what create the following/followers relationship
+    following = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, blank=True, related_name='account_following', symmetrical=False)
+    followers = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, blank=True, related_name='account_followers', symmetrical=False)
+
     # Call this class to instantiate a new object
     objects = MyAccountManager()
 
@@ -93,6 +99,18 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    def get_posts(self):
+        return Post.objects.filter(account=self).values_list('id', flat=True)
+
+    def get_post_count(self):
+        return self.post.all().count()
+
+    def get_num_of_follower(self):
+        return self.followers.all().count()
+
+    def get_num_of_follower(self):
+        return self.followers.all().count()
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
