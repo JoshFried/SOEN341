@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -78,9 +80,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'instaDatabase',
         'USER': 'root',
-        'PASSWORD':'',
+        'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT':'3306',
+        'PORT': '3306',
     }
 }
 
