@@ -3,8 +3,12 @@ from django.db import models
 # Custom User imports
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+post_location = ''
+profile_pic_location = ''
+
 
 class MyAccountManager(BaseUserManager):
+
     # this is our function that will be called upon registering a new user
     def create_user(self, email, username, first_name, last_name, password=None):
         if not email:
@@ -52,7 +56,8 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     about = models.TextField(max_length=250)
-    profile_picture = models.ImageField(upload_to='images/pfp', blank=True)
+    profile_picture = models.ImageField(
+        upload_to=profile_pic_location, blank=True)
 
     # Mandatory fields for Django's AbstractBaseUser class (email is also one)
     date_joined = models.DateTimeField(
@@ -80,3 +85,16 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+
+class Post(models.Model):
+    picture = models.ImageField(upload_to=post_location, blank=True)
+    created_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    caption = models.TextField(max_length=500)
+    # This is how we are able to set up the relationship between accounts and posts
+    # using on_delete=models.CASCADE will result in all posts by a user being deleted if that users accoutn is deleted
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.caption
