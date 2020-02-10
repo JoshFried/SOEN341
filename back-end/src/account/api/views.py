@@ -29,3 +29,16 @@ def registration_view(request):
             # this will output any/all errors to the user as defined in our serializer class
             data = serializer.errors
         return Response(data)
+
+
+@api_view(['GET'])
+def post_view(request, id):
+
+    try:
+        post = Post.objects.get(id=id)
+    except Post.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
