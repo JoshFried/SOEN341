@@ -33,7 +33,6 @@ def registration_view(request):
 
 @api_view(['GET'])
 def post_view(request, id):
-
     try:
         post = Post.objects.get(id=id)
     except Post.DoesNotExist:
