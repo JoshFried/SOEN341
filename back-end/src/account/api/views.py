@@ -76,3 +76,18 @@ def updated_post_view(request, id):
         else:
             data["failure"] = "delete failed"
         return Response(data=data)
+
+
+@api_view(['POST'])
+def updated_post_view(request):
+    account = Account.objects.get(pk=1)
+
+    post = Post(account=account)
+
+    if request.method == "POST":
+        serializer = PostSerializer(post, data=request.data)
+        data = {}
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATE)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
