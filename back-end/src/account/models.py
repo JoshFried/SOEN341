@@ -1,18 +1,16 @@
+from django.conf import settings
+from rest_framework.authtoken.models import Token
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
+
 # Custom User imports
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 # Token Authentication imports
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
 # This import is also used to implement the following/followers relationship
-from django.conf import settings
-
-post_location = ''
-profile_pic_location = ''
 
 
 class MyAccountManager(BaseUserManager):
@@ -54,6 +52,9 @@ class MyAccountManager(BaseUserManager):
         return user
 
 # Custom user Model
+
+
+profile_pic_location = ''
 
 
 class Account(AbstractBaseUser):
@@ -117,16 +118,3 @@ class Account(AbstractBaseUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-
-
-class Post(models.Model):
-    picture = models.ImageField(upload_to=post_location, blank=True)
-    created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    caption = models.TextField(max_length=500)
-    # This is how we are able to set up the relationship between accounts and posts
-    # using on_delete=models.CASCADE will result in all posts by a user being deleted if that users accoutn is deleted
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.caption
