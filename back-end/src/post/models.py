@@ -6,11 +6,16 @@ from django.db import models
 
 # Create your models here.
 
-post_location = ''
+
+def upload_location(instance, filename):
+    file_path = 'post/{account_id}/%Y/%M/%D'.format(
+        account_id=str(instance.account.id)
+    )
+    return file_path
 
 
 class Post(models.Model):
-    picture = models.ImageField(upload_to=post_location, blank=True)
+    picture = models.ImageField(upload_to=upload_location, blank=True)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
     caption = models.TextField(max_length=500)
