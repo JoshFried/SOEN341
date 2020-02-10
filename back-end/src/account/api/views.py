@@ -41,3 +41,21 @@ def post_view(request, id):
     if request.method == 'GET':
         serializer = PostSerializer(post)
         return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def updated_post_view(request, id):
+    try:
+        post = Post.objects.get(id=id)
+    except Post.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == "PUT":
+        serializer = PostSerializer(post, data=request.data)
+        data = {}
+
+        if serializer.is_valid():
+            serializer.save()
+            data["success"] = "updated successful"
+            return Responsed(data=data)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
