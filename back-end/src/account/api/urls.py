@@ -14,11 +14,4 @@ app_name = 'account'
 urlpatterns = [
     # account
     path('register', registration_view, name="register"),
-
-    # post
-    path('id/', get_post_view, name="detail"),
-    path('id/update', update_post_view, name="update"),
-    path('id/delete', delete_post_view, name="delete"),
-    path('create', create_post_view, name="create"),
-
 ]
