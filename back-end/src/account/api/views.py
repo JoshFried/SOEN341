@@ -12,7 +12,8 @@ from account.api.serializers import RegistrationSerializer
 from rest_framework.authtoken.models import Token
 
 # This method is called when a user uses the sign up form
-@api_view(['POST', ])
+@api_view(['POST',])
+@permission_classes(())
 def registration_view(request):
 
     if request.method == 'POST':
@@ -30,64 +31,3 @@ def registration_view(request):
             data = serializer.errors
         return Response(data)
 
-
-@api_view(['GET'])
-def get_post_view(request, id):
-    try:
-        post = Post.objects.get(id=id)
-    except Post.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = PostSerializer(post)
-        return Response(serializer.data)
-
-
-@api_view(['PUT'])
-def update_post_view(request, id):
-    try:
-        post = Post.objects.get(id=id)
-    except Post.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == "PUT":
-        serializer = PostSerializer(post, data=request.data)
-        data = {}
-
-        if serializer.is_valid():
-            serializer.save()
-            data["success"] = "updated successful"
-            return Responsed(data=data)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['DELETE'])
-def delete_post_view(request, id):
-    try:
-        post = Post.objects.get(id=id)
-    except Post.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == "DELETE":
-        operation = post.delete()
-        data = {}
-        if operation:
-            data["success"] = "delete successful"
-        else:
-            data["failure"] = "delete failed"
-        return Response(data=data)
-
-
-@api_view(['POST'])
-def create_post_view(request):
-    account = Account.objects.get(pk=1)
-
-    post = Post(account=account)
-
-    if request.method == "POST":
-        serializer = PostSerializer(post, data=request.data)
-        data = {}
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATE)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
