@@ -1,10 +1,6 @@
 from django.urls import path
 from account.api.views import (
     registration_view,
-    get_post_view,
-    update_post_view,
-    delete_post_view,
-    create_post_view,
 )
 
 
