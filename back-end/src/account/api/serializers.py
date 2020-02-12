@@ -6,7 +6,7 @@ from account.models import Account
 
 
 # Importing the get_user_model() will allow us to get the active user model (in our case our custom user model)
-from django.contrib.auth import get_user_model()
+from django.contrib.auth import get_user_model
 
 # This is the serializer we will use for registration
 
@@ -61,7 +61,7 @@ class AccountInformationSerializer(serializers.ModelSerializer):
                   'first_name', 'last_name', 'about', 'profile_pic']
         extra_kwargs = {
             'password': {'write_only': True,
-                         'min_length:8'},
+                         'min_length': 8},
             'username': {'min_length': 3}
         }
 
@@ -77,9 +77,3 @@ class AccountInformationSerializer(serializers.ModelSerializer):
             account.save()
 
         return account
-
-
-class PostSerializer(serializers.ModelSerialzer):
-    class Meta:
-        model = Post
-        fields = ['picture', 'caption', 'updated_at']
