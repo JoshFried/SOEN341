@@ -32,6 +32,10 @@ const CustomLayout = (props) => {
         <div>
             {props.children} 
         </div>
+        <footer className="page-footer font-small blue">
+         <div className="footer-copyright text-center py-3">© 2020 Copyright: SOEN-341 UB11
+         </div>
+        </footer>
         </Fragment>
     )
 }
