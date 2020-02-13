@@ -5,11 +5,13 @@ import Username from "./username";
 import Followers from "./followers";
 import Following from "./following";
 import Post from "./post";
+import Bio from "./bio";
 const Component = props => {
   return (
     <div className="card">
       <ProfilePic></ProfilePic>
       <Username></Username>
+      <Bio></Bio>
       <Followers></Followers>
       <Following></Following>
       <Post></Post>
