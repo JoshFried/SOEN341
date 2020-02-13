@@ -103,6 +103,9 @@ class Account(AbstractBaseUser):
 
     def get_posts(self):
         return Post.objects.filter(account=self).values_list('id', flat=True)
+        
+    def get_num_of_posts(self):
+        return Post.objects.filter(account=self).values_list('id', flat=True)
 
     def get_post_count(self):
         return self.post.all().count()

@@ -64,6 +64,9 @@ def update_account_view(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
+
 class UpdatePasswordView(UpdateAPIView):
     serializer_class = UpdatePasswordSerializer
     model = Account
