@@ -7,18 +7,20 @@ import Following from "./following";
 import Post from "./post";
 import Bio from "./bio";
 import Card from "react-bootstrap/Card";
+
+import Row from "react-bootstrap/Row";
 const ProfilePage = props => {
   return (
-    <Card style={{ width: "75%" }}>
-      <div className="card">
+    <Row className="justify-content-md-center" md={10}>
+      <Card style={{ width: "50%" }}>
         <ProfilePic></ProfilePic>
         <Username></Username>
         <Bio></Bio>
         <Followers></Followers>
         <Following></Following>
         <Post></Post>
-      </div>
-    </Card>
+      </Card>
+    </Row>
   );
 };
 
