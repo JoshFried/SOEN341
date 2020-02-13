@@ -1,6 +1,9 @@
 from django.urls import path
 from account.api.views import (
     registration_view,
+    account_information_view,
+    update_account_view,
+    UpdatePasswordView
 )
 
 
@@ -15,4 +18,7 @@ urlpatterns = [
     # account
     path('register', registration_view, name="register"),
     path('login', obtain_auth_token, name="login"),
+    path('information', account_information_view, name="information"),
+    path('information/update', update_account_view, name="update"),
+    path('information/updatepassword', UpdatePasswordView.as_view(), name="updatepassword"),
 ]
