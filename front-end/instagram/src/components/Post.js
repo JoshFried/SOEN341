@@ -6,8 +6,8 @@ const Posts = props => {
     return ( 
         <Fragment>   
         {props.data.map(post => ( 
-        <div key={post.id} style={{marginLeft:'35%', padding:'2%'}}>
-        <Card style={{ width: '30rem' }}>
+        <div key={post.id} style={{ marginLeft: 'auto', marginRight: 'auto', height:'54%', width: '50%', paddingTop: '5%'}}>
+        <Card >
          <Card.Img variant="top" img src = {"http://127.0.0.1:8000".concat(post.image)} alt= "postimg"/>
          <Card.Body>
            <Card.Title>{post.title}</Card.Title>
