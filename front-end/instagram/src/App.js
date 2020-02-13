@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import UserProfile from "./UserProfile";
+import Component from "./components/UserProfile/component";
 
 function App() {
   return (
     <div className="App">
-      <UserProfile />
+      <Component />
     </div>
   );
 }
