@@ -6,7 +6,7 @@ import Followers from "./followers";
 import Following from "./following";
 import Post from "./post";
 import Bio from "./bio";
-const Component = props => {
+const ProfilePage = props => {
   return (
     <div className="card">
       <ProfilePic></ProfilePic>
@@ -19,4 +19,4 @@ const Component = props => {
   );
 };
 
-export default Component;
+export default ProfilePage;
