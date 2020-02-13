@@ -5,6 +5,7 @@ import CustomLayout from "./containers/Layout.js";
 import PostList from "./containers/PostListView.js";
 import Postform from "./components/Postform.js";
 import ProfilePage from "./components/UserProfile/ProfilePage.js";
+import "./App.css";
 
 class App extends Component {
   render() {
