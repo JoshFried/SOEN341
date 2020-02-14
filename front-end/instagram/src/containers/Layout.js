@@ -23,6 +23,7 @@ const CustomLayout = (props) => {
             <Nav className="mr-auto">
             </Nav>
             <Nav className = 'menu' style={{ marginRight: '500px'}}>
+            <Nav.Link style={{ color: 'black', fontWeight: '500'}} href="signIn">Sign-In</Nav.Link>
             <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="upload">Upload</Nav.Link>
             <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="profile">Profile</Nav.Link>
             <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="feed">Feed</Nav.Link>
@@ -32,6 +33,10 @@ const CustomLayout = (props) => {
         <div>
             {props.children} 
         </div>
+        <footer className="page-footer font-small blue">
+         <div className="footer-copyright text-center py-3">© 2020 Copyright: SOEN-341 UB11
+         </div>
+        </footer>
         </Fragment>
     )
 }
