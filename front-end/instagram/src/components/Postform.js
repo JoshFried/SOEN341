@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import './myStyles.css'
+import {Form} from "react-bootstrap";
 
 export class Postform extends Component {
     state = {
@@ -38,24 +40,30 @@ export class Postform extends Component {
             })
             .catch(err => console.log(err))
       };
-    render() {
+      render() {
         return (
+          <Form className = 'Form'>
+            <strong>Upload</strong>
             <div>
                 <form onSubmit={this.handleSubmit}>
-                <p>
+                <p className = 'title'>
+                  <br></br>
                     <input type="text" placeholder='Title' id='title' value={this.state.title} onChange={this.handleChange} required/>
                 </p>
-                <p>
+                <p className = 'content'>
                     <input type="text" placeholder='Content' id='content' value={this.state.content} onChange={this.handleChange} required/>
                 </p>
-                <p>
+                <p className = 'image'>
                     <input type="file"
                         id="image"
                         accept="image/png, image/jpeg"  onChange={this.handleImageChange} required/>
                 </p>
-                <input type="submit"/>
+                <p className = 'submit'>
+                   <input type="submit"/>
+                </p>
                 </form>
             </div>
+          </Form>
         )
     }
 }
