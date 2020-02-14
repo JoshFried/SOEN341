@@ -23,7 +23,6 @@ export class PostList extends Component {
         return (
           <Fragment>
             <div style = {{width:'100%', height:'150px'}}></div>
-            <a className="btn btn-secondary" href="upload" role="button" style = {{marginLeft:'37%'}}>upload image</a>
              <div>
                 <Posts data={this.state.posts}/> 
             </div>

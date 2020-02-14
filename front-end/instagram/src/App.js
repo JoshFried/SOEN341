@@ -5,8 +5,8 @@ import CustomLayout from './containers/Layout.js';
 import PostList from './containers/PostListView.js';
 import Postform from './components/Postform.js';
 import ProfilePage from './components/UserProfile/ProfilePage.js';
-import Registration from "./components/form.js";
-
+import Registration from './components/register/form.js';
+import LoginForm from './components/login/form.js';
 
 
 class App extends Component {
@@ -17,10 +17,12 @@ class App extends Component {
       <div className="App">
         <CustomLayout>
           <Switch>
+            <Route path='/' exact component={LoginForm}/>
             <Route path='/feed'component={PostList}/> 
             <Route path='/profile' component={ProfilePage}/>
             <Route path='/upload'component={Postform}/>
-            <Route path="/signIn" component={Registration}/>
+            <Route path="/register" component={Registration}/>
+            <Route path='/login'component={LoginForm}/>
           </Switch>
         </CustomLayout>   
       </div>
