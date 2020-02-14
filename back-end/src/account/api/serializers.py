@@ -72,7 +72,7 @@ class UpdatePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True, max_length=30)
     new_password = serializers.CharField(required=True, max_length=30)
     new_password2 = serializers.CharField(required=True, max_length=30)
-
+    
 class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
