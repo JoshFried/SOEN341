@@ -15,7 +15,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 
 # This method is called when a user uses the sign up form
-@api_view(['POST',])
+@api_view(['POST', ])
 @permission_classes(())
 def registration_view(request):
 
@@ -41,7 +41,7 @@ def account_information_view(request):
         account = request.user
     except Account.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-        
+      
     if request.method == 'GET':
         serializer = AccountInformationSerializer(account)
         return Response(serializer.data)
@@ -53,10 +53,13 @@ def update_account_view(request):
         account = request.user
     except Account.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-        
+
     if request.method == 'PUT':
-        serializer = AccountInformationSerializer(account, data=request.data, allow_null=True)
+        serializer = AccountInformationSerializer(
+            account, data=request.data, allow_null=True)
+        
         data = {}
+        
         if serializer.is_valid():
             serializer.save()
             data['response'] = "Account update success"
@@ -84,6 +87,7 @@ class UpdatePasswordView(UpdateAPIView):
 
             new_password = serializer.data.get("new_password")
             new_password2 = serializer.data.get("new_password2")
+            
             if new_password != new_password2:
                 return Response({"new_password": ["New passwords must match!!!"]}, status=status.HTTP_400_BAD_REQUEST)
             

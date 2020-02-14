@@ -9,13 +9,13 @@ from account.models import Account
 from post.models import Post
 # Import our Registration Serializer
 from account.api.serializers import RegistrationSerializer
-from post.api.serializers import PostSerializer
+from post.api.serializers import PostSerializer, CommentSerializer
 
 from rest_framework.authtoken.models import Token
 
 # This method is called when a user uses the sign up form
 @api_view(['GET'])
-@permission_classes((IsAuthenticated,))
+@permission_classes(())
 def get_post_view(request, id):
     try:
         post = Post.objects.get(id=id)
@@ -86,3 +86,17 @@ def create_post_view(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def create_comment_view(request, id):
+    post = Post.objects.get(id=id)
+    serializer_class = CommentSerializer
+
+    if request.method == "POST":
+        serializer = CommentSerializer(request.user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
