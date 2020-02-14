@@ -38,9 +38,17 @@ const LoginForm = () => {
 
   return (
     <div className="container">
-      <h1>Login Here</h1>
+      <h1 style={{ font: "Georgia" }}>Login Here</h1>
       <form onSubmit={handleSubmit}>
         <input
+          style={{
+            width: "100%",
+            padding: "12px 20px",
+            margin: "8px 0",
+            border: "1px solid #DCDCDC",
+            borderRadius: "4px",
+            boxSizing: "border-box"
+          }}
           type="username"
           onChange={handleChange}
           name="username"
@@ -52,6 +60,14 @@ const LoginForm = () => {
         <br />
 
         <input
+          style={{
+            width: "100%",
+            padding: "12px 20px",
+            margin: "8px 0",
+            border: "1px solid #DCDCDC",
+            borderRadius: "4px",
+            boxSizing: "border-box"
+          }}
           type="password"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -62,7 +78,20 @@ const LoginForm = () => {
         />
         <br />
         {errors.password && <p className="error-text">{errors.password}</p>}
-        <button type="submit" disabled={isSubmitting}>
+        <button
+          style={{
+            width: "100%",
+            backgroundColor: "#6495ED",
+            color: "white",
+            padding: "14px 20px",
+            margin: "8px 0",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer"
+          }}
+          type="submit"
+          disabled={isSubmitting}
+        >
           Submit
         </button>
       </form>
