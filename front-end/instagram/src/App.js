@@ -8,6 +8,7 @@ import ProfilePage from './components/UserProfile/ProfilePage.js';
 import Registration from "./components/form.js";
 
 
+
 class App extends Component {
 
   render() {
