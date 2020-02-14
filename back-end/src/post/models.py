@@ -8,14 +8,16 @@ from django.db import models
 
 
 def upload_location(instance, filename):
-    file_path = 'post/{account_id}/%Y/%M/%D'.format(
-        account_id=str(instance.account.id)
+    file_path = 'post/{account_id}/{filename}'.format(
+        account_id=str(instance.account.id), filename=filename
     )
+    print(file_path)
     return file_path
 
 
 class Post(models.Model):
-    picture = models.ImageField(upload_to=upload_location, blank=True)
+    picture = models.ImageField(upload_to=upload_location, null=False, blank=True )
+
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
     caption = models.TextField(max_length=500)
