@@ -103,6 +103,9 @@ class Account(AbstractBaseUser):
 
     def get_posts(self):
         return Post.objects.filter(account=self).values_list('id', flat=True)
+        
+    def get_num_of_posts(self):
+        return Post.objects.filter(account=self).values_list('id', flat=True)
 
     def get_post_count(self):
         return self.post.all().count()
@@ -113,7 +116,7 @@ class Account(AbstractBaseUser):
     def get_num_of_follower(self):
         return self.followers.all().count()
 
-
+# This is our token generator
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:

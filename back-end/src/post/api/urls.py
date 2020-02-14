@@ -4,6 +4,7 @@ from post.api.views import (
     update_post_view,
     delete_post_view,
     create_post_view,
+    create_comment_view,
 )
 
 
@@ -16,5 +17,6 @@ urlpatterns = [
     path('<id>/update', update_post_view, name="update"),
     path('<id>/delete', delete_post_view, name="delete"),
     path('create', create_post_view, name="create"),
+    path('<id>/create', create_comment_view, name="create"),
 
 ]

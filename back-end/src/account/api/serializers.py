@@ -1,5 +1,7 @@
 # Import the base serializers
 from rest_framework import serializers
+from rest_framework.serializers import Serializer
+
 
 # Import all the necessary models
 from account.models import Account
@@ -57,23 +59,21 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class AccountInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['email', 'username', 'password',
-                  'first_name', 'last_name', 'about', 'profile_pic']
+        fields = ['email', 'username',
+                  'first_name', 'last_name', 'profile_picture', 'about']
         extra_kwargs = {
             'password': {'write_only': True,
                          'min_length': 8},
-            'username': {'min_length': 3}
+            'username': {'min_length': 3},
+            'about': {'required': False}
         }
+      
+class UpdatePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True, max_length=30)
+    new_password = serializers.CharField(required=True, max_length=30)
+    new_password2 = serializers.CharField(required=True, max_length=30)
 
-    def update(self, instance, validated_data):
-
-        # Important to note validated_data contains an ordered dictionary,
-        password = validated_data.pop('password')
-        account = super().update(instance, validated_data)
-
-        # if we pass a password to change, update a new hashed password in the database
-        if password:
-            account.set_password(password)
-            account.save()
-
-        return account
+class FollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        field = ['username', 'profile_pic']
