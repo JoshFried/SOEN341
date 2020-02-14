@@ -1,64 +1,72 @@
-import React, { Component } from 'react'
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
 export class Postform extends Component {
-    state = {
-        title: '',
-        content: '',
-        image: null
-      };
-    
-      handleChange = (e) => {
-        this.setState({
-          [e.target.id]: e.target.value
-        })
-      };
-    
-      handleImageChange = (e) => {
-        this.setState({
-          image: e.target.files[0]
-        })
-      };
-    
-      handleSubmit = (e) => {
-      //  e.preventDefault();   refresh off
-        console.log(this.state);
-        let form_data = new FormData();
-        form_data.append('image', this.state.image, this.state.image.name);
-        form_data.append('title', this.state.title);
-        form_data.append('content', this.state.content);
-        let url = 'http://localhost:8000/api/posts/';
-        axios.post(url, form_data, {
-          headers: {
-            'content-type': 'multipart/form-data'
-          }
-        })
-            .then(res => {
-              console.log(res.data);
-            })
-            .catch(err => console.log(err))
-      };
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                <p>
-                    <input type="text" placeholder='Title' id='title' value={this.state.title} onChange={this.handleChange} required/>
-                </p>
-                <p>
-                    <input type="text" placeholder='Content' id='content' value={this.state.content} onChange={this.handleChange} required/>
-                </p>
-                <p>
-                    <input type="file"
-                        id="image"
-                        accept="image/png, image/jpeg"  onChange={this.handleImageChange} required/>
-                </p>
-                <input type="submit"/>
-                </form>
-            </div>
-        )
-    }
+  state = {
+    caption: "",
+    picture: null
+  };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  };
+
+  handleImageChange = e => {
+    this.setState({
+      picture: e.target.files[0]
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.state);
+    let form_data = new FormData();
+    form_data.append("picture", this.state.picture, this.state.picture.name);
+    form_data.append("caption", this.state.content);
+    let url = "http://127.0.0.1:8000/api/post/create";
+    const token = "fa3109ea7862b6202231d309b2f7509ba456d9bc";
+    axios
+      .post(url, form_data, {
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: "Token " + token
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
+  };
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <p>
+            <input
+              type="text"
+              placeholder="Content"
+              id="content"
+              value={this.state.content}
+              onChange={this.handleChange}
+              required
+            />
+          </p>
+          <p>
+            <input
+              type="file"
+              id="picture"
+              accept="image/png, image/jpeg"
+              onChange={this.handleImageChange}
+              required
+            />
+          </p>
+          <input type="submit" />
+        </form>
+      </div>
+    );
+  }
 }
 
-export default Postform
-
+export default Postform;

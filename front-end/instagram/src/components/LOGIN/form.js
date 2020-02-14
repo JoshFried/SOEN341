@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
 
@@ -9,7 +9,6 @@ const INITIAL_STATE = {
 
 const LoginForm = () => {
   const authenticateUser = async () => {
-    console.log("fuck");
     const { username, password } = values;
     try {
       const apiRes = await fetch("http://127.0.0.1:8000/api/account/login", {
@@ -66,10 +65,19 @@ const LoginForm = () => {
           Submit
         </button>
       </form>
-      <div> no account?
-      <a className="btn btn-secondary" href="register" role="button" style = {{marginLeft:'7%'}}>Register</a></div>
+      <div>
+        {" "}
+        no account?
+        <a
+          className="btn btn-secondary"
+          href="register"
+          role="button"
+          style={{ marginLeft: "7%" }}
+        >
+          Register
+        </a>
+      </div>
     </div>
-    
   );
 };
 
