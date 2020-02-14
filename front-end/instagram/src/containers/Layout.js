@@ -8,7 +8,7 @@ const CustomLayout = (props) => {
         <Fragment>
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
         <link href="https://fonts.googleapis.com/css?family=Grand+Hotel&display=swap" rel="stylesheet"></link> 
-        <Navbar.Brand className = "title" href="#home" style = {{ fontSize: '30px', marginLeft: '23%', padding: '10px', fontFamily: 'Grand Hotel', fontWeight:'500'}}>
+        <Navbar.Brand className = "title" href="login" style = {{ fontSize: '30px', marginLeft: '23%', padding: '10px', fontFamily: 'Grand Hotel', fontWeight:'500'}}>
             <img src = {Logo}   
                  width="29"
                  height="29"
@@ -23,7 +23,7 @@ const CustomLayout = (props) => {
             <Nav className="mr-auto">
             </Nav>
             <Nav className = 'menu' style={{ marginRight: '500px'}}>
-            <Nav.Link style={{ color: 'black', fontWeight: '500'}} href="signIn">Sign-In</Nav.Link>
+            <Nav.Link style={{ color: 'black', fontWeight: '500'}} href="login">Login</Nav.Link>
             <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="upload">Upload</Nav.Link>
             <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="profile">Profile</Nav.Link>
             <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="feed">Feed</Nav.Link>

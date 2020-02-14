@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
 
@@ -66,7 +66,10 @@ const LoginForm = () => {
           Submit
         </button>
       </form>
+      <div> no account?
+      <a className="btn btn-secondary" href="register" role="button" style = {{marginLeft:'7%'}}>Register</a></div>
     </div>
+    
   );
 };
 
