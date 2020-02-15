@@ -1,9 +1,22 @@
-language: python
-python: "3.8"
+matrix:
+  include:
+    - language: python
+      python: "3.8"
+      # command to install dependencies
+      install:
+        - pip install -r requirements.txt
 
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
-# command to run tests
-script: -(cd front-end && cd instagram && npm test)
-  - (cd back-end && cd py.test)
+      script:
+        - cd back-end
+        - cd py.test
+
+    - language: node_js
+      node_js:
+        - "13.7.0"
+      addons:
+        chrome: stable
+      before_script:
+        - cd front-end/instagram
+        - npm install
+      script:
+        - npm test
