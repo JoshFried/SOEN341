@@ -3,11 +3,9 @@ matrix:
     - language: python
       python: "3.8"
       # command to install dependencies
-
-      before_script:
-        - cd back-end
       install:
-        - pip install -r requirements.txt
+        - cd back-end
+        - pip install -r back-end/requirements.txt
       script:
         - src/manage.py test
 
