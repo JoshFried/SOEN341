@@ -1,13 +1,12 @@
-language: python
-python:
-
-  - 
-  - "3.8"
-  - "3.8-dev"  # 3.8 development branch
-  - "nightly"  # nightly build
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
-# command to run tests
-script:
-  - pytest
+matrix:
+  include:
+    - language: node_js
+      node_js:
+        - "13.7.0"
+      addons:
+        chrome: stable
+      before_script:
+        - cd front-end/instagram
+        - npm install
+      script:
+        - npm test

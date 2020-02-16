@@ -1,4 +1,4 @@
-import React from "./node_modules/react";
+import React from "../../../node_modules/react";
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
 
