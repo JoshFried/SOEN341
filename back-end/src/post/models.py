@@ -24,10 +24,15 @@ class Post(models.Model):
     # This is how we are able to set up the relationship between accounts and posts
     # using on_delete=models.CASCADE will result in all posts by a user being deleted if that users accoutn is deleted
     account = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='post_account')
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='post_likes', blank=True, symmetrical=False, )
 
     def __str__(self):
         return self.caption
+    
+    def get_number_of_likes(self):
+        if self.likes.count():
+            return self.likes.count()
 
 class Comment(models.Model):
     account = models.ForeignKey(
@@ -38,6 +43,3 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['created_at']
-
-    def __str__(self):
-        return f'{self.account}\s''comment' 
