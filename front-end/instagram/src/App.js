@@ -7,7 +7,7 @@ import Postform from "./components/Postform.js";
 import ProfilePage from "./components/UserProfile/ProfilePage.js";
 import Registration from "./components/register/form.js";
 import LoginForm from "./components/LOGIN/form.js";
-import Stylesheet from "./components/myStyles.css";
+import  "./App.css";
 
 class App extends Component {
   render() {
