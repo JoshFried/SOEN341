@@ -50,7 +50,7 @@ def account_information_view(request):
 @permission_classes(()) # Do we want a non-authenticated user to be able to view? 
 def profile_view(request):
     try:
-        account = request.user
+        account = Account.objects.get(username=request.data.get('username'))
     except Account.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
