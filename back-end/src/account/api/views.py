@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from account.models import Account
 # Import our Registration Serializer
-from account.api.serializers import AccountInformationSerializer, UpdatePasswordSerializer, RegistrationSerializer
+from account.api.serializers import AccountInformationSerializer, UpdatePasswordSerializer, RegistrationSerializer, ProfileSerializer
 from rest_framework.generics import UpdateAPIView
 
 from rest_framework.authentication import TokenAuthentication
@@ -44,6 +44,18 @@ def account_information_view(request):
       
     if request.method == 'GET':
         serializer = AccountInformationSerializer(account)
+        return Response(serializer.data)
+
+@api_view(['GET',])
+@permission_classes(()) # Do we want a non-authenticated user to be able to view? 
+def profile_view(request):
+    try:
+        account = request.user
+    except Account.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ProfileSerializer(account)
         return Response(serializer.data)
 
 @api_view(['PUT',])

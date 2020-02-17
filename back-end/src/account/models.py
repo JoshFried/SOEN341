@@ -101,20 +101,13 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-    def get_posts(self):
-        return Post.objects.filter(account=self).values_list('id', flat=True)
-        
-    def get_num_of_posts(self):
-        return Post.objects.filter(account=self).values_list('id', flat=True)
-
-    def get_post_count(self):
-        return self.post.all().count()
-
-    def get_num_of_follower(self):
+    @property
+    def get_num_of_followers(self):
         return self.followers.all().count()
-
-    def get_num_of_follower(self):
-        return self.followers.all().count()
+    
+    @property
+    def get_num_of_following(self):
+        return self.following.all().count()
 
 # This is our token generator
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

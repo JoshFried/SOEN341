@@ -5,14 +5,13 @@ from rest_framework.serializers import Serializer
 
 # Import all the necessary models
 from account.models import Account
+from post.models import Post, Comment
 
 
 # Importing the get_user_model() will allow us to get the active user model (in our case our custom user model)
 from django.contrib.auth import get_user_model
 
 # This is the serializer we will use for registration
-
-
 class RegistrationSerializer(serializers.ModelSerializer):
 
     # This must be included since there is no 2nd password field for our model
@@ -67,6 +66,36 @@ class AccountInformationSerializer(serializers.ModelSerializer):
             'username': {'min_length': 3},
             'about': {'required': False}
         }
+
+class AccountPostSerializer(serializers.ModelSerializer):
+    all_comments = serializers.SerializerMethodField('get_all_comments')
+    class Meta:
+        model = Post
+        fields = ['picture', 'caption', 'updated_at', 'all_comments', 'likes']
+    
+    def get_all_comments(self, obj):
+        return Comment.objects.filter(post=obj).count()
+
+class ProfileSerializer(serializers.ModelSerializer):
+    all_posts = serializers.SerializerMethodField('get_all_posts')
+    all_post_count = serializers.SerializerMethodField('get_all_post_count')
+    get_num_of_followers = serializers.ReadOnlyField()
+    get_num_of_following = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Account
+        fields = ['email', 'username',
+                  'first_name', 'last_name', 'profile_picture', 'about',
+                   'all_posts', 'all_post_count', 'get_num_of_followers', 'get_num_of_following']
+
+    def get_all_post_count(self, obj):
+        return Post.objects.filter(account=obj).count()
+
+    def get_all_posts(self, obj):
+        posts = Post.objects.filter(account=obj)
+        serializer = AccountPostSerializer(posts, many=True)
+        return serializer.data
+    
       
 class UpdatePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True, max_length=30)
