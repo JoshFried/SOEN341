@@ -28,9 +28,7 @@ class PostSerializer(serializers.ModelSerializer):
         comments = obj.post_comments.all()
         serializer = CommentSerializer(comments, many=True)
         return serializer.data
-        
-
-    
+            
 
 class CommentSerializer(serializers.ModelSerializer):
     account = AccountSerializer(read_only=True)
@@ -38,5 +36,3 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'account', 'post', 'created_at', 'text']
         read_fields = ['account', 'id', 'created_at']
-
-        
