@@ -1,9 +1,9 @@
 import React from "react";
 
-const Following = props => {
+const Following = ({ following }) => {
   return (
     <div>
-      <p className="following">200 following</p>
+      <p className="following">Following: {following}</p>
     </div>
   );
 };

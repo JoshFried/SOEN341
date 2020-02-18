@@ -1,11 +1,7 @@
 import React from "react";
 
-const Bio = props => {
-  return (
-    <p className="biography">
-      This is my biography: #codeblooded #react #django
-    </p>
-  );
+const Bio = ({ about }) => {
+  return <p className="biography">{about}</p>;
 };
 
 export default Bio;

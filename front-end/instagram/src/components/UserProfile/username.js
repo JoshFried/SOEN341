@@ -1,7 +1,7 @@
 import React from "react";
 
-const Username = props => {
-  return <p className="username">@dawgears</p>;
+const Username = ({ username }) => {
+  return <p className="username">@{username}</p>;
 };
 
 export default Username;
