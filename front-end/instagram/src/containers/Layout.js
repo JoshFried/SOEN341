@@ -1,6 +1,10 @@
 import React, { Fragment } from 'react'
 import {Navbar, Nav} from "react-bootstrap";
-import Logo  from '../images/instagram.svg';
+import Logo  from '../images/header/instagram.svg';
+import upload from '../images/header/upload.svg';
+import profile from '../images/header/profile.svg'
+import feed from '../images/header/feed.svg'
+import '../App.css';
 
 // Layout // Whatever is wrapped in CustomLayout will display ( props.children )
 const CustomLayout = (props) => {  
@@ -20,13 +24,17 @@ const CustomLayout = (props) => {
             </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
+        <div class="active-cyan-1 mb-1" style={{marginLeft:'10%', paddingTop:'10px', width:'250px'}}>
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search"></input>
+            </div>
             <Nav className="mr-auto">
             </Nav>
             <Nav className = 'menu' style={{ marginRight: '500px'}}>
-            <Nav.Link style={{ color: 'black', fontWeight: '500'}} href="login">Login</Nav.Link>
-            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="upload">Upload</Nav.Link>
-            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="profile">Profile</Nav.Link>
-            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="feed">Feed</Nav.Link>
+            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="feed"><img src= {feed} style={{width:'23px', height: '23px'}}></img></Nav.Link>
+            &nbsp;&nbsp;
+            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="upload"><img src= {upload} style={{width:'23px', height: '23px'}}></img></Nav.Link>
+            &nbsp;&nbsp;
+            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="profile"><img src= {profile} style={{width:'23px', height: '23px'}}></img></Nav.Link>
             </Nav>
         </Navbar.Collapse>
         </Navbar>
