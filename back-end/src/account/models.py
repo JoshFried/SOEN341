@@ -104,6 +104,14 @@ class Account(AbstractBaseUser):
     @property
     def get_num_of_followers(self):
         return self.followers.all().count()
+
+    @property
+    def get_all_followers(self):
+        return self.followers.all()
+
+    @property
+    def get_all_following(self):
+        return self.following.all()
     
     @property
     def get_num_of_following(self):
