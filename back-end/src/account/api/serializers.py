@@ -81,14 +81,15 @@ class ProfileSerializer(serializers.ModelSerializer):
     all_post_count = serializers.SerializerMethodField('get_all_post_count')
     get_num_of_followers = serializers.ReadOnlyField()
     get_num_of_following = serializers.ReadOnlyField()
-    get_all_followers = serializers.ReadOnlyField()
-    get_all_following = serializers.ReadOnlyField()
+    all_followers = serializers.SerializerMethodField('get_all_followers')
+    all_following = serializers.SerializerMethodField('get_all_following')
 
     class Meta:
         model = Account
         fields = ['email', 'username',
                   'first_name', 'last_name', 'profile_picture', 'about',
-                   'all_posts', 'all_post_count', 'get_num_of_followers', 'get_num_of_following']
+                   'all_posts', 'all_post_count', 'get_num_of_followers', 'get_num_of_following',
+                   'all_followers', 'all_following']
 
     def get_all_post_count(self, obj):
         return Post.objects.filter(account=obj).count()
@@ -98,6 +99,15 @@ class ProfileSerializer(serializers.ModelSerializer):
         serializer = AccountPostSerializer(posts, many=True)
         return serializer.data
     
+    def get_all_followers(self, obj):
+        account = Account.objects.filter(followers=obj)
+        serializer = FollowSerializer(account, many=True)
+        return serializer.data
+    
+    def get_all_following(self, obj):
+        account = Account.objects.filter(following=obj)
+        serializer = FollowSerializer(account, many=True)
+        return serializer.data
       
 class UpdatePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True, max_length=30)
@@ -107,4 +117,4 @@ class UpdatePasswordSerializer(serializers.Serializer):
 class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        field = ['username', 'profile_pic']
+        fields = ['username', 'profile_picture']

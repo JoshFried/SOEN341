@@ -32,7 +32,7 @@ class Post(models.Model):
     
     def get_number_of_likes(self):
         if self.likes.count():
-            return self.likes.count()
+            return self.likes.all().count()
 
 class Comment(models.Model):
     account = models.ForeignKey(
