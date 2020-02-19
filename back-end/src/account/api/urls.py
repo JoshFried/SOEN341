@@ -20,7 +20,7 @@ urlpatterns = [
     path('register', registration_view, name="register"),
     path('login', obtain_auth_token, name="login"),
     path('information', account_information_view, name="information"),
-    path('profile', profile_view, name="information"),
+    path('<username>', profile_view, name="profile"),
     path('information/update', update_account_view, name="update"),
     path('information/updatepassword', UpdatePasswordView.as_view(), name="updatepassword"),
 ]

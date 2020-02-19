@@ -9,7 +9,6 @@ const INITIAL_STATE = {
 
 const LoginForm = () => {
   const authenticateUser = async () => {
-    console.log("fuck");
     const { username, password } = values;
     try {
       const apiRes = await fetch("http://127.0.0.1:8000/api/account/login", {

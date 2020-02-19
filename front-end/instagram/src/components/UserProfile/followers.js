@@ -1,9 +1,10 @@
 import React from "react";
 
-const Followers = props => {
+const Followers = ({ followers }) => {
+  console.log(followers);
   return (
     <div>
-      <p className="followers"> 878 followers</p>
+      <p className="followers">Followers: {followers}</p>
     </div>
   );
 };

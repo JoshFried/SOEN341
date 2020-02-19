@@ -26,7 +26,7 @@ export class Postform extends Component {
     form_data.append("picture", this.state.picture, this.state.picture.name);
     form_data.append("caption", this.state.content);
     let url = "http://127.0.0.1:8000/api/post/create";
-    const token = "fa3109ea7862b6202231d309b2f7509ba456d9bc";
+    const token = "9e4cece012fedb742f3297082768e65c5723a8f0";
     axios
       .post(url, form_data, {
         headers: {
