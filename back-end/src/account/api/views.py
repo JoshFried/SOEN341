@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from account.models import Account
 # Import our Registration Serializer
-from account.api.serializers import AccountInformationSerializer, UpdatePasswordSerializer, RegistrationSerializer, ProfileSerializer
+from account.api.serializers import AccountInformationSerializer, FeedSerializer, UpdatePasswordSerializer, RegistrationSerializer, ProfileSerializer
 from rest_framework.generics import UpdateAPIView
 
 from rest_framework.authentication import TokenAuthentication
@@ -127,3 +127,15 @@ def follow_account_view(request, username):
             followed.followers.add(follower)
             data['response'] = "Follower added"
         return Response(data=data)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_feed_view(request):
+    try:
+        account = request.user
+    except Account.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+      
+    if request.method == 'GET':
+        serializer = FeedSerializer(account)
+        return Response(serializer.data)
