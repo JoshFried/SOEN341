@@ -107,3 +107,23 @@ class UpdatePasswordView(UpdateAPIView):
             self.object.save()
             return Response({"response": "successfully changed password"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def follow_account_view(request, username):
+    data = {}
+    try:
+        follower = request.user
+        followed = Account.objects.get(username=username)
+    except Account.DoesNotExist:
+        return Response(stats=status.HTTP_404_NOT_FOUND)
+    if request.method == 'POST':
+        if followed in follower.following.all():
+            follower.following.remove(followed)
+            followed.followers.remove(follower)
+            data['response'] = "Follower removed"
+        else:
+            follower.following.add(followed)
+            followed.followers.add(follower)
+            data['response'] = "Follower added"
+        return Response(data=data)

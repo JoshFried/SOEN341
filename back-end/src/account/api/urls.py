@@ -4,7 +4,8 @@ from account.api.views import (
     account_information_view,
     update_account_view,
     UpdatePasswordView,
-    profile_view
+    profile_view,
+    follow_account_view
 )
 
 
@@ -23,4 +24,5 @@ urlpatterns = [
     path('<username>', profile_view, name="profile"),
     path('information/update', update_account_view, name="update"),
     path('information/updatepassword', UpdatePasswordView.as_view(), name="updatepassword"),
+    path('<username>/follow', follow_account_view, name="follow"),
 ]

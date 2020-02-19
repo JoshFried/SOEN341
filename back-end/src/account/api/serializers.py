@@ -106,3 +106,4 @@ class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         field = ['username', 'profile_pic']
+    
