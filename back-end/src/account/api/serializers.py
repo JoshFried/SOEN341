@@ -81,6 +81,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     all_post_count = serializers.SerializerMethodField('get_all_post_count')
     get_num_of_followers = serializers.ReadOnlyField()
     get_num_of_following = serializers.ReadOnlyField()
+    get_all_followers = serializers.ReadOnlyField()
+    get_all_following = serializers.ReadOnlyField()
 
     class Meta:
         model = Account
