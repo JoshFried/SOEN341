@@ -5,7 +5,8 @@ from account.api.views import (
     update_account_view,
     UpdatePasswordView,
     profile_view,
-    follow_account_view
+    follow_account_view,
+    get_feed_view
 )
 
 
@@ -20,6 +21,7 @@ urlpatterns = [
     # account
     path('register', registration_view, name="register"),
     path('login', obtain_auth_token, name="login"),
+    path('feed', get_feed_view, name="feed"),
     path('information', account_information_view, name="information"),
     path('<username>', profile_view, name="profile"),
     path('information/update', update_account_view, name="update"),

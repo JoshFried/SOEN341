@@ -144,3 +144,21 @@ def delete_comment_view(request, id):
         else:
             data["failure"] = "delete failed"
         return Response(data=data)
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def like_view(request, id):
+    data = {}
+    post = Post.objects.get(id=id)
+    account = request.user
+
+    if request.method == "POST":
+        if account in post.likes.all():
+            post.likes.remove(account)
+            data['response'] = "Like removed"
+        else:
+            post.likes.add(account)
+            data['response'] = "Like added"
+
+        return Response(data=data)
+

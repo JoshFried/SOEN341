@@ -18,6 +18,7 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = ['username']
 
 class PostSerializer(serializers.ModelSerializer):
+    
     post_comments = serializers.SerializerMethodField('get_all_comments')
     likes = serializers.SerializerMethodField('get_likes')
     # display_comments = serializers.SerializerMethodField('paginate_post_comments')
