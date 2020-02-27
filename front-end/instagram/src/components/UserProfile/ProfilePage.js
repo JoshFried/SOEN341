@@ -10,8 +10,36 @@ import Bio from "./bio";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import Row from "react-bootstrap/Row";
+import useAuth from "../../context/auth";
+import { Redirect } from "react-router-dom";
+
 const ProfilePage = props => {
-  const username = "dawgears";
+  const token = sessionStorage.getItem("token");
+  let username = "";
+  const getUsername = async () => {
+    try {
+      const apiRes = await fetch(
+        "http://127.0.0.1:8000/api/account/information",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Token " + JSON.parse(token)
+          }
+        },
+
+        {
+          mode: "cors",
+          method: "GET"
+        }
+      );
+
+      const resJSON = await apiRes.json();
+      username = resJSON.username;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [profile, setProfile] = useState({
     email: "",
     username: "",
@@ -25,10 +53,9 @@ const ProfilePage = props => {
     nbOfFollowing: 0
   });
 
-  const test = 0;
-
   useEffect(() => {
     const getInfo = async () => {
+      await getUsername();
       try {
         const apiRes = await fetch(
           `http://127.0.0.1:8000/api/account/${username}`,
@@ -58,6 +85,10 @@ const ProfilePage = props => {
     };
     getInfo();
   }, [setProfile]);
+
+  const { authTokens } = useAuth();
+
+  if (!authTokens) return <Redirect to="/login"></Redirect>;
 
   return (
     <Row className="justify-content-md-center " md={10}>

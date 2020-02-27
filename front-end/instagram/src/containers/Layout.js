@@ -1,52 +1,101 @@
-import React, { Fragment } from 'react'
-import {Navbar, Nav} from "react-bootstrap";
-import Logo  from '../images/header/instagram.svg';
-import upload from '../images/header/upload.svg';
-import profile from '../images/header/profile.svg'
-import feed from '../images/header/feed.svg'
-import '../App.css';
+import React, { Fragment } from "react";
+import { Navbar, Nav, Button } from "react-bootstrap";
+import Logo from "../images/header/instagram.svg";
+import upload from "../images/header/upload.svg";
+import profile from "../images/header/profile.svg";
+import feed from "../images/header/feed.svg";
+import "../App.css";
+import { useAuth } from "../context/auth";
 
 // Layout // Whatever is wrapped in CustomLayout will display ( props.children )
-const CustomLayout = (props) => {  
-    return (
-        <Fragment>
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-        <link href="https://fonts.googleapis.com/css?family=Grand+Hotel&display=swap" rel="stylesheet"></link> 
-        <Navbar.Brand className = "title" href="login" style = {{ fontSize: '30px', marginLeft: '23%', padding: '10px', fontFamily: 'Grand Hotel', fontWeight:'500'}}>
-            <img src = {Logo}   
-                 width="29"
-                 height="29"
-                 className="d-inline-block align-top"
-                 alt="React Bootstrap logo"
-                 style = {{marginTop: '6px' }}>
-            </img>
-                 &nbsp; |  Instagram-Clone 
-            </Navbar.Brand>
+const CustomLayout = props => {
+  const { setAuthTokens } = useAuth();
+
+  function logOut() {
+    setAuthTokens();
+  }
+  return (
+    <Fragment>
+      <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <link
+          href="https://fonts.googleapis.com/css?family=Grand+Hotel&display=swap"
+          rel="stylesheet"
+        ></link>
+        <Navbar.Brand
+          className="title"
+          href="login"
+          style={{
+            fontSize: "30px",
+            marginLeft: "23%",
+            padding: "10px",
+            fontFamily: "Grand Hotel",
+            fontWeight: "500"
+          }}
+        >
+          <img
+            src={Logo}
+            width="29"
+            height="29"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+            style={{ marginTop: "6px" }}
+          ></img>
+          &nbsp; | Instagram-Clone
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-        <div class="active-cyan-1 mb-1" style={{marginLeft:'10%', paddingTop:'10px', width:'250px'}}>
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search"></input>
-            </div>
-            <Nav className="mr-auto">
-            </Nav>
-            <Nav className = 'menu' style={{ marginRight: '500px'}}>
-            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="feed"><img src= {feed} style={{width:'23px', height: '23px'}}></img></Nav.Link>
+          <div
+            className="active-cyan-1 mb-1"
+            style={{ marginLeft: "10%", paddingTop: "10px", width: "250px" }}
+          >
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+            ></input>
+          </div>
+          <Nav className="mr-auto"></Nav>
+          <Nav className="menu" style={{ marginRight: "500px" }}>
+            <Nav.Link style={{ color: "black", fontWeight: "500" }} href="feed">
+              <img src={feed} style={{ width: "23px", height: "23px" }}></img>
+            </Nav.Link>
             &nbsp;&nbsp;
-            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="upload"><img src= {upload} style={{width:'23px', height: '23px'}}></img></Nav.Link>
+            <Nav.Link
+              style={{ color: "black", fontWeight: "500" }}
+              href="upload"
+            >
+              <img src={upload} style={{ width: "23px", height: "23px" }}></img>
+            </Nav.Link>
             &nbsp;&nbsp;
-            <Nav.Link  style={{ color: 'black', fontWeight: '500'}} href="profile"><img src= {profile} style={{width:'23px', height: '23px'}}></img></Nav.Link>
-            </Nav>
+            <Nav.Link
+              style={{ color: "black", fontWeight: "500" }}
+              href="profile"
+            >
+              <img
+                src={profile}
+                style={{ width: "23px", height: "23px" }}
+              ></img>
+            </Nav.Link>
+            <Nav.Link
+              style={{ color: "black", fontWeight: "500" }}
+              href="/login"
+            >
+              <Button className="alert-warning" onClick={logOut}>
+                Logout
+              </Button>
+            </Nav.Link>
+          </Nav>
         </Navbar.Collapse>
-        </Navbar>
-        <div>
-            {props.children} 
+      </Navbar>
+      <div>{props.children}</div>
+      <footer className="page-footer font-small blue">
+        <div className="footer-copyright text-center py-3">
+          © 2020 Copyright: SOEN-341 UB11
         </div>
-        <footer className="page-footer font-small blue">
-         <div className="footer-copyright text-center py-3">© 2020 Copyright: SOEN-341 UB11
-         </div>
-        </footer>
-        </Fragment>
-    )
-}
+      </footer>
+    </Fragment>
+  );
+};
 
-export default CustomLayout
+export default CustomLayout;

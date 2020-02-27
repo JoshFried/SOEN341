@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "../../../node_modules/react";
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
+import { useAuth } from "../../context/auth";
+import { Link, Redirect } from "react-router-dom";
 
 const INITIAL_STATE = {
   username: "",
@@ -8,8 +10,12 @@ const INITIAL_STATE = {
 };
 
 const LoginForm = () => {
+  // const { setAuthTokens } = useAuth();
+  const { setAuthTokens } = useAuth();
+  const [isLoggedIn, setLoggedIn] = useState();
   const authenticateUser = async () => {
     const { username, password } = values;
+
     try {
       const apiRes = await fetch("http://127.0.0.1:8000/api/account/login", {
         headers: {
@@ -20,7 +26,8 @@ const LoginForm = () => {
         body: JSON.stringify(values)
       });
       const resJSON = await apiRes.json();
-      console.log(resJSON);
+      setAuthTokens(resJSON.token);
+      setLoggedIn(true);
     } catch (error) {
       console.log(error);
     }
@@ -34,6 +41,10 @@ const LoginForm = () => {
     errors,
     isSubmitting
   } = useFormValidation(INITIAL_STATE, validateAuth, authenticateUser);
+
+  if (isLoggedIn) {
+    return <Redirect to="/profile"></Redirect>;
+  }
 
   return (
     <div className="container">
