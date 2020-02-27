@@ -144,11 +144,12 @@ class PostSerializer(serializers.ModelSerializer):
     picture = serializers.ImageField()
     post_comments = serializers.SerializerMethodField('get_all_comments')
     likes = serializers.SerializerMethodField('get_likes')
+    id = serializers.SerializerMethodField('get_id')
     # display_comments = serializers.SerializerMethodField('paginate_post_comments')
 
     class Meta:
         model = Post
-        fields = ['picture', 'caption', 'updated_at', 'post_comments', 'likes', 'account']
+        fields = ['picture', 'caption', 'updated_at', 'post_comments', 'likes', 'account', 'id']
 
     def get_all_comments(self, obj):
         comments = obj.post_comments.all()
@@ -165,3 +166,6 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_likes(self, obj):
         return obj.likes.count()
+
+    def get_id(self, obj):
+        return obj.id
