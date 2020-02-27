@@ -14,7 +14,7 @@ const App = () => {
   const [authTokens, setAuthTokens] = useState();
 
   const setTokens = data => {
-    sessionStorage.setItem("token", JSON.stringify(data));
+    localStorage.setItem("token", JSON.stringify(data));
     setAuthTokens(data);
   };
 

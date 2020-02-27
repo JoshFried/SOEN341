@@ -3,10 +3,12 @@ import { Card, Button } from "react-bootstrap";
 
 import Figure from "react-bootstrap/Figure";
 import CardGroup from "react-bootstrap/CardGroup";
+import likePost from "../../actions/Like";
 
 const Post = post => {
+  const token = sessionStorage.getItem("token");
+
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
-  console.log(post);
   return (
     <Figure
       style={{
@@ -27,7 +29,12 @@ const Post = post => {
           />
           <Card.Body>
             <Card.Text>{post.content}</Card.Text>
-            <Button variant="dark">Like</Button>
+            <Button
+              variant="dark"
+              onClick={() => likePost(JSON.parse(token), post.post.id)}
+            >
+              Like
+            </Button>
           </Card.Body>
         </Card>
       </CardGroup>

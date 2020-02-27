@@ -49,7 +49,6 @@ const Feed = props => {
     getPosts();
   }, [setFeed]);
 
-  console.log(feed);
   return (
     <div>
       {feed.allPosts.map(item => (

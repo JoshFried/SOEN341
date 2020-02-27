@@ -14,8 +14,9 @@ import useAuth from "../../context/auth";
 import { Redirect } from "react-router-dom";
 
 const ProfilePage = props => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   let username = "";
+
   const getUsername = async () => {
     try {
       const apiRes = await fetch(
@@ -85,10 +86,6 @@ const ProfilePage = props => {
     };
     getInfo();
   }, [setProfile]);
-
-  const { authTokens } = useAuth();
-
-  if (!authTokens) return <Redirect to="/login"></Redirect>;
 
   return (
     <Row className="justify-content-md-center " md={10}>
