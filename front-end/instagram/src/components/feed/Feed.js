@@ -16,8 +16,6 @@ const Feed = props => {
 
   const { authTokens } = useAuth();
 
-  console.log(authTokens);
-
   useEffect(() => {
     const getPosts = async () => {
       try {

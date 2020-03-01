@@ -12,7 +12,7 @@ const CustomLayout = props => {
   const { setAuthTokens } = useAuth();
 
   function logOut() {
-    setAuthTokens({});
+    setAuthTokens();
   }
   return (
     <Fragment>
@@ -47,7 +47,8 @@ const CustomLayout = props => {
           <div
             className="active-cyan-1 mb-1"
             style={{ marginLeft: "10%", paddingTop: "10px", width: "250px" }}
-            ><input
+          >
+            <input
               className="form-control"
               type="text"
               placeholder="Search"
@@ -57,17 +58,25 @@ const CustomLayout = props => {
           <Nav className="mr-auto"></Nav>
           <Nav className="menu" style={{ marginRight: "48px" }}>
             <Nav.Link href="feed">
-              <img src={feed} alt='' style={{ width: "23px", height: "23px" }}></img>
+              <img
+                src={feed}
+                alt=""
+                style={{ width: "23px", height: "23px" }}
+              ></img>
             </Nav.Link>
             &nbsp;&nbsp;
             <Nav.Link href="upload">
-              <img src={upload} alt='' style={{ width: "23px", height: "23px" }}></img>
+              <img
+                src={upload}
+                alt=""
+                style={{ width: "23px", height: "23px" }}
+              ></img>
             </Nav.Link>
             &nbsp;&nbsp;
             <Nav.Link href="profile">
               <img
                 src={profile}
-                alt=''
+                alt=""
                 style={{ width: "23px", height: "23px" }}
               ></img>
             </Nav.Link>

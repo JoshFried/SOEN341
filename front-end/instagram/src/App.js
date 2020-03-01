@@ -20,7 +20,6 @@ const App = () => {
     setAuthTokens(data);
   };
 
-  console.log(authTokens);
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>

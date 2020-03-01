@@ -7,8 +7,6 @@ import likePost from "../../actions/Like";
 
 const Post = post => {
   const token = localStorage.getItem("token");
-  console.log(token);
-
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
   return (
     <Figure
