@@ -3,7 +3,7 @@ import FeedPost from "./FeedPost";
 import { useAuth } from "../../context/auth";
 
 const Feed = props => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const [feed, setFeed] = useState({
     email: "",
     username: "",
@@ -13,6 +13,10 @@ const Feed = props => {
     about: "",
     allPosts: []
   });
+
+  const { authTokens } = useAuth();
+
+  console.log(authTokens);
 
   useEffect(() => {
     const getPosts = async () => {

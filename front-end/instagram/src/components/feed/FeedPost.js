@@ -6,7 +6,8 @@ import CardGroup from "react-bootstrap/CardGroup";
 import likePost from "../../actions/Like";
 
 const Post = post => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
+  console.log(token);
 
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
   return (

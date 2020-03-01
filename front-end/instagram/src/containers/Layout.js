@@ -12,7 +12,7 @@ const CustomLayout = props => {
   const { setAuthTokens } = useAuth();
 
   function logOut() {
-    setAuthTokens();
+    setAuthTokens({});
   }
   return (
     <Fragment>

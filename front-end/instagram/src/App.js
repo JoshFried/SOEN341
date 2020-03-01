@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CustomLayout from "./containers/Layout.js";
@@ -9,15 +9,18 @@ import Registration from "./components/register/form.js";
 import LoginForm from "./components/login/form.js";
 import { AuthContext } from "./context/auth";
 import Feed from "./components/feed/Feed";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
-  const [authTokens, setAuthTokens] = useState();
-
+  const [authTokens, setAuthTokens] = useState(
+    localStorage.getItem("token") || ""
+  );
   const setTokens = data => {
     localStorage.setItem("token", JSON.stringify(data));
     setAuthTokens(data);
   };
 
+  console.log(authTokens);
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>
@@ -25,9 +28,9 @@ const App = () => {
           <CustomLayout>
             <Switch>
               <Route path="/" exact component={LoginForm} />
-              <Route path="/feed" component={Feed} />
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/upload" component={Postform} />
+              <PrivateRoute path="/feed" component={Feed} />
+              <PrivateRoute path="/profile" component={ProfilePage} />
+              <PrivateRoute path="/upload" component={Postform} />
               <Route path="/register" component={Registration} />
               <Route path="/login" component={LoginForm} />
             </Switch>
