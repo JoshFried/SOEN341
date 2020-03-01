@@ -3,6 +3,7 @@ import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
 import { useAuth } from "../../context/auth";
 import { Link, Redirect } from "react-router-dom";
+import { Fragment } from "react";
 
 const INITIAL_STATE = {
   username: "",
@@ -47,48 +48,45 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="container">
-      <h1>Login Here</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="username"
-          onChange={handleChange}
-          name="username"
-          className={errors.username && "error-input"}
-          value={values.username}
-          placeholder="Enter your email"
-        />
-
-        <br />
-
-        <input
-          type="password"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          name="password"
-          className={errors.password && "error-input"}
-          value={values.password}
-          placeholder="Enter Your Password"
-        />
-        <br />
-        {errors.password && <p className="error-text">{errors.password}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          Submit
-        </button>
-      </form>
-      <div>
-        {" "}
-        no account?
-        <a
-          className="btn btn-secondary"
+    <Fragment>
+    <form  onSubmit={handleSubmit} className="form-signin" style={{width:'100%', maxWidth:'330px', padding:'15px', margin:'auto', border:'1px solid grey', borderRadius:'10px', marginTop:'100px', boxShadow:' 5px 5px 5px 0px #888888'}}>
+      <h1 className="h3 mb-3 font-weight-normal" style={{textAlign:'center'}}> Welcome, Sign in</h1>
+      <br></br>
+      <label htmlFor="inputEmail" className="sr-only">Email address</label>
+      <input 
+        type="username"
+        onChange={handleChange}
+        name="username"
+        className={errors.username && "error-input"}
+        className="form-control"
+        value={values.username}
+        placeholder="Email address" 
+        style={{marginBottom:'10px'}}
+      ></input>
+      <label htmlFor="inputPassword" className="sr-only">Password</label>
+      <input 
+        type="password"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        name="password"
+        className={errors.password && "error-input"}
+        className="form-control" 
+        value={values.password}
+        placeholder="Password" 
+      ></input>
+      <br></br>
+      {errors.password && <p className="error-text">{errors.password}</p>}
+      <button className="btn btn-lg btn-success btn-block" type="submit" disabled={isSubmitting}>Login</button>
+      <br></br>
+      <label>no account yet? sign up</label>
+        <a 
+          className="btn btn-lg btn-primary btn-block"
           href="register"
-          role="button"
-          style={{ marginLeft: "7%" }}
-        >
-          Register
+          role="button">Register
         </a>
-      </div>
-    </div>
+  </form>
+    <br></br>
+    </Fragment>
   );
 };
 

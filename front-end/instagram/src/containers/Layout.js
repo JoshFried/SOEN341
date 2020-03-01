@@ -47,8 +47,7 @@ const CustomLayout = props => {
           <div
             className="active-cyan-1 mb-1"
             style={{ marginLeft: "10%", paddingTop: "10px", width: "250px" }}
-          >
-            <input
+            ><input
               className="form-control"
               type="text"
               placeholder="Search"
@@ -56,32 +55,24 @@ const CustomLayout = props => {
             ></input>
           </div>
           <Nav className="mr-auto"></Nav>
-          <Nav className="menu" style={{ marginRight: "500px" }}>
-            <Nav.Link style={{ color: "black", fontWeight: "500" }} href="feed">
-              <img src={feed} style={{ width: "23px", height: "23px" }}></img>
+          <Nav className="menu" style={{ marginRight: "48px" }}>
+            <Nav.Link href="feed">
+              <img src={feed} alt='' style={{ width: "23px", height: "23px" }}></img>
             </Nav.Link>
             &nbsp;&nbsp;
-            <Nav.Link
-              style={{ color: "black", fontWeight: "500" }}
-              href="upload"
-            >
-              <img src={upload} style={{ width: "23px", height: "23px" }}></img>
+            <Nav.Link href="upload">
+              <img src={upload} alt='' style={{ width: "23px", height: "23px" }}></img>
             </Nav.Link>
             &nbsp;&nbsp;
-            <Nav.Link
-              style={{ color: "black", fontWeight: "500" }}
-              href="profile"
-            >
+            <Nav.Link href="profile">
               <img
                 src={profile}
+                alt=''
                 style={{ width: "23px", height: "23px" }}
               ></img>
             </Nav.Link>
-            <Nav.Link
-              style={{ color: "black", fontWeight: "500" }}
-              href="/login"
-            >
-              <Button className="alert-warning" onClick={logOut}>
+            <Nav.Link href="/login">
+              <Button variant="outline-dark" onClick={logOut}>
                 Logout
               </Button>
             </Nav.Link>
