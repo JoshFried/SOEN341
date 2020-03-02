@@ -53,7 +53,8 @@ const LoginForm = () => {
       <h1 className="h3 mb-3 font-weight-normal" style={{textAlign:'center'}}> Welcome, Sign in</h1>
       <br></br>
       <label htmlFor="inputEmail" className="sr-only">Email address</label>
-      <input 
+      {errors.username && <p className="error-text" class="alert alert-danger">{errors.username}</p>}<
+        input 
         type="username"
         onChange={handleChange}
         name="username"
@@ -63,6 +64,8 @@ const LoginForm = () => {
         placeholder="Email address" 
         style={{marginBottom:'10px'}}
       ></input>
+      
+      {errors.password && <p className="error-text" class="alert alert-danger">{errors.password}</p>}
       <label htmlFor="inputPassword" className="sr-only">Password</label>
       <input 
         type="password"
@@ -75,7 +78,7 @@ const LoginForm = () => {
         placeholder="Password" 
       ></input>
       <br></br>
-      {errors.password && <p className="error-text">{errors.password}</p>}
+      
       <button className="btn btn-lg btn-success btn-block" type="submit" disabled={isSubmitting}>Login</button>
       <br></br>
       <label>no account yet? sign up</label>
