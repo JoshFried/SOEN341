@@ -32,6 +32,7 @@ const App = () => {
               <PrivateRoute path="/upload" component={Postform} />
               <Route path="/register" component={Registration} />
               <Route path="/login" component={LoginForm} />
+              <Route path="/:username" children={<ProfilePage />} />
             </Switch>
           </CustomLayout>
         </div>
