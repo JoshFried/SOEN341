@@ -11,8 +11,10 @@ const INITIAL_STATE = {
 };
 
 const LoginForm = () => {
-  // const { setAuthTokens } = useAuth();
   const { setAuthTokens } = useAuth();
+  const { authTokens } = useAuth();
+
+  console.log(authTokens);
   const [isLoggedIn, setLoggedIn] = useState();
   const authenticateUser = async () => {
     const { username, password } = values;
@@ -43,6 +45,9 @@ const LoginForm = () => {
     isSubmitting
   } = useFormValidation(INITIAL_STATE, validateAuth, authenticateUser);
 
+  if (authTokens != undefined) {
+    return <Redirect to="/feed" />;
+  }
   if (isLoggedIn) {
     return <Redirect to="/profile"></Redirect>;
   }
@@ -85,10 +90,12 @@ const LoginForm = () => {
         <a 
           className="btn btn-lg btn-primary btn-block"
           href="register"
-          role="button">Register
+          role="button"
+        >
+          Register
         </a>
-  </form>
-    <br></br>
+      </form>
+      <br></br>
     </Fragment>
   );
 };

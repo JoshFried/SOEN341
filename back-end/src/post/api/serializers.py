@@ -48,5 +48,5 @@ class CommentSerializer(serializers.ModelSerializer):
     account = AccountSerializer(read_only=True)
     class Meta:
         model = Comment
-        fields = ['id', 'account', 'post', 'created_at', 'text']
+        fields = ['id', 'account', 'created_at', 'text']
         read_fields = ['account', 'id', 'created_at']

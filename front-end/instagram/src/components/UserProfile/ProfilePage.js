@@ -9,37 +9,30 @@ import Post from "./post";
 import Bio from "./bio";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
+import { Button } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import useAuth from "../../context/auth";
-import { Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getUsername, getInfo } from "../../modules/UserService";
+import { followAccount } from "../../actions/Follow";
 
-const ProfilePage = props => {
+const ProfilePage = () => {
   const token = localStorage.getItem("token");
-  let username = "";
+  const [visitor, setVisitor] = useState(true);
+  const [username, setUsername] = useState(useParams().username);
+  const [isFollower, setFollower] = useState(false);
+  const [name, setName] = useState("");
 
-  const getUsername = async () => {
-    try {
-      const apiRes = await fetch(
-        "http://127.0.0.1:8000/api/account/information",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Token " + JSON.parse(token)
-          }
-        },
-
-        {
-          mode: "cors",
-          method: "GET"
-        }
-      );
-
-      const resJSON = await apiRes.json();
-      username = resJSON.username;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    getUsername(token).then(name => {
+      if (username == undefined) {
+        setUsername(name);
+      } else {
+        setName(name);
+        setVisitor(name != username);
+      }
+    });
+  }, [username, visitor]);
 
   const [profile, setProfile] = useState({
     email: "",
@@ -51,41 +44,30 @@ const ProfilePage = props => {
     allPosts: [],
     nbOfPosts: 0,
     nbOfFollowers: 0,
-    nbOfFollowing: 0
+    allFollowers: [],
+    nbOfFollowing: 0,
+    allFollowing: []
   });
 
   useEffect(() => {
-    const getInfo = async () => {
-      await getUsername();
-      try {
-        const apiRes = await fetch(
-          `http://127.0.0.1:8000/api/account/${username}`,
+    if (username) {
+      getInfo(username).then(person => {
+        setProfile({ ...person });
+      });
+    }
+  }, [username, visitor, setFollower]);
 
-          {
-            mode: "cors",
-            method: "GET"
-          }
-        );
-        const resJSON = await apiRes.json();
-
-        setProfile({
-          email: resJSON.email,
-          username: resJSON.username,
-          firstName: resJSON.first_name,
-          lastName: resJSON.last_name,
-          profilePicture: resJSON.profile_picture,
-          about: resJSON.about,
-          allPosts: [...resJSON.all_posts],
-          nbOfPosts: resJSON.all_post_count,
-          nbOfFollowers: resJSON.get_num_of_followers,
-          nbOfFollowing: resJSON.get_num_of_following
-        });
-      } catch (error) {
-        console.log(error);
+  useEffect(() => {
+    if (visitor) {
+      console.log(profile.allFollowers);
+      for (var i = 0; i < profile.allFollowers.length; i++) {
+        if (name == profile.allFollowers[i].username) {
+          setFollower(true);
+          break;
+        }
       }
-    };
-    getInfo();
-  }, [setProfile]);
+    }
+  });
 
   return (
     <Row className="justify-content-md-center " md={10}>
@@ -97,6 +79,7 @@ const ProfilePage = props => {
           <Card>
             <Username username={profile.username}></Username>
             <Bio about={profile.about}></Bio>
+            {!visitor && <Button variant="dark">Edit Profile</Button>}
             <CardGroup>
               <Card>
                 <Followers followers={profile.nbOfFollowers}></Followers>
@@ -104,6 +87,18 @@ const ProfilePage = props => {
               <Card>
                 <Following following={profile.nbOfFollowing}></Following>
               </Card>
+              {visitor && (
+                <Card>
+                  <Button
+                    variant="dark"
+                    type="submit"
+                    onClick={() => followAccount(JSON.parse(token), username)}
+                  >
+                    {!isFollower && "follow"}
+                    {isFollower && "unfollow"}
+                  </Button>
+                </Card>
+              )}
               <Card>
                 <Posts posts={profile.nbOfPosts}></Posts>
               </Card>

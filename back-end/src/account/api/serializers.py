@@ -101,12 +101,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         return serializer.data
     
     def get_all_followers(self, obj):
-        account = Account.objects.filter(followers=obj)
+        account = Account.objects.filter(following=obj)
         serializer = FollowSerializer(account, many=True)
         return serializer.data
     
     def get_all_following(self, obj):
-        account = Account.objects.filter(following=obj)
+        account = Account.objects.filter(followers=obj)
         serializer = FollowSerializer(account, many=True)
         return serializer.data
       

@@ -1,10 +1,10 @@
-const followAccount = async (token, username) => {
+export const followAccount = async (token, username) => {
   try {
-    const apiRes = fetch(
-      `http://127.0.0.1:8000/api/acocunt/${username}/follow`,
+    const apiRes = await fetch(
+      `http://127.0.0.1:8000/api/account/${username}/follow`,
       {
         headers: {
-          Authrization: "Token " + token
+          Authorization: "Token " + token
         },
         mode: "cors",
         method: "POST"
