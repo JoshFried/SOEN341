@@ -20,6 +20,8 @@ const ProfilePage = () => {
   const token = localStorage.getItem("token");
   const [visitor, setVisitor] = useState(false);
   const [username, setUsername] = useState(useParams().username);
+  const [isFollower, setFollower] = useState(false);
+
   useEffect(() => {
     getUsername(token).then(name => {
       if (username == undefined) {
@@ -40,7 +42,9 @@ const ProfilePage = () => {
     allPosts: [],
     nbOfPosts: 0,
     nbOfFollowers: 0,
-    nbOfFollowing: 0
+    allFollowers: [],
+    nbOfFollowing: 0,
+    allFollowing: []
   });
 
   useEffect(() => {
@@ -50,6 +54,10 @@ const ProfilePage = () => {
       });
     }
   }, [username]);
+
+  // if (visitor) {
+  //   setFollower();
+  // }
 
   return (
     <Row className="justify-content-md-center " md={10}>

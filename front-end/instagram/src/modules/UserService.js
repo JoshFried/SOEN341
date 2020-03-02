@@ -33,7 +33,9 @@ export const getInfo = async username => {
     allPosts: [],
     nbOfPosts: 0,
     nbOfFollowers: 0,
-    nbOfFollowing: 0
+    allFollowers: [],
+    nbOfFollowing: 0,
+    allFollowing: []
   };
   try {
     const apiRes = await fetch(
@@ -56,7 +58,9 @@ export const getInfo = async username => {
       allPosts: [...resJSON.all_posts],
       nbOfPosts: resJSON.all_post_count,
       nbOfFollowers: resJSON.get_num_of_followers,
-      nbOfFollowing: resJSON.get_num_of_following
+      allFollowers: resJSON.all_followers,
+      nbOfFollowing: resJSON.get_num_of_following,
+      allFollowing: resJSON.all_following
     };
     return profile;
   } catch (error) {
