@@ -12,6 +12,9 @@ const INITIAL_STATE = {
 
 const LoginForm = () => {
   const { setAuthTokens } = useAuth();
+  const { authTokens } = useAuth();
+
+  console.log(authTokens);
   const [isLoggedIn, setLoggedIn] = useState();
   const authenticateUser = async () => {
     const { username, password } = values;
@@ -42,6 +45,9 @@ const LoginForm = () => {
     isSubmitting
   } = useFormValidation(INITIAL_STATE, validateAuth, authenticateUser);
 
+  if (authTokens != undefined) {
+    return <Redirect to="/feed" />;
+  }
   if (isLoggedIn) {
     return <Redirect to="/profile"></Redirect>;
   }
