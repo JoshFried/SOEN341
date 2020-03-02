@@ -18,15 +18,17 @@ import { followAccount } from "../../actions/Follow";
 
 const ProfilePage = () => {
   const token = localStorage.getItem("token");
-  const [visitor, setVisitor] = useState(false);
+  const [visitor, setVisitor] = useState(true);
   const [username, setUsername] = useState(useParams().username);
   const [isFollower, setFollower] = useState(false);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     getUsername(token).then(name => {
       if (username == undefined) {
         setUsername(name);
       } else {
+        setName(name);
         setVisitor(name != username);
       }
     });
@@ -53,11 +55,19 @@ const ProfilePage = () => {
         setProfile({ ...person });
       });
     }
-  }, [username]);
+  }, [username, visitor, setFollower]);
 
-  // if (visitor) {
-  //   setFollower();
-  // }
+  useEffect(() => {
+    if (visitor) {
+      console.log(profile.allFollowers);
+      for (var i = 0; i < profile.allFollowers.length; i++) {
+        if (name == profile.allFollowers[i].username) {
+          setFollower(true);
+          break;
+        }
+      }
+    }
+  });
 
   return (
     <Row className="justify-content-md-center " md={10}>
@@ -81,9 +91,11 @@ const ProfilePage = () => {
                 <Card>
                   <Button
                     variant="dark"
+                    type="submit"
                     onClick={() => followAccount(JSON.parse(token), username)}
                   >
-                    Follow
+                    {!isFollower && "follow"}
+                    {isFollower && "unfollow"}
                   </Button>
                 </Card>
               )}
