@@ -10,7 +10,7 @@ export class PostList extends Component {
 
   componentDidMount() {
     let url = "http://127.0.0.1:8000/api/post/1";
-    const token = "	0ce320482e5569b0bb44a831aa72c64d38995ae0";
+    const token = "	a569a3fe56cd2a6303216782e3fb71ebb95451f9";
 
     axios
       .get(url, {

@@ -3,9 +3,7 @@ const validationAuth = values => {
   // email errors
   if (!values.username) {
     errors.username = "Email is required";
-  } else if (
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.username)
-  ) {
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.username)) {
     errors.username = "Invalid email address";
   }
   //password errors
