@@ -126,13 +126,12 @@ def update_comment_view(request, id):
 def delete_comment_view(request, id):
     post = Post.objects.get(id = request.data.get('post'))
     account = request.user
-    print("FUCK")
     try:
         comment = Comment.objects.get(id=id)
     except Comment.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if comment.account != account or post.account != account :
+    if comment.account != account and post.account != account :
         return Response({'response': "You dont have permission to delete"})
 
     if request.method == "DELETE":

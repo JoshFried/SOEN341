@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 
 import Figure from "react-bootstrap/Figure";
@@ -6,12 +6,19 @@ import CardGroup from "react-bootstrap/CardGroup";
 import likePost from "../../actions/Like";
 import { createComment } from "..//../actions/Comment";
 import PostComment from "./PostComment";
+import { useAuth } from "../../context/auth";
 
 const Post = ({ post }) => {
   const token = localStorage.getItem("token");
   const [text, setText] = useState({ text: "" });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setSubmitting] = useState(false);
+  const { authTokens } = useAuth();
+  const [comments, setComments] = useState(post.post_comments);
+
+  useEffect(() => {
+    setComments(post.post_comments);
+  }, [createComment()]);
 
   const handleChange = event => {
     setText({ ...text, [event.target.name]: event.target.value });
@@ -39,16 +46,15 @@ const Post = ({ post }) => {
             <Card.Text>{post.content}</Card.Text>
             <Button
               variant="dark"
-              onClick={() => likePost(JSON.parse(token), post.id)}
+              onClick={() => likePost(JSON.parse(authTokens), post.id)}
             >
               Like
             </Button>
             <br></br>
-            {post.post_comments.map(item => (
-              <PostComment comment={item}> </PostComment>
+            {comments.map(item => (
+              <PostComment comment={item} postID={post.id}></PostComment>
             ))}
             <input
-              onChange={handleChange}
               type="textArea"
               rows="34"
               placeholder="Add a comment..."
@@ -57,7 +63,10 @@ const Post = ({ post }) => {
             <Button
               variant="dark"
               type="submit"
-              onClick={() => createComment(token, post.id, text)}
+              onChange={handleChange}
+              onClick={() => {
+                createComment(token, post.id, text);
+              }}
             >
               Post
             </Button>
