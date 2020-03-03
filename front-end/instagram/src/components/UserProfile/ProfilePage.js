@@ -11,7 +11,7 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import { Button } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
-import useAuth from "../../context/auth";
+import { useAuth } from "../../context/auth";
 import { useParams } from "react-router-dom";
 import { getUsername, getInfo } from "../../modules/UserService";
 import { followAccount } from "../../actions/Follow";
@@ -22,6 +22,7 @@ const ProfilePage = () => {
   const [username, setUsername] = useState(useParams().username);
   const [isFollower, setFollower] = useState(false);
   const [name, setName] = useState("");
+  const { authTokens } = useAuth();
 
   useEffect(() => {
     getUsername(token).then(name => {
@@ -67,7 +68,7 @@ const ProfilePage = () => {
         }
       }
     }
-  });
+  }, [isFollower]);
 
   return (
     <Row className="justify-content-md-center " md={10}>
@@ -92,7 +93,10 @@ const ProfilePage = () => {
                   <Button
                     variant="dark"
                     type="submit"
-                    onClick={() => followAccount(JSON.parse(token), username)}
+                    onClick={() => {
+                      followAccount(JSON.parse(token), username);
+                      setFollower(!isFollower);
+                    }}
                   >
                     {!isFollower && "follow"}
                     {isFollower && "unfollow"}
@@ -105,11 +109,13 @@ const ProfilePage = () => {
             </CardGroup>
           </Card>
         </CardGroup>
-        <div>
-          {profile.allPosts.map(item => (
-            <Post post={item.picture} key={item.picture}></Post>
-          ))}
-        </div>
+        {profile.allPosts && (
+          <div>
+            {profile.allPosts.map(item => (
+              <Post post={item.picture} key={item.picture}></Post>
+            ))}
+          </div>
+        )}
       </Card>
     </Row>
   );

@@ -15,7 +15,7 @@ const LoginForm = () => {
   const { authTokens } = useAuth();
 
   console.log(authTokens);
-  const [isLoggedIn, setLoggedIn] = useState();
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const authenticateUser = async () => {
     const { username, password } = values;
 
@@ -30,7 +30,7 @@ const LoginForm = () => {
       });
       const resJSON = await apiRes.json();
       setAuthTokens(resJSON.token);
-      setLoggedIn(true);
+      setLoggedIn(authTokens);
     } catch (error) {
       console.log(error);
     }
@@ -45,10 +45,7 @@ const LoginForm = () => {
     isSubmitting
   } = useFormValidation(INITIAL_STATE, validateAuth, authenticateUser);
 
-  if (authTokens !== "undefined") {
-    return <Redirect to="/feed" />;
-  }
-  if (isLoggedIn) {
+  if (authTokens != "undefined" && authTokens != undefined) {
     return <Redirect to="/profile"></Redirect>;
   }
 
