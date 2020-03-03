@@ -4,17 +4,17 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { getUsername } from "../../modules/UserService";
 import { deleteComment } from "../../actions/Comment";
+import { useComment } from "../../context/comment";
 
 const PostComment = ({ comment, postID }) => {
   const [authUsername, setAuthUsername] = useState("");
   const { authTokens } = useAuth();
   const [isAuthor, setIsAuthor] = useState(false);
+  const { setCreatedComment } = useComment();
 
   const id = comment.id;
   const username = comment.account.username;
   const url = `/${username}`;
-
-  console.log(comment);
 
   useEffect(() => {
     getUsername(authTokens).then(
@@ -40,6 +40,7 @@ const PostComment = ({ comment, postID }) => {
             type="submit"
             onClick={() => {
               deleteComment(authTokens, comment.id, postID);
+              setCreatedComment();
             }}
           >
             Delete
