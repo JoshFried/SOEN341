@@ -134,7 +134,7 @@ class FeedSerializer(serializers.ModelSerializer):
         followingPosts = []
         following = Account.objects.filter(followers=obj) 
         for post in posts:
-            if post.account in following:
+            if post.account in following or post.account == obj:
                 followingPosts.append(post)
         serializer = PostSerializer(followingPosts, many=True)
         return serializer.data
