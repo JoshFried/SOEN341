@@ -67,3 +67,36 @@ export const getInfo = async username => {
     console.log(error);
   }
 };
+
+export const getPosts = async token => {
+  try {
+    const apiRes = await fetch(
+      "http://127.0.0.1:8000/api/account/feed",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token " + JSON.parse(token)
+        }
+      },
+
+      {
+        mode: "cors",
+        method: "GET"
+      }
+    );
+    const resJSON = await apiRes.json();
+
+    const feed = {
+      email: resJSON.email,
+      username: resJSON.username,
+      firstName: resJSON.first_name,
+      lastName: resJSON.last_name,
+      profilePicture: resJSON.profile_picture,
+      about: resJSON.about,
+      allPosts: [...resJSON.all_posts]
+    };
+    return feed;
+  } catch (error) {
+    console.log(error);
+  }
+};

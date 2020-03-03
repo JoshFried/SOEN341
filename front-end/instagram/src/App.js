@@ -8,6 +8,7 @@ import ProfilePage from "./components/UserProfile/ProfilePage.js";
 import Registration from "./components/register/form.js";
 import LoginForm from "./components/login/form.js";
 import { AuthContext } from "./context/auth";
+import { CommentContext } from "./context/comment";
 import Feed from "./components/feed/Feed";
 import PrivateRoute from "./PrivateRoute";
 
@@ -20,6 +21,12 @@ const App = () => {
     setAuthTokens(data);
   };
 
+  const [createdComment, setCreatedComment] = useState(false);
+
+  const setComment = () => {
+    setCreatedComment(!createdComment);
+  };
+
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>
@@ -27,7 +34,11 @@ const App = () => {
           <CustomLayout>
             <Switch>
               <Route path="/" exact component={LoginForm} />
-              <PrivateRoute path="/feed" component={Feed} />
+              <CommentContext.Provider
+                value={{ createdComment, setCreatedComment: setComment }}
+              >
+                <PrivateRoute path="/feed" component={Feed} />
+              </CommentContext.Provider>
               <PrivateRoute path="/profile" component={ProfilePage} />
               <PrivateRoute path="/upload" component={Postform} />
               <Route path="/register" component={Registration} />

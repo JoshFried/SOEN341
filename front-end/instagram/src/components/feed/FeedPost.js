@@ -7,18 +7,18 @@ import likePost from "../../actions/Like";
 import { createComment } from "..//../actions/Comment";
 import PostComment from "./PostComment";
 import { useAuth } from "../../context/auth";
+import { useComment } from "../../context/comment";
 
 const Post = ({ post }) => {
+  const { setCreatedComment } = useComment();
   const token = localStorage.getItem("token");
   const [text, setText] = useState({ text: "" });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setSubmitting] = useState(false);
   const { authTokens } = useAuth();
-  const [comments, setComments] = useState(post.post_comments);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     setComments(post.post_comments);
-  }, [createComment()]);
+  });
 
   const handleChange = event => {
     setText({ ...text, [event.target.name]: event.target.value });
@@ -57,6 +57,7 @@ const Post = ({ post }) => {
             <input
               type="textArea"
               rows="34"
+              onChange={handleChange}
               placeholder="Add a comment..."
               name="text"
             ></input>
@@ -66,6 +67,7 @@ const Post = ({ post }) => {
               onChange={handleChange}
               onClick={() => {
                 createComment(token, post.id, text);
+                setCreatedComment();
               }}
             >
               Post
