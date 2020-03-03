@@ -29,25 +29,27 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
-      <Router>
-        <div className="App">
-          <CustomLayout>
-            <Switch>
-              <Route path="/" exact component={LoginForm} />
-              <CommentContext.Provider
-                value={{ createdComment, setCreatedComment: setComment }}
-              >
+      <CommentContext.Provider
+        value={{ createdComment, setCreatedComment: setComment }}
+      >
+        <Router>
+          <div className="App">
+            <CustomLayout>
+              <Switch>
+                <Route path="/" exact component={LoginForm} />
+
                 <PrivateRoute path="/feed" component={Feed} />
-              </CommentContext.Provider>
-              <PrivateRoute path="/profile" component={ProfilePage} />
-              <PrivateRoute path="/upload" component={Postform} />
-              <Route path="/register" component={Registration} />
-              <Route path="/login" component={LoginForm} />
-              <Route path="/:username" children={<ProfilePage />} />
-            </Switch>
-          </CustomLayout>
-        </div>
-      </Router>
+
+                <PrivateRoute path="/profile" component={ProfilePage} />
+                <PrivateRoute path="/upload" component={Postform} />
+                <Route path="/register" component={Registration} />
+                <Route path="/login" component={LoginForm} />
+                <Route path="/:username" children={<ProfilePage />} />
+              </Switch>
+            </CustomLayout>
+          </div>
+        </Router>
+      </CommentContext.Provider>
     </AuthContext.Provider>
   );
 };
