@@ -68,7 +68,7 @@ const ProfilePage = () => {
         }
       }
     }
-  }, [isFollower]);
+  }, [setFollower]);
 
   return (
     <Row className="justify-content-md-center " md={10}>
