@@ -30,7 +30,7 @@ const PostComment = ({ comment, postID }) => {
   return (
     <div>
       <InputGroup>
-        <div style={{width:'85%', fontSize:'14px', padding:'0', margin:'0'}}>
+        <div style={{width:'85%', fontSize:'14px', padding:'0', margin:'5px'}}>
           <Link to={url} style={{fontWeight:"bold", color:'black'}}>{username} </Link>
          {comment.text}  
         </div>{" "}

@@ -5,7 +5,36 @@ POSTING  COMMENT
     outline:none;
 }
 
-.postButton{
-    color:rgb(149, 195, 211);
-    font-weight: 500;
+#module {
+    width: 660px;
 }
+
+#show a.collapsed:after {
+    content: 'View more comments';
+    color:rgb(44, 127, 252);
+    font-weight: 500;
+    
+}
+
+#show a:not(.collapsed):after {
+    content: 'Close ';
+    color:rgb(44, 127, 252);
+    font-weight: 500;
+   
+}
+
+#show a:hover{
+    text-decoration:none
+}
+/*dyanmically add name for dropdownmenus generated in feedpost.js*/
+
+#module [id^="id-"].collapse:not(.show) {
+    display: block;
+    height: 3.9em;
+    overflow: hidden;
+}
+
+#module [id^="id-"].collapsing {
+    height: 4.1em;
+}
+
