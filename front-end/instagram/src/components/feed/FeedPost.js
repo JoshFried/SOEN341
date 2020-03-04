@@ -34,7 +34,7 @@ const Post = ({ post, user }) => {
     setText({ ...text, [event.target.name]: event.target.value });
   };
 
-
+  const dynamicId = "id-" + Date.now();
   
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
   return (
@@ -74,20 +74,17 @@ const Post = ({ post, user }) => {
             {liked &&  <img src={redHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
             {!liked &&  <img src={outlineHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
           </a>
-          <p>{post.content}</p>
-          
           <Card.Body>
-            <Card.Text>{post.content}</Card.Text>
-     
-            <a style={{fontWeight:'bold', color:'black', fontSize:'16px'}} href='' data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              View all comments
-              </a>
-           
-              <div class="collapse" id="collapseExample">
-            {comments.map(item => (
-            
-              <PostComment comment={item} postID={post.id}></PostComment>
-            ))}
+            <Card.Text>{post.content}</Card.Text> 
+            <div id="module" style={{width:'100%'}}>
+              <p class="collapse" id={dynamicId} aria-expanded="false" style={{width:'100%'}}>
+              {comments.map(item => (  
+                        <PostComment comment={item} postID={post.id}></PostComment>
+                      ))}
+              </p>
+              <div id='show'>
+              <a role="button"  id="styleViewComments" class="collapsed" data-toggle="collapse" href={'#' + dynamicId} aria-expanded="false" aria-controls="collapseComments"></a>
+              </div>
             </div>
             <hr></hr>
             <input
@@ -101,7 +98,7 @@ const Post = ({ post, user }) => {
             ></input>
             <a
               className='postButton'
-              style={{color:'lightblue', fontWeight:'500'}}
+              style={{color:'#2C7FFC', fontWeight:'500'}}
               type="submit"
               onChange={handleChange}
               onClick={() => {
@@ -117,8 +114,6 @@ const Post = ({ post, user }) => {
     </Col>
    </Row>
   </Container>
-  
-
  </Fragment>
  
   );
