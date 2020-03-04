@@ -9,12 +9,17 @@ import PostComment from "./PostComment";
 import { useAuth } from "../../context/auth";
 import { useComment } from "../../context/comment";
 
-const Post = ({ post }) => {
+const Post = ({ post, user }) => {
   const { setCreatedComment } = useComment();
   const token = localStorage.getItem("token");
   const [text, setText] = useState({ text: "" });
   const { authTokens } = useAuth();
   const [comments, setComments] = useState([]);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    setLiked(post.all_likes.filter(e => e.username === user).length > 0);
+  }, [setLiked]);
 
   useEffect(() => {
     setComments(post.post_comments);
@@ -46,9 +51,13 @@ const Post = ({ post }) => {
             <Card.Text>{post.content}</Card.Text>
             <Button
               variant="dark"
-              onClick={() => likePost(JSON.parse(authTokens), post.id)}
+              onClick={() => {
+                likePost(JSON.parse(authTokens), post.id);
+                setLiked(!liked);
+              }}
             >
-              Like
+              {liked && "unlike"}
+              {!liked && "like"}
             </Button>
             <br></br>
             {comments.map(item => (
