@@ -21,7 +21,6 @@ const Feed = () => {
 
   useEffect(() => {
     getPosts(authTokens).then(feed => {
-      console.log(feed);
       setFeed({ ...feed });
     });
   }, [setFeed, createdComment]);

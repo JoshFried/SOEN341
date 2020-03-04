@@ -21,7 +21,6 @@ const Post = ({ post, user }) => {
     setLiked(post.all_likes.filter(e => e.username === user).length > 0);
   }, [setLiked]);
 
-  console.log(liked);
   useEffect(() => {
     setComments(post.post_comments);
   });

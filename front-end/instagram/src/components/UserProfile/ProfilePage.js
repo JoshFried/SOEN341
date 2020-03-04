@@ -20,7 +20,7 @@ const ProfilePage = () => {
   const token = localStorage.getItem("token");
   const [visitor, setVisitor] = useState(true);
   const [username, setUsername] = useState(useParams().username);
-  const [isFollower, setFollower] = useState(false);
+
   const [name, setName] = useState("");
   const { authTokens } = useAuth();
 
@@ -56,19 +56,16 @@ const ProfilePage = () => {
         setProfile({ ...person });
       });
     }
-  }, [username, visitor, setFollower]);
+  }, [username, visitor]);
+
+  const [isFollower, setFollower] = useState(false);
 
   useEffect(() => {
-    if (visitor) {
-      console.log(profile.allFollowers);
-      for (var i = 0; i < profile.allFollowers.length; i++) {
-        if (name == profile.allFollowers[i].username) {
-          setFollower(true);
-          break;
-        }
-      }
-    }
-  }, [setFollower]);
+    setFollower(
+      profile.allFollowers.filter(e => e.username !== JSON.stringify(name))
+        .length > 0
+    );
+  }, [profile]);
 
   return (
     <Row className="justify-content-md-center " md={10}>

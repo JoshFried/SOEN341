@@ -81,7 +81,6 @@ class AccountPostSerializer(serializers.ModelSerializer):
         
     def get_all_likes(self, obj):
         alllikes = obj.likes
-        print(alllikes)
         serializer = LikeSerializer(alllikes, many=True)
         return serializer.data
 
@@ -179,7 +178,6 @@ class PostSerializer(serializers.ModelSerializer):
     
     def get_all_likes(self, obj):
         all_likes = obj.likes
-        print(all_likes)
         serializer = LikeSerializer(all_likes, many=True)
         return serializer.data
 
