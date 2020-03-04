@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Button, Row, Col, Container } from "react-bootstrap";
 
 import Figure from "react-bootstrap/Figure";
 import CardGroup from "react-bootstrap/CardGroup";
@@ -16,6 +16,11 @@ const Post = ({ post, user }) => {
   const { authTokens } = useAuth();
   const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState(false);
+  
+  const outlineHeart = require("../../images/feed/heart.svg")
+  const redHeart = require("../../images/feed/redheart.svg")
+  const hearts = { outlineHeart, redHeart }
+  const [selectedHeart, setSelectedHeart] = useState(hearts.outlineHeart)
 
   useEffect(() => {
     setLiked(post.all_likes.filter(e => e.username === user).length > 0);
@@ -28,37 +33,56 @@ const Post = ({ post, user }) => {
   const handleChange = event => {
     setText({ ...text, [event.target.name]: event.target.value });
   };
+
+
+  
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
   return (
-    <Figure
-      style={{
-        height: "100%",
-        width: "100%"
-      }}
+    <Container
+    style={{
+      maxWidth: '660px',
+      marginLeft: "auto",
+      marginRight: "auto",
+      paddingTop: "5%"
+    }}
     >
+    <Row>
+     <Col>
       <CardGroup>
-        <Card
+        <Card 
           style={{
-            marginBottom: 0
+            marginBottom: 0,
+           
           }}
         >
           <Figure.Image
+            style={{
+              height: '600px',
+              width: '660px',
+            }}
             className="posts"
             src={"http://127.0.0.1:8000".concat(post.picture)}
             alt="Posts"
           />
+          <a 
+           onClick={() => {
+            likePost(JSON.parse(authTokens), post.id);
+            setLiked(!liked);
+            if(liked){
+              setSelectedHeart(hearts.outlineHeart);
+            }
+            else if(!liked){
+              setSelectedHeart(hearts.redHeart);
+            }
+          }}
+          >
+           <img src={selectedHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>
+          </a>
+        
+       
           <Card.Body>
             <Card.Text>{post.content}</Card.Text>
-            <Button
-              variant="dark"
-              onClick={() => {
-                likePost(JSON.parse(authTokens), post.id);
-                setLiked(!liked);
-              }}
-            >
-              {liked && "unlike"}
-              {!liked && "like"}
-            </Button>
+           
             <br></br>
             {comments.map(item => (
               <PostComment comment={item} postID={post.id}></PostComment>
@@ -84,7 +108,9 @@ const Post = ({ post, user }) => {
           </Card.Body>
         </Card>
       </CardGroup>
-    </Figure>
+    </Col>
+   </Row>
+  </Container>
   );
 };
 
