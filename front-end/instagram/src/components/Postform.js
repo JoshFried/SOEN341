@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 
 export class Postform extends Component {
   state = {
@@ -12,6 +11,9 @@ export class Postform extends Component {
     document.querySelector('.custom-file-input').addEventListener('change',function(e){
       var fileName = document.getElementById("myInput").files[0].name;
       var nextSibling = e.target.nextElementSibling
+      if (fileName == null){
+        nextSibling.innerText = " "
+      }
       nextSibling.innerText = fileName
   })
   }
