@@ -136,6 +136,7 @@ class FeedSerializer(serializers.ModelSerializer):
         for post in posts:
             if post.account in following or post.account == obj:
                 followingPosts.append(post)
+        followingPosts.sort(key=lambda x: x.created_at, reverse=True)
         serializer = PostSerializer(followingPosts, many=True)
         return serializer.data
 
