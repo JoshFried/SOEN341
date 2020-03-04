@@ -21,6 +21,7 @@ const Feed = () => {
 
   useEffect(() => {
     getPosts(authTokens).then(feed => {
+      console.log(feed);
       setFeed({ ...feed });
     });
   }, [setFeed, createdComment]);
@@ -28,7 +29,11 @@ const Feed = () => {
   return (
     <div>
       {feed.allPosts &&
-        feed.allPosts.map(item => <FeedPost post={item}> </FeedPost>)}
+        feed.allPosts.map(item => (
+          <FeedPost post={item} user={feed.username}>
+            {" "}
+          </FeedPost>
+        ))}
     </div>
   );
 };
