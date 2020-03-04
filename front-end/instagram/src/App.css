@@ -1,0 +1,11 @@
+/*
+POSTING  COMMENT
+*/
+.postText:focus {
+    outline:none;
+}
+
+.postButton{
+    color:rgb(149, 195, 211);
+    font-weight: 500;
+}
