@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 export class Postform extends Component {
   state = {
     caption: "",
-    picture: null
+    picture: null,
   };
 
   componentDidMount() {
@@ -44,9 +45,11 @@ export class Postform extends Component {
       })
       .then(res => {
         console.log(res.data);
+        this.props.history.push('/feed')
       })
       .catch(err => console.log(err));
   };
+
   render() {
     return (
       <div>
