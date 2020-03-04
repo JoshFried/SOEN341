@@ -79,7 +79,7 @@ export class Postform extends Component {
             <input
               className="form-control"
               type="text"
-              placeholder="Content"
+              placeholder="Caption"
               id="content"
               value={this.state.content}
               onChange={this.handleChange}

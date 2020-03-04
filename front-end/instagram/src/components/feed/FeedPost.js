@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Card, Button, Row, Col, Container } from "react-bootstrap";
-
+import { Card, Row, Col, Container} from "react-bootstrap";
+import "../../App.css";
 import Figure from "react-bootstrap/Figure";
 import CardGroup from "react-bootstrap/CardGroup";
 import likePost from "../../actions/Like";
@@ -38,6 +38,7 @@ const Post = ({ post, user }) => {
   
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
   return (
+    <Fragment>
     <Container
     style={{
       maxWidth: '660px',
@@ -64,38 +65,43 @@ const Post = ({ post, user }) => {
             src={"http://127.0.0.1:8000".concat(post.picture)}
             alt="Posts"
           />
-          <a 
+          <a style={{width: '26px', height:'26px'}}
            onClick={() => {
             likePost(JSON.parse(authTokens), post.id);
-            setLiked(!liked);
-            if(liked){
-              setSelectedHeart(hearts.outlineHeart);
-            }
-            else if(!liked){
-              setSelectedHeart(hearts.redHeart);
-            }
+            setLiked(!liked);       
           }}
           >
-           <img src={selectedHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>
+            {liked &&  <img src={redHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
+            {!liked &&  <img src={outlineHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
           </a>
-        
-       
+          <p>{post.content}</p>
+          
           <Card.Body>
             <Card.Text>{post.content}</Card.Text>
+     
+            <a style={{fontWeight:'bold', color:'black', fontSize:'16px'}} href='' data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              View all comments
+              </a>
            
-            <br></br>
+              <div class="collapse" id="collapseExample">
             {comments.map(item => (
+            
               <PostComment comment={item} postID={post.id}></PostComment>
             ))}
+            </div>
+            <hr></hr>
             <input
+              className='postText'
+              style={{width:'90%', border:'none', fontStyle: "italic"}}
               type="textArea"
               rows="34"
               onChange={handleChange}
               placeholder="Add a comment..."
               name="text"
             ></input>
-            <Button
-              variant="dark"
+            <a
+              className='postButton'
+              style={{color:'lightblue', fontWeight:'500'}}
               type="submit"
               onChange={handleChange}
               onClick={() => {
@@ -103,15 +109,20 @@ const Post = ({ post, user }) => {
                 setCreatedComment();
               }}
             >
-              Post
-            </Button>
+             &nbsp; Post
+            </a>
           </Card.Body>
         </Card>
       </CardGroup>
     </Col>
    </Row>
   </Container>
+  
+
+ </Fragment>
+ 
   );
 };
 
 export default Post;
+
