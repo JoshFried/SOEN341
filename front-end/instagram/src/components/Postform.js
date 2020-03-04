@@ -26,12 +26,12 @@ export class Postform extends Component {
     form_data.append("picture", this.state.picture, this.state.picture.name);
     form_data.append("caption", this.state.content);
     let url = "http://127.0.0.1:8000/api/post/create";
-    const token = "	a569a3fe56cd2a6303216782e3fb71ebb95451f9";
+    const token = localStorage.getItem("token").replace(/\"/g, "");
     axios
       .post(url, form_data, {
         headers: {
           "content-type": "multipart/form-data",
-          Authorization: "Token " + token
+         "Authorization": `Token ${token}`
         }
       })
       .then(res => {

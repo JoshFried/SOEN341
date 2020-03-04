@@ -59,7 +59,7 @@ const Registration = () => {
   return (
     <Fragment>
     <form onSubmit={handleSubmit} className="form-registration" style={{width:'100%', maxWidth:'300px',padding:'15px', margin:'auto', border:'1px solid grey', borderRadius:'10px', marginTop:'100px', boxShadow:' 5px 5px 5px 0px #888888'}}>
-      <h1 className="h3 mb-3 font-weight-normal" style={{textAlign:'center'}}>Registratuion Form</h1>
+      <h1 className="h3 mb-3 font-weight-normal" style={{textAlign:'center'}}>Registration Form</h1>
       <br></br>
       
       <label htmlFor="inputEmail" className="sr-only">Email address</label>
