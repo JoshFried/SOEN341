@@ -1,11 +1,20 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 export class Postform extends Component {
   state = {
     caption: "",
-    picture: null
+    picture: null,
   };
+
+  componentDidMount() {
+    document.querySelector('.custom-file-input').addEventListener('change',function(e){
+      var fileName = document.getElementById("myInput").files[0].name;
+      var nextSibling = e.target.nextElementSibling
+      nextSibling.innerText = fileName
+  })
+  }
 
   handleChange = e => {
     this.setState({
@@ -26,25 +35,47 @@ export class Postform extends Component {
     form_data.append("picture", this.state.picture, this.state.picture.name);
     form_data.append("caption", this.state.content);
     let url = "http://127.0.0.1:8000/api/post/create";
-    const token = "	a569a3fe56cd2a6303216782e3fb71ebb95451f9";
+    const token = localStorage.getItem("token").replace(/\"/g, "");
     axios
       .post(url, form_data, {
         headers: {
           "content-type": "multipart/form-data",
-          Authorization: "Token " + token
+         "Authorization": `Token ${token}`
         }
       })
       .then(res => {
         console.log(res.data);
+        this.props.history.push('/feed')
       })
       .catch(err => console.log(err));
   };
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <p>
+        <form 
+        onSubmit={this.handleSubmit}
+        style={{
+          width: "100%",
+          maxWidth: "330px",
+          padding: "15px",
+          margin: "auto",
+          border: "1px solid grey",
+          borderRadius: "10px",
+          marginTop: "100px",
+          boxShadow: " 5px 5px 5px 0px #888888"
+        }}
+        >
+          <h1
+          className="h3 mb-3 font-weight-normal"
+          style={{ textAlign: "center" }}
+        >
+          {" "}
+          Upload a photo
+        </h1>
+        <br></br>
             <input
+              className="form-control"
               type="text"
               placeholder="Content"
               id="content"
@@ -52,21 +83,33 @@ export class Postform extends Component {
               onChange={this.handleChange}
               required
             />
-          </p>
-          <p>
-            <input
-              type="file"
-              id="picture"
-              accept="image/png, image/jpeg"
-              onChange={this.handleImageChange}
-              required
-            />
-          </p>
-          <input type="submit" />
+        <br></br>
+        <div className="input-group">
+            <div className="custom-file">
+                <input 
+                  type="file" 
+                  className="custom-file-input" 
+                  id="myInput" 
+                  aria-describedby="myInput"
+                  accept="image/png, image/jpeg"
+                  onChange={this.handleImageChange}
+                  required
+                  />
+                <label className="custom-file-label" htmlFor="myInput">Choose file</label>
+            </div>
+            <div className="input-group-append"> 
+            </div>
+        </div>
+        <br></br>
+          <input type="submit" className="btn btn-lg btn-primary btn-block"/>
         </form>
+        <br></br>
       </div>
+      
     );
   }
 }
 
 export default Postform;
+
+
