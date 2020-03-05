@@ -151,7 +151,7 @@ const Post = ({ post, user }) => {
                     ></img>
                   )}
                 </a>
-                <a
+                <a 
                   role="button"
                   onClick={() => {
                     setShowModal();
