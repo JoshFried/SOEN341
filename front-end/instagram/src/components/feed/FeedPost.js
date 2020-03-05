@@ -22,7 +22,13 @@ const Post = ({ post, user }) => {
   const redHeart = require("../../images/feed/redheart.svg")
   const hearts = { outlineHeart, redHeart }
   const [selectedHeart, setSelectedHeart] = useState(hearts.outlineHeart)
-  
+  const username = post.account.username;
+  const url = `/${username}`;
+
+  function Capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   useEffect(() => {
       if(comments.length <= 1){
         document.getElementById('styleViewComments'+ dynamicId).style.display =  'none';
@@ -46,6 +52,8 @@ const Post = ({ post, user }) => {
     setText({ ...text, [event.target.name]: event.target.value });
   };
 
+  
+
   const dynamicId = "id-" + Date.now();
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
   return (
@@ -67,8 +75,8 @@ const Post = ({ post, user }) => {
            
           }}
         >
-          <Card.Header> 
-              USERNAME
+          <Card.Header style={{fontWeight:'bold'}}> 
+          <Link to={url} style={{fontWeight:"bold", color:'black'}}> {Capitalize(post.account.username)} </Link> 
           </Card.Header>
           <Figure.Image
             style={{
@@ -89,14 +97,13 @@ const Post = ({ post, user }) => {
             {!liked &&  <img src={outlineHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
           </a>
           <Card.Body>
-            <Card.Text style={{fontWeight:'500'}}>{post.caption}</Card.Text> 
+            <Card.Text style={{fontWeight:'500'}}>{post.account.username + ": " + post.caption}</Card.Text> 
             <div id="module" style={{width:'100%'}}>
               <p className="collapse" id={dynamicId} aria-expanded="false" style={{width:'100%'}}>
               {comments.map(item => (  
                          <PostComment comment={item} postID={post.id}></PostComment>
                       ))}
               </p>
-              
               <div id='show'>
               <a role="button" id={"styleViewComments"+ dynamicId} className="collapsed" data-toggle="collapse" href={'#' + dynamicId} aria-expanded="false" aria-controls="collapseComments"></a>
               </div>
