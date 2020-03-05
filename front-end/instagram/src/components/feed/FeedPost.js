@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Card, Row, Col, Container} from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../../App.css";
 import Figure from "react-bootstrap/Figure";
 import CardGroup from "react-bootstrap/CardGroup";
@@ -16,11 +17,27 @@ const Post = ({ post, user }) => {
   const { authTokens } = useAuth();
   const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState(false);
-  
   const outlineHeart = require("../../images/feed/heart.svg")
   const redHeart = require("../../images/feed/redheart.svg")
   const hearts = { outlineHeart, redHeart }
   const [selectedHeart, setSelectedHeart] = useState(hearts.outlineHeart)
+  const username = post.account.username;
+  const url = `/${username}`;
+
+  function Capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  useEffect(() => {
+      if(comments.length <= 1){
+        document.getElementById('styleViewComments'+ dynamicId).style.display =  'none';
+        console.log(comments.length);
+      }
+      else{
+        document.getElementById('styleViewComments'+ dynamicId).style.display =  'inline';
+        console.log(comments.length);
+      }
+  });
 
   useEffect(() => {
     setLiked(post.all_likes.filter(e => e.username === user).length > 0);
@@ -34,12 +51,13 @@ const Post = ({ post, user }) => {
     setText({ ...text, [event.target.name]: event.target.value });
   };
 
-  const dynamicId = "id-" + Date.now();
   
+
+  const dynamicId = "id-" + Date.now();
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
   return (
     <Fragment>
-    <Container
+    <Container 
     style={{
       maxWidth: '660px',
       marginLeft: "auto",
@@ -56,6 +74,9 @@ const Post = ({ post, user }) => {
            
           }}
         >
+          <Card.Header style={{fontWeight:'bold',fontSize:'14px'}}> 
+          <Link to={url} style={{fontWeight:"bold", color:'black'}}> {Capitalize(post.account.username)} </Link> 
+          </Card.Header>
           <Figure.Image
             style={{
               height: '600px',
@@ -65,7 +86,7 @@ const Post = ({ post, user }) => {
             src={"http://127.0.0.1:8000".concat(post.picture)}
             alt="Posts"
           />
-          <a style={{width: '26px', height:'26px'}}
+          <a style={{width: '26px', height:'26px', marginLeft:'4px'}}
            onClick={() => {
             likePost(JSON.parse(authTokens), post.id);
             setLiked(!liked);       
@@ -74,21 +95,21 @@ const Post = ({ post, user }) => {
             {liked &&  <img src={redHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
             {!liked &&  <img src={outlineHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
           </a>
-          <Card.Body>
-            <Card.Text>{post.content}</Card.Text> 
+          <Card.Body style={{paddingTop:'4px',marginLeft:'0px'}}>
+            <Card.Text style={{fontWeight:'500', marginLeft:'1px',paddingTop:'4px', fontSize:'14px'}}><span style={{fontWeight:'bold'}}>Caption: </span>{post.caption}</Card.Text> 
             <div id="module" style={{width:'100%'}}>
-              <p class="collapse" id={dynamicId} aria-expanded="false" style={{width:'100%'}}>
+              <p className="collapse" id={dynamicId} aria-expanded="false" style={{width:'100%'}}>
               {comments.map(item => (  
-                        <PostComment comment={item} postID={post.id}></PostComment>
+                         <PostComment comment={item} postID={post.id}></PostComment>
                       ))}
               </p>
               <div id='show'>
-              <a role="button"  id="styleViewComments" class="collapsed" data-toggle="collapse" href={'#' + dynamicId} aria-expanded="false" aria-controls="collapseComments"></a>
+              <a role="button" id={"styleViewComments"+ dynamicId} className="collapsed" data-toggle="collapse" href={'#' + dynamicId} aria-expanded="false" aria-controls="collapseComments"></a>
               </div>
             </div>
             <hr></hr>
             <input
-              className='postText'
+              id={'postText'+dynamicId}
               style={{width:'90%', border:'none', fontStyle: "italic"}}
               type="textArea"
               rows="34"
@@ -97,13 +118,16 @@ const Post = ({ post, user }) => {
               name="text"
             ></input>
             <a
-              className='postButton'
+              id='postButton'
               style={{color:'#2C7FFC', fontWeight:'500'}}
               type="submit"
               onChange={handleChange}
-              onClick={() => {
+              onClick={() => {        
                 createComment(token, post.id, text);
                 setCreatedComment();
+                document.getElementById('postText'+dynamicId).value = '';
+                setText('');
+               /* window.location.reload();  can use reloadright too*/ 
               }}
             >
              &nbsp; Post
