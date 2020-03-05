@@ -24,9 +24,12 @@ const App = () => {
   };
 
   const [createdComment, setCreatedComment] = useState(false);
-
+  const [newLike, setNewLike] = useState(false);
   const setComment = () => {
     setCreatedComment(!createdComment);
+  };
+  const setLike = () => {
+    setNewLike(newLike => !newLike);
   };
   const [showModal, setShowModal] = useState(false);
 
@@ -37,7 +40,12 @@ const App = () => {
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <CommentContext.Provider
-        value={{ createdComment, setCreatedComment: setComment }}
+        value={{
+          createdComment,
+          setCreatedComment: setComment,
+          newLike,
+          setNewLike: setLike
+        }}
       >
         <ModalContext.Provider value={{ showModal, setShowModal: setModal }}>
           <Router>

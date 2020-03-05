@@ -3,9 +3,10 @@ import FeedPost from "./FeedPost";
 import { useAuth } from "../../context/auth";
 import { getPosts } from "../../modules/UserService";
 import { useComment } from "../../context/comment";
-
+import { useModal } from "../../context/modal";
 const Feed = () => {
   const { createdComment } = useComment();
+  const { newLike } = useComment();
 
   const [feed, setFeed] = useState({
     email: "",
@@ -18,12 +19,13 @@ const Feed = () => {
   });
 
   const { authTokens } = useAuth();
+  const { showModal } = useModal();
 
   useEffect(() => {
     getPosts(authTokens).then(feed => {
       setFeed({ ...feed });
     });
-  }, [setFeed, createdComment]);
+  }, [setFeed, createdComment, newLike]);
 
   return (
     <div>

@@ -14,7 +14,6 @@ const ProfileModal = ({ data, type, user }) => {
       <Link to={url} style={{ fontWeight: "bold", color: "black" }}></Link>
     );
   };
-  console.log(data);
   return (
     <div>
       <Modal size="lg" show={showModal}>

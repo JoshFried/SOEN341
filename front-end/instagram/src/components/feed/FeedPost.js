@@ -17,10 +17,12 @@ import { getInfo } from "../../modules/UserService";
 
 const Post = ({ post, user }) => {
   const { setCreatedComment } = useComment();
+  const { setNewLike } = useComment();
   const token = localStorage.getItem("token");
   const [text, setText] = useState({ text: "" });
   const { authTokens } = useAuth();
   const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [modalID, setModalID] = useState(0);
 
@@ -57,6 +59,10 @@ const Post = ({ post, user }) => {
   useEffect(() => {
     setComments(post.post_comments);
   });
+  useEffect(() => {
+    setLikes(post.all_likes);
+  }, []);
+
   const handleChange = event => {
     setText({ ...text, [event.target.name]: event.target.value });
   };
@@ -126,6 +132,7 @@ const Post = ({ post, user }) => {
                   onClick={() => {
                     likePost(JSON.parse(authTokens), post.id);
                     setLiked(!liked);
+                    setNewLike();
                   }}
                 >
                   {liked && (
@@ -158,7 +165,6 @@ const Post = ({ post, user }) => {
                     setModalID(post.id);
                     setTypeModal("likes");
                     setModalData(post.all_likes);
-                    setCreatedComment();
                   }}
                 >
                   {post.likes} likes
