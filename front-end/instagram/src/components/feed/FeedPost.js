@@ -190,6 +190,7 @@ const Post = ({ post, user }) => {
                     >
                       {comments.map(item => (
                         <PostComment
+                          key={item.id}
                           comment={item}
                           postID={post.id}
                         ></PostComment>

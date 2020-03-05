@@ -83,7 +83,6 @@ export const getInfo = async username => {
       }
 
       const resJSON = await apiRes.json();
-      console.log(resJSON.status);
       const profile = {
         email: resJSON.email,
         username: resJSON.username,

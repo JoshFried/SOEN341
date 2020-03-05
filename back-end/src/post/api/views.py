@@ -103,10 +103,11 @@ def create_comment_view(request, id):
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def update_comment_view(request, id):
-    post = Post.objects.get(id = request.data.get('post'))
+    print(request.data.get('post'));
     account = request.user
 
     try:
+        post = Post.objects.get(id = request.data.get('post'))
         comment = Comment.objects.get(id=id)
     except Comment.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
