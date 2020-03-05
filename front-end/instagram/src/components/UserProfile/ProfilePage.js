@@ -12,7 +12,7 @@ import { Button, Modal } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import { useAuth } from "../../context/auth";
 import { useModal } from "../../context/modal";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { getUsername, getInfo } from "../../modules/UserService";
 import { followAccount } from "../../actions/Follow";
 import ListModal from "./ListModal/ListModal";
@@ -30,6 +30,7 @@ const ProfilePage = () => {
   const { setShowModal } = useModal();
   const usernameParam = useParams().username;
   const token = localStorage.getItem("token");
+  const [is404, set404] = useState(false);
 
   if (username != usernameParam && usernameParam != undefined) {
     setUsername(usernameParam);
@@ -80,6 +81,7 @@ const ProfilePage = () => {
   useEffect(() => {
     if (username != undefined) {
       getInfo(username).then(person => {
+        if (person === "404 error") set404(true);
         setProfile({ ...person });
       });
     }
@@ -102,6 +104,7 @@ const ProfilePage = () => {
 
   return (
     <div>
+      {is404 && <Redirect to="/error/404"></Redirect>}
       <Row className="justify-content-md-center " md={10}>
         <Card style={{ width: "50%" }}>
           <CardGroup>

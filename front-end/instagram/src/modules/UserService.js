@@ -1,3 +1,7 @@
+import { Route, Redirect } from "react-router-dom";
+import React from "react";
+import NoMatchPage from "../App";
+
 export const getUsername = async token => {
   try {
     const apiRes = await fetch(
@@ -12,10 +16,15 @@ export const getUsername = async token => {
         method: "GET"
       }
     );
-
+    if (apiRes.status + " " + apiRes.statusText === "404 Not Found") {
+      console.log("FUCK");
+      return <Redirect to="/404"></Redirect>;
+    }
     const resJSON = await apiRes.json();
+
     return resJSON.username;
   } catch (error) {
+    if (error.status === 404) console.log("FUCK");
     return error;
   }
 };
@@ -69,9 +78,12 @@ export const getInfo = async username => {
           method: "GET"
         }
       );
+      if (apiRes.status + " " + apiRes.statusText === "404 Not Found") {
+        return "404 error";
+      }
 
       const resJSON = await apiRes.json();
-
+      console.log(resJSON.status);
       const profile = {
         email: resJSON.email,
         username: resJSON.username,
