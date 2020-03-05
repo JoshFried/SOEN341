@@ -9,7 +9,6 @@ import { createComment } from "..//../actions/Comment";
 import PostComment from "./PostComment";
 import { useAuth } from "../../context/auth";
 import { useComment } from "../../context/comment";
-import { getUsername } from "../../modules/UserService";
 
 const Post = ({ post, user }) => {
   const { setCreatedComment } = useComment();
@@ -75,7 +74,7 @@ const Post = ({ post, user }) => {
            
           }}
         >
-          <Card.Header style={{fontWeight:'bold'}}> 
+          <Card.Header style={{fontWeight:'bold',fontSize:'14px'}}> 
           <Link to={url} style={{fontWeight:"bold", color:'black'}}> {Capitalize(post.account.username)} </Link> 
           </Card.Header>
           <Figure.Image
@@ -87,7 +86,7 @@ const Post = ({ post, user }) => {
             src={"http://127.0.0.1:8000".concat(post.picture)}
             alt="Posts"
           />
-          <a style={{width: '26px', height:'26px'}}
+          <a style={{width: '26px', height:'26px', marginLeft:'4px'}}
            onClick={() => {
             likePost(JSON.parse(authTokens), post.id);
             setLiked(!liked);       
@@ -96,8 +95,8 @@ const Post = ({ post, user }) => {
             {liked &&  <img src={redHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
             {!liked &&  <img src={outlineHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
           </a>
-          <Card.Body>
-            <Card.Text style={{fontWeight:'500'}}>{post.account.username + ": " + post.caption}</Card.Text> 
+          <Card.Body style={{paddingTop:'4px',marginLeft:'0px'}}>
+            <Card.Text style={{fontWeight:'500', marginLeft:'1px',paddingTop:'4px', fontSize:'14px'}}><span style={{fontWeight:'bold'}}>Caption: </span>{post.caption}</Card.Text> 
             <div id="module" style={{width:'100%'}}>
               <p className="collapse" id={dynamicId} aria-expanded="false" style={{width:'100%'}}>
               {comments.map(item => (  
@@ -127,6 +126,8 @@ const Post = ({ post, user }) => {
                 createComment(token, post.id, text);
                 setCreatedComment();
                 document.getElementById('postText'+dynamicId).value = '';
+                setText('');
+               /* window.location.reload();  can use reloadright too*/ 
               }}
             >
              &nbsp; Post
