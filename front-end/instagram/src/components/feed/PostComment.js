@@ -5,6 +5,7 @@ import { useAuth } from "../../context/auth";
 import { getUsername } from "../../modules/UserService";
 import { deleteComment } from "../../actions/Comment";
 import { useComment } from "../../context/comment";
+import "../../App.css";
 
 const PostComment = ({ comment, postID }) => {
   const [authUsername, setAuthUsername] = useState("");
@@ -30,19 +31,11 @@ const PostComment = ({ comment, postID }) => {
   return (
     <div>
       <InputGroup>
-        <div
-          style={{
-            width: "85%",
-            fontSize: "14px",
-            padding: "0",
-            margin: "5px"
-          }}
-        >
-          <Link to={url} style={{ fontWeight: "bold", color: "black" }}>
-            {username}
-          </Link>
-          {comment.text}
-        </div>
+
+        <div style={{width:'84.2%', fontSize:'14px', padding:'0', marginLeft:'2px'}}>
+          <Link to={url} style={{fontWeight:"bold", color:'black'}}>{username} </Link>
+         {comment.text}  
+        </div>{" "}
         {isAuthor && (
           <a
             style={{ fontWeight: "500", fontSize: "13px" }}
@@ -53,7 +46,9 @@ const PostComment = ({ comment, postID }) => {
               setCreatedComment();
             }}
           >
-            delete
+            <span id='deleteButton'>
+             delete
+            </span>
           </a>
         )}
       </InputGroup>

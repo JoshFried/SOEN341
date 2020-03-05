@@ -14,6 +14,7 @@ const CustomLayout = props => {
   function logOut() {
     setAuthTokens();
   }
+  
   return (
     <Fragment>
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -81,9 +82,9 @@ const CustomLayout = props => {
               ></img>
             </Nav.Link>
             <Nav.Link href="/login">
-              <Button variant="outline-dark" onClick={logOut}>
+              <a variant="outline-dark" onClick={logOut}>
                 Logout
-              </Button>
+              </a>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
