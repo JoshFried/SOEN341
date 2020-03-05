@@ -13,7 +13,7 @@ import { CommentContext } from "./context/comment";
 import { ModalContext } from "./context/modal";
 import Feed from "./components/feed/Feed";
 import PrivateRoute from "./PrivateRoute";
-
+import { NoMatchPage } from "./404";
 const App = () => {
   const [authTokens, setAuthTokens] = useState(
     localStorage.getItem("token") || ""
@@ -24,20 +24,28 @@ const App = () => {
   };
 
   const [createdComment, setCreatedComment] = useState(false);
-
+  const [newLike, setNewLike] = useState(false);
   const setComment = () => {
     setCreatedComment(!createdComment);
+  };
+  const setLike = () => {
+    setNewLike(newLike => !newLike);
   };
   const [showModal, setShowModal] = useState(false);
 
   const setModal = () => {
-    setShowModal(!showModal);
+    setShowModal(showModal => !showModal);
   };
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <CommentContext.Provider
-        value={{ createdComment, setCreatedComment: setComment }}
+        value={{
+          createdComment,
+          setCreatedComment: setComment,
+          newLike,
+          setNewLike: setLike
+        }}
       >
         <ModalContext.Provider value={{ showModal, setShowModal: setModal }}>
           <Router>
@@ -53,6 +61,7 @@ const App = () => {
                   <Route path="/register" component={Registration} />
                   <Route path="/login" component={LoginForm} />
                   <Route path="/editprofile" component={UpdateProfile} />
+                  <Route path="/error/404" component={NoMatchPage} />
                   <Route path="/:username" children={<ProfilePage />} />
                 </Switch>
               </CustomLayout>

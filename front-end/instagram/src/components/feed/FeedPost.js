@@ -17,11 +17,14 @@ import { getInfo } from "../../modules/UserService";
 
 const Post = ({ post, user }) => {
   const { setCreatedComment } = useComment();
+  const { setNewLike } = useComment();
   const token = localStorage.getItem("token");
   const [text, setText] = useState({ text: "" });
   const { authTokens } = useAuth();
   const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [modalID, setModalID] = useState(0);
 
   const { showModal } = useModal();
   const { setShowModal } = useModal();
@@ -43,11 +46,9 @@ const Post = ({ post, user }) => {
     if (comments.length <= 1) {
       document.getElementById("styleViewComments" + dynamicId).style.display =
         "none";
-      console.log(comments.length);
     } else {
       document.getElementById("styleViewComments" + dynamicId).style.display =
         "inline";
-      console.log(comments.length);
     }
   });
 
@@ -58,6 +59,10 @@ const Post = ({ post, user }) => {
   useEffect(() => {
     setComments(post.post_comments);
   });
+  useEffect(() => {
+    setLikes(post.all_likes);
+  }, []);
+
   const handleChange = event => {
     setText({ ...text, [event.target.name]: event.target.value });
   };
@@ -107,7 +112,6 @@ const Post = ({ post, user }) => {
               >
                 <Card.Header style={{ fontWeight: "bold", fontSize: "14px" }}>
                   <Link to={url} style={{ fontWeight: "bold", color: "black" }}>
-                    {" "}
                     {Capitalize(post.account.username)}{" "}
                   </Link>
                 </Card.Header>
@@ -126,6 +130,7 @@ const Post = ({ post, user }) => {
                   onClick={() => {
                     likePost(JSON.parse(authTokens), post.id);
                     setLiked(!liked);
+                    setNewLike();
                   }}
                 >
                   {liked && (
@@ -155,6 +160,7 @@ const Post = ({ post, user }) => {
                   role="button"
                   onClick={() => {
                     setShowModal();
+                    setModalID(post.id);
                     setTypeModal("likes");
                     setModalData(post.all_likes);
                   }}
@@ -183,6 +189,7 @@ const Post = ({ post, user }) => {
                     >
                       {comments.map(item => (
                         <PostComment
+                          key={item.id}
                           comment={item}
                           postID={post.id}
                         ></PostComment>
@@ -235,7 +242,7 @@ const Post = ({ post, user }) => {
             </CardGroup>
           </Col>
         </Row>
-        {showModal && (
+        {showModal && modalID === post.id && (
           <ListModal
             data={modalData}
             type={typeModal}

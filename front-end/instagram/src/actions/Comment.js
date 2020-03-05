@@ -40,3 +40,27 @@ export const deleteComment = async (token, id, postID) => {
     console.log(error);
   }
 };
+
+export const editComment = async (token, id, text, postID) => {
+  const post = { post: postID };
+  const send = { ...post, ...text };
+
+  try {
+    const apiRes = await fetch(
+      `http://127.0.0.1:8000/api/post/comment/${id}/update`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token " + JSON.parse(token)
+        },
+        mode: "cors",
+        method: "PUT",
+        body: JSON.stringify(send)
+      }
+    );
+    const resJSON = await apiRes.json();
+    console.log(resJSON);
+  } catch (error) {
+    console.log(error);
+  }
+};
