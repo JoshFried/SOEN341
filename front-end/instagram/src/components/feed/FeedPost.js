@@ -102,10 +102,7 @@ const Post = ({ post, user }) => {
             <CardGroup>
               <Card
                 style={{
-                  maxWidth: "660px",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  paddingTop: "5%"
+                  marginBottom: '0'
                 }}
               >
                 <Card.Header style={{ fontWeight: "bold", fontSize: "14px" }}>
@@ -123,6 +120,7 @@ const Post = ({ post, user }) => {
                   src={"http://127.0.0.1:8000".concat(post.picture)}
                   alt="Posts"
                 />
+                <Row style={{marginLeft:'0px'}}>
                 <a
                   style={{ width: "26px", height: "26px", marginLeft: "4px" }}
                   onClick={() => {
@@ -153,17 +151,17 @@ const Post = ({ post, user }) => {
                     ></img>
                   )}
                 </a>
-                <a
+                <a 
                   role="button"
                   onClick={() => {
                     setShowModal();
                     setTypeModal("likes");
-
                     setModalData(post.all_likes);
                   }}
                 >
-                  {post.likes} likes
+                 <span style={{marginLeft:'20px', fontWeight:'500', fontSize:'14px'}}>{post.likes} likes</span> 
                 </a>
+                </Row>
                 <Card.Body style={{ paddingTop: "4px", marginLeft: "0px" }}>
                   <Card.Text
                     style={{

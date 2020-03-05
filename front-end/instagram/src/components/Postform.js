@@ -1,41 +1,25 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
-export class Postform extends Component {
-  state = {
-    caption: "",
-    picture: null,
-  };
+const PostForm = () => {
+  const [content,setContent] = useState('');
+  const [picture,setPicture] = useState(null);
+  const [submitted,setSubmitted] = useState(false)
 
-  componentDidMount() {
-    document.querySelector('.custom-file-input').addEventListener('change',function(e){
-      const fileName = document.getElementById("myInput").files[0].name;
-      const nextSibling = e.target.nextElementSibling
-      if (fileName == null){
-        nextSibling.innerText = " "
-      }
-      nextSibling.innerText = fileName
-  })
+  const handleChange = e => {
+    setContent(e.target.value);
   }
 
-  handleChange = e => {
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  };
+  const handleImageChange = e => {
+    setPicture(e.target.files[0]);
+  }
 
-  handleImageChange = e => {
-    this.setState({
-      picture: e.target.files[0]
-    });
-  };
-
-  handleSubmit = e => {
+  const handleSubmit = e =>{
     e.preventDefault();
-    console.log(this.state);
     let form_data = new FormData();
-    form_data.append("picture", this.state.picture, this.state.picture.name);
-    form_data.append("caption", this.state.content);
+    form_data.append("picture", picture, picture.name);
+    form_data.append("caption", content);
     let url = "http://127.0.0.1:8000/api/post/create";
     const token = localStorage.getItem("token").replace(/\"/g, "");
     axios
@@ -47,16 +31,19 @@ export class Postform extends Component {
       })
       .then(res => {
         console.log(res.data);
-        this.props.history.push('/feed')
+        setSubmitted(true);
       })
       .catch(err => console.log(err));
-  };
+  }
 
-  render() {
-    return (
+  if (submitted) {
+    return <Redirect to="/feed"></Redirect>;
+  }
+
+  return (
       <div>
         <form 
-        onSubmit={this.handleSubmit}
+        onSubmit={handleSubmit}
         style={{
           width: "100%",
           maxWidth: "330px",
@@ -81,8 +68,8 @@ export class Postform extends Component {
               type="text"
               placeholder="Caption"
               id="content"
-              value={this.state.content}
-              onChange={this.handleChange}
+              value={content}
+              onChange={handleChange}
               required
             />
         <br></br>
@@ -94,7 +81,7 @@ export class Postform extends Component {
                   id="myInput" 
                   aria-describedby="myInput"
                   accept="image/png, image/jpeg"
-                  onChange={this.handleImageChange}
+                  onChange={handleImageChange}
                   required
                   />
                 <label className="custom-file-label" htmlFor="myInput">Choose file</label>
@@ -107,11 +94,6 @@ export class Postform extends Component {
         </form>
         <br></br>
       </div>
-      
-    );
-  }
-}
-
-export default Postform;
-
-
+    )
+};
+export default PostForm;
