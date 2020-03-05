@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment , useEffect } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import Logo from "../images/header/instagram.svg";
 import upload from "../images/header/upload.svg";
@@ -9,7 +9,18 @@ import { useAuth } from "../context/auth";
 
 // Layout // Whatever is wrapped in CustomLayout will display ( props.children )
 const CustomLayout = props => {
-  const { setAuthTokens } = useAuth();
+const { setAuthTokens } = useAuth();
+
+const token = localStorage.getItem("token");
+
+useEffect(() => {
+  if(token == 'undefined'){
+    document.getElementById('logoutButton').style.display = 'none';
+  }
+  else{
+    document.getElementById('logoutButton').style.display = 'inline';
+  }
+});
 
   function logOut() {
     setAuthTokens();
@@ -81,7 +92,7 @@ const CustomLayout = props => {
               ></img>
             </Nav.Link>
             <Nav.Link href="/login">
-              <Button variant="outline-dark" onClick={logOut}>
+              <Button id='logoutButton' variant="primary" onClick={logOut}>
                 Logout
               </Button>
             </Nav.Link>
