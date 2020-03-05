@@ -65,7 +65,7 @@ def update_account_view(request):
         account = request.user
     except Account.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
+    
     if request.method == 'PUT':
         serializer = AccountInformationSerializer(
             account, data=request.data, allow_null=True)

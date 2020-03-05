@@ -5,10 +5,12 @@ import CustomLayout from "./containers/Layout.js";
 import PostList from "./containers/PostListView.js";
 import Postform from "./components/Postform.js";
 import ProfilePage from "./components/UserProfile/ProfilePage.js";
+import UpdateProfile from "./components/UserProfile/UpdateProfile.js";
 import Registration from "./components/register/form.js";
 import LoginForm from "./components/login/form.js";
 import { AuthContext } from "./context/auth";
 import { CommentContext } from "./context/comment";
+import { ModalContext } from "./context/modal";
 import Feed from "./components/feed/Feed";
 import PrivateRoute from "./PrivateRoute";
 
@@ -26,29 +28,37 @@ const App = () => {
   const setComment = () => {
     setCreatedComment(!createdComment);
   };
+  const [showModal, setShowModal] = useState(false);
+
+  const setModal = () => {
+    setShowModal(!showModal);
+  };
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <CommentContext.Provider
         value={{ createdComment, setCreatedComment: setComment }}
       >
-        <Router>
-          <div className="App">
-            <CustomLayout>
-              <Switch>
-                <Route path="/" exact component={LoginForm} />
+        <ModalContext.Provider value={{ showModal, setShowModal: setModal }}>
+          <Router>
+            <div className="App">
+              <CustomLayout>
+                <Switch>
+                  <Route path="/" exact component={LoginForm} />
 
-                <PrivateRoute path="/feed" component={Feed} />
+                  <PrivateRoute path="/feed" component={Feed} />
 
-                <PrivateRoute path="/profile" component={ProfilePage} />
-                <PrivateRoute path="/upload" component={Postform} />
-                <Route path="/register" component={Registration} />
-                <Route path="/login" component={LoginForm} />
-                <Route path="/:username" children={<ProfilePage />} />
-              </Switch>
-            </CustomLayout>
-          </div>
-        </Router>
+                  <PrivateRoute path="/profile" component={ProfilePage} />
+                  <PrivateRoute path="/upload" component={Postform} />
+                  <Route path="/register" component={Registration} />
+                  <Route path="/login" component={LoginForm} />
+                  <Route path="/editprofile" component={UpdateProfile} />
+                  <Route path="/:username" children={<ProfilePage />} />
+                </Switch>
+              </CustomLayout>
+            </div>
+          </Router>
+        </ModalContext.Provider>
       </CommentContext.Provider>
     </AuthContext.Provider>
   );

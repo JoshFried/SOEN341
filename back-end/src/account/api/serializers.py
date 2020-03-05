@@ -65,7 +65,9 @@ class AccountInformationSerializer(serializers.ModelSerializer):
             'password': {'write_only': True,
                          'min_length': 8},
             'username': {'min_length': 3},
-            'about': {'required': False}
+            'about': {'required': False},
+            'profile_picture' : {'required': False},
+            'email' : {'required': False}
         }
 
 class AccountPostSerializer(serializers.ModelSerializer):

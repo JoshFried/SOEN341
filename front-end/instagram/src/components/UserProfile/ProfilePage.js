@@ -1,39 +1,51 @@
 // this component includes all the components of the user profile : profile pic, username, followers,following
 import React, { useState, useEffect } from "react";
 import ProfilePic from "./profilepic";
+import UpdateProfile from "./UpdateProfile";
 import Username from "./username";
-import Followers from "./followers";
-import Following from "./following";
 import Posts from "./posts";
 import Post from "./post";
 import Bio from "./bio";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import { useAuth } from "../../context/auth";
+import { useModal } from "../../context/modal";
 import { useParams } from "react-router-dom";
 import { getUsername, getInfo } from "../../modules/UserService";
 import { followAccount } from "../../actions/Follow";
+import ListModal from "./ListModal/ListModal";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
-  const token = localStorage.getItem("token");
   const [visitor, setVisitor] = useState(true);
   const [username, setUsername] = useState(useParams().username);
 
-  const [name, setName] = useState("");
-  const { authTokens } = useAuth();
+  const [typeModal, setTypeModal] = useState("");
+  const [modalData, setModalData] = useState([]);
 
+  const [name, setName] = useState("");
+  const { showModal } = useModal();
+  const { setShowModal } = useModal();
+  const usernameParam = useParams().username;
+  const token = localStorage.getItem("token");
+
+  if (username != usernameParam && usernameParam != undefined) {
+    setUsername(usernameParam);
+  }
   useEffect(() => {
     getUsername(token).then(name => {
-      if (username == undefined) {
+      if (username == undefined || username == "undefined") {
         setUsername(name);
       } else {
         setName(name);
-        setVisitor(name != username);
+
+        setVisitor(name.toLowerCase !== username.toLowerCase);
       }
     });
   }, [username, visitor]);
+  const [isFollower, setFollower] = useState(false);
 
   const [profile, setProfile] = useState({
     email: "",
@@ -50,71 +62,128 @@ const ProfilePage = () => {
     allFollowing: []
   });
 
+  const [visitorProfile, setVisitorProfile] = useState({
+    email: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    profilePicture: "",
+    about: "",
+    allPosts: [],
+    nbOfPosts: 0,
+    nbOfFollowers: 0,
+    allFollowers: [],
+    nbOfFollowing: 0,
+    allFollowing: []
+  });
+
   useEffect(() => {
-    if (username) {
+    if (username != undefined) {
       getInfo(username).then(person => {
         setProfile({ ...person });
       });
     }
-  }, [username, visitor]);
-
-  const [isFollower, setFollower] = useState(false);
+    if (visitor) {
+      getInfo(name).then(person => {
+        setVisitorProfile({ ...person });
+      });
+    }
+  }, [username, visitor, usernameParam, isFollower, showModal, token]);
 
   useEffect(() => {
-    setFollower(
-      profile.allFollowers.filter(e => e.username !== JSON.stringify(name))
-        .length > 0
-    );
+    {
+      profile.allFollowers &&
+        setFollower(
+          profile.allFollowers.filter(e => e.username !== JSON.stringify(name))
+            .length > 0
+        );
+    }
   }, [profile]);
 
   return (
-    <Row className="justify-content-md-center " md={10}>
-      <Card style={{ width: "50%" }}>
-        <CardGroup>
-          <Card>
-            <ProfilePic profilePicture={profile.profilePicture}></ProfilePic>
-          </Card>
-          <Card>
-            <Username username={profile.username}></Username>
-            <Bio about={profile.about}></Bio>
-            {!visitor && <Button variant="dark">Edit Profile</Button>}
-            <CardGroup>
-              <Card>
-                <Followers followers={profile.nbOfFollowers}></Followers>
-              </Card>
-              <Card>
-                <Following following={profile.nbOfFollowing}></Following>
-              </Card>
-              {visitor && (
+    <div>
+      <Row className="justify-content-md-center " md={10}>
+        <Card style={{ width: "50%" }}>
+          <CardGroup>
+            <Card>
+              <ProfilePic profilePicture={profile.profilePicture}></ProfilePic>
+            </Card>
+            <Card>
+              <Username username={profile.username}></Username>
+              <Bio about={profile.about}></Bio>
+              {!visitor && (
+                <Link to="/editprofile" role="button" variant="dark">
+                  Edit Profile
+                </Link>
+              )}
+              <CardGroup>
                 <Card>
-                  <Button
-                    variant="dark"
-                    type="submit"
+                  <a
+                    style={{ cursor: "pointer" }}
+                    role="button"
                     onClick={() => {
-                      followAccount(JSON.parse(token), username);
-                      setFollower(!isFollower);
+                      setShowModal();
+                      setTypeModal("followers");
+                      setModalData(profile.allFollowers);
                     }}
                   >
-                    {!isFollower && "follow"}
-                    {isFollower && "unfollow"}
-                  </Button>
+                    {profile.nbOfFollowers} Followers
+                  </a>
                 </Card>
-              )}
-              <Card>
-                <Posts posts={profile.nbOfPosts}></Posts>
-              </Card>
-            </CardGroup>
-          </Card>
-        </CardGroup>
-        {profile.allPosts && (
+                <Card>
+                  <a
+                    style={{ cursor: "pointer" }}
+                    role="button"
+                    onClick={() => {
+                      setShowModal();
+                      console.log(showModal);
+                      setTypeModal("following");
+                      setModalData(profile.allFollowing);
+                    }}
+                  >
+                    {profile.nbOfFollowing} Following
+                  </a>
+                </Card>
+                {visitor && (
+                  <Card>
+                    <Button
+                      variant="dark"
+                      type="submit"
+                      onClick={() => {
+                        followAccount(JSON.parse(token), username);
+                        setFollower(!isFollower);
+                      }}
+                    >
+                      {!isFollower && "follow"}
+                      {isFollower && "unfollow"}
+                    </Button>
+                  </Card>
+                )}
+                <Card>
+                  <Posts posts={profile.nbOfPosts}></Posts>
+                </Card>
+              </CardGroup>
+            </Card>
+          </CardGroup>
+          {profile.allPosts && (
+            <div>
+              {profile.allPosts.map(item => (
+                <Post post={item.picture} key={item.picture}></Post>
+              ))}
+            </div>
+          )}
+        </Card>
+        {showModal && (
           <div>
-            {profile.allPosts.map(item => (
-              <Post post={item.picture} key={item.picture}></Post>
-            ))}
+            <ListModal
+              data={modalData}
+              type={typeModal}
+              user={visitor ? visitorProfile : profile}
+            ></ListModal>
           </div>
         )}
-      </Card>
-    </Row>
+      </Row>
+    </div>
   );
 };
 
