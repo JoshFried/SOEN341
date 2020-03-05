@@ -31,7 +31,7 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
 
   const setModal = () => {
-    setShowModal(!showModal);
+    setShowModal(showModal => !showModal);
   };
 
   return (
