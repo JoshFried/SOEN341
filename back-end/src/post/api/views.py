@@ -103,7 +103,6 @@ def create_comment_view(request, id):
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def update_comment_view(request, id):
-    print(request.data.get('post'));
     account = request.user
 
     try:
