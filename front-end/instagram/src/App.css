@@ -30,11 +30,11 @@ POSTING  COMMENT
 
 #module [id^="id-"].collapse:not(.show) {
     display: block;
-    height: 3.9em;
+    height: 2.1em;
     overflow: hidden;
 }
 
 #module [id^="id-"].collapsing {
-    height: 4.1em;
+    height: 2.1em;
 }
 

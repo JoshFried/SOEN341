@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Card, Row, Col, Container} from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../../App.css";
 import Figure from "react-bootstrap/Figure";
 import CardGroup from "react-bootstrap/CardGroup";
@@ -8,6 +9,7 @@ import { createComment } from "..//../actions/Comment";
 import PostComment from "./PostComment";
 import { useAuth } from "../../context/auth";
 import { useComment } from "../../context/comment";
+import { getUsername } from "../../modules/UserService";
 
 const Post = ({ post, user }) => {
   const { setCreatedComment } = useComment();
@@ -16,11 +18,21 @@ const Post = ({ post, user }) => {
   const { authTokens } = useAuth();
   const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState(false);
-  
   const outlineHeart = require("../../images/feed/heart.svg")
   const redHeart = require("../../images/feed/redheart.svg")
   const hearts = { outlineHeart, redHeart }
   const [selectedHeart, setSelectedHeart] = useState(hearts.outlineHeart)
+  
+  useEffect(() => {
+      if(comments.length <= 1){
+        document.getElementById('styleViewComments'+ dynamicId).style.display =  'none';
+        console.log(comments.length);
+      }
+      else{
+        document.getElementById('styleViewComments'+ dynamicId).style.display =  'inline';
+        console.log(comments.length);
+      }
+  });
 
   useEffect(() => {
     setLiked(post.all_likes.filter(e => e.username === user).length > 0);
@@ -35,11 +47,10 @@ const Post = ({ post, user }) => {
   };
 
   const dynamicId = "id-" + Date.now();
-  
   // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
   return (
     <Fragment>
-    <Container
+    <Container 
     style={{
       maxWidth: '660px',
       marginLeft: "auto",
@@ -56,6 +67,9 @@ const Post = ({ post, user }) => {
            
           }}
         >
+          <Card.Header> 
+              USERNAME
+          </Card.Header>
           <Figure.Image
             style={{
               height: '600px',
@@ -75,20 +89,21 @@ const Post = ({ post, user }) => {
             {!liked &&  <img src={outlineHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
           </a>
           <Card.Body>
-            <Card.Text>{post.content}</Card.Text> 
+            <Card.Text style={{fontWeight:'500'}}>{post.caption}</Card.Text> 
             <div id="module" style={{width:'100%'}}>
-              <p class="collapse" id={dynamicId} aria-expanded="false" style={{width:'100%'}}>
+              <p className="collapse" id={dynamicId} aria-expanded="false" style={{width:'100%'}}>
               {comments.map(item => (  
-                        <PostComment comment={item} postID={post.id}></PostComment>
+                         <PostComment comment={item} postID={post.id}></PostComment>
                       ))}
               </p>
+              
               <div id='show'>
-              <a role="button"  id="styleViewComments" class="collapsed" data-toggle="collapse" href={'#' + dynamicId} aria-expanded="false" aria-controls="collapseComments"></a>
+              <a role="button" id={"styleViewComments"+ dynamicId} className="collapsed" data-toggle="collapse" href={'#' + dynamicId} aria-expanded="false" aria-controls="collapseComments"></a>
               </div>
             </div>
             <hr></hr>
             <input
-              className='postText'
+              id={'postText'+dynamicId}
               style={{width:'90%', border:'none', fontStyle: "italic"}}
               type="textArea"
               rows="34"
@@ -97,13 +112,14 @@ const Post = ({ post, user }) => {
               name="text"
             ></input>
             <a
-              className='postButton'
+              id='postButton'
               style={{color:'#2C7FFC', fontWeight:'500'}}
               type="submit"
               onChange={handleChange}
-              onClick={() => {
+              onClick={() => {        
                 createComment(token, post.id, text);
                 setCreatedComment();
+                document.getElementById('postText'+dynamicId).value = '';
               }}
             >
              &nbsp; Post
