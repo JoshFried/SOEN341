@@ -29,9 +29,11 @@ const Feed = () => {
     <div>
       {feed.allPosts &&
         feed.allPosts.map(item => (
-          <FeedPost post={item} user={feed.username}>
-            {" "}
-          </FeedPost>
+          <FeedPost
+            post={item}
+            user={feed.username}
+            likes={item.all_likes}
+          ></FeedPost>
         ))}
     </div>
   );

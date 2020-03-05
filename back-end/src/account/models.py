@@ -64,7 +64,7 @@ class Account(AbstractBaseUser):
     username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    about = models.TextField(max_length=250)
+    about = models.TextField(max_length=250, blank=True)
     profile_picture = models.ImageField(
         upload_to=profile_pic_location, blank=True)
 

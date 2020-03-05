@@ -1,6 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
+
 import { Card, Row, Col, Container} from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 import "../../App.css";
 import Figure from "react-bootstrap/Figure";
 import CardGroup from "react-bootstrap/CardGroup";
@@ -9,14 +11,23 @@ import { createComment } from "..//../actions/Comment";
 import PostComment from "./PostComment";
 import { useAuth } from "../../context/auth";
 import { useComment } from "../../context/comment";
+import { useModal } from "../../context/modal";
+import ListModal from "../UserProfile/ListModal/ListModal";
+import { getInfo } from "../../modules/UserService";
 
-const Post = ({ post, user }) => {
+const Post = ({ post, user}) => {
   const { setCreatedComment } = useComment();
   const token = localStorage.getItem("token");
   const [text, setText] = useState({ text: "" });
   const { authTokens } = useAuth();
   const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState(false);
+
+  const { showModal } = useModal();
+  const { setShowModal } = useModal();
+  const [typeModal, setTypeModal] = useState("");
+  const [modalData, setModalData] = useState([]);
+
   const outlineHeart = require("../../images/feed/heart.svg")
   const redHeart = require("../../images/feed/redheart.svg")
   const hearts = { outlineHeart, redHeart }
@@ -45,11 +56,41 @@ const Post = ({ post, user }) => {
 
   useEffect(() => {
     setComments(post.post_comments);
-  });
-
+  }, []);
   const handleChange = event => {
     setText({ ...text, [event.target.name]: event.target.value });
   };
+
+
+  const [profile, setProfile] = useState({
+    email: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    profilePicture: "",
+    about: "",
+    allPosts: [],
+    nbOfPosts: 0,
+    nbOfFollowers: 0,
+    allFollowers: [],
+    nbOfFollowing: 0,
+    allFollowing: []
+  });
+
+  useEffect(() => {
+    if (user != undefined) {
+      getInfo(user).then(person => {
+        setProfile({ ...person });
+      });
+    }
+  }, [user]);
+  const dynamicId = "id-" + Date.now();
+
+  // const url = "http://127.0.0.1:8000" + Object.values(post.picture);
+  return (
+    <div>
+      <Fragment>
+        <Container
 
   
 
@@ -70,8 +111,10 @@ const Post = ({ post, user }) => {
       <CardGroup>
         <Card 
           style={{
-            marginBottom: 0,
-           
+            maxWidth: "660px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            paddingTop: "5%"
           }}
         >
           <Card.Header style={{fontWeight:'bold',fontSize:'14px'}}> 
@@ -95,6 +138,17 @@ const Post = ({ post, user }) => {
             {liked &&  <img src={redHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
             {!liked &&  <img src={outlineHeart} style={{ marginLeft: '15px', width:'26px', height: '26px'}} alt=''></img>} 
           </a>
+          <a
+                    role="button"
+                    onClick={() => {
+                      setShowModal();
+                      setTypeModal("likes");
+
+                      setModalData(post.all_likes);
+                    }}
+                  >
+                    {post.likes} likes
+                  </a>
           <Card.Body style={{paddingTop:'4px',marginLeft:'0px'}}>
             <Card.Text style={{fontWeight:'500', marginLeft:'1px',paddingTop:'4px', fontSize:'14px'}}><span style={{fontWeight:'bold'}}>Caption: </span>{post.caption}</Card.Text> 
             <div id="module" style={{width:'100%'}}>
@@ -137,6 +191,9 @@ const Post = ({ post, user }) => {
       </CardGroup>
     </Col>
    </Row>
+     {showModal && (
+        <ListModal data={modalData} type={typeModal} user={profile}></ListModal>
+      )}
   </Container>
  </Fragment>
  
@@ -144,4 +201,3 @@ const Post = ({ post, user }) => {
 };
 
 export default Post;
-

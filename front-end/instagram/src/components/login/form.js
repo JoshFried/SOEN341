@@ -14,7 +14,6 @@ const LoginForm = () => {
   const { setAuthTokens } = useAuth();
   const { authTokens } = useAuth();
 
-  console.log(authTokens);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const authenticateUser = async () => {
     const { username, password } = values;

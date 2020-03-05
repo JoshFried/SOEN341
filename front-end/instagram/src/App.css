@@ -2,33 +2,32 @@
 FeedPost.js
 */
 .postText:focus {
-    outline:none;
+  outline: none;
 }
 
 #module {
-    width: 660px;
+  width: 660px;
 }
 
 #show a.collapsed:after {
-    content: 'View more comments';
-    color:rgb(44, 127, 252);
-    font-weight: 500;
-    
+  content: "View more comments";
+  color: rgb(44, 127, 252);
+  font-weight: 500;
 }
 
 #show a:not(.collapsed):after {
-    content: 'Close ';
-    color:rgb(44, 127, 252);
-    font-weight: 500;
-   
+  content: "Close ";
+  color: rgb(44, 127, 252);
+  font-weight: 500;
 }
 
-#show a:hover{
-    text-decoration:none
+#show a:hover {
+  text-decoration: none;
 }
 /*dyanmically add name for dropdownmenus generated in feedpost.js*/
 
 #module [id^="id-"].collapse:not(.show) {
+
     display: block;
     height: 1.49em;
     overflow: hidden;

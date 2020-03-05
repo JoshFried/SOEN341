@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button , InputGroup, FormControl} from "react-bootstrap";
+import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { getUsername } from "../../modules/UserService";
@@ -31,13 +31,14 @@ const PostComment = ({ comment, postID }) => {
   return (
     <div>
       <InputGroup>
+
         <div style={{width:'84.2%', fontSize:'14px', padding:'0', marginLeft:'2px'}}>
           <Link to={url} style={{fontWeight:"bold", color:'black'}}>{username} </Link>
          {comment.text}  
         </div>{" "}
         {isAuthor && (
           <a
-            style={{fontWeight:"500", fontSize:'13px'}}
+            style={{ fontWeight: "500", fontSize: "13px" }}
             className="btn btn-sm"
             type="submit"
             onClick={() => {
@@ -49,12 +50,10 @@ const PostComment = ({ comment, postID }) => {
              delete
             </span>
           </a>
-        )}  
+        )}
       </InputGroup>
     </div>
   );
 };
 
 export default PostComment;
-
-
