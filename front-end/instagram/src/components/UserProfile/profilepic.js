@@ -12,8 +12,8 @@ const ProfilePic = ({ profilePicture }) => {
           borderRadius: "50%",
           width: "170px",
           height: "170px",
-          marginLeft: "60px",
-          marginTop: "40px"
+          marginLeft: "100px",
+          objectFit: 'cover'
         }}
         className="profilePic"
         src={url}

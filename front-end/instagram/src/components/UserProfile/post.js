@@ -8,18 +8,25 @@ const Post = picture => {
   return (
     <Figure
       style={{
-        height: "33%",
-        width: "33%"
+        height: "310px",
+        width: "310px"
+        
       }}
     >
       <CardGroup>
         <Card
           style={{
-            marginBottom: 0
+            marginBottom: 0,
+            borderColor:'white'
           }}
         >
           <Figure.Image
-            style={{ maxHeight: 188 }}
+            style={{
+              height: "328px",
+              width: "328px",
+              paddingLeft:'8px',
+              objectFit: 'cover'
+            }}
             className="posts"
             src={url}
             alt="Posts"

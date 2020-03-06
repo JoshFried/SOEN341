@@ -95,35 +95,34 @@ const Post = ({ post, user }) => {
   return (
     <Fragment>
       <Container
-        style={{
-          maxWidth: "800px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          paddingTop: "5%"
-        }}
-      >
-        <Row>
-          <Col>
-            <CardGroup>
-              <Card
-                style={{
-                  marginBottom: '0'
-                }}
-              >
-                <Card.Header style={{ fontWeight: "bold", fontSize: "14px" }}>
-                  <Link to={url} style={{ fontWeight: "bold", color: "black" }}>
-                    {Capitalize(post.account.username)}{" "}
-                  </Link>
-                </Card.Header>
-                <Figure.Image
+          style={{
+            maxWidth: "800px",
+          
+            paddingTop: "5%"
+          }}
+        >
+          <Row>
+            <Col>
+              <CardGroup>
+                <Card
                   style={{
-                    height: "750px",
-                    width: "800px"
+                    marginBottom: '0'
                   }}
-                  className="posts"
-                  src={"http://127.0.0.1:8000".concat(post.picture)}
-                  alt="Posts"
-                />
+                >
+                  <Card.Header style={{ fontWeight: "bold", fontSize: "14px" }}>
+                    <Link to={url} style={{ fontWeight: "bold", color: "black" }}>
+                      {Capitalize(post.account.username)}{" "}
+                    </Link>
+                  </Card.Header>
+                  <Figure.Image
+                    style={{
+                      height: "1000",
+                      width: "800"
+                    }}
+                    className="posts"
+                    src={"http://127.0.0.1:8000".concat(post.picture)}
+                    alt="Posts"
+                  />
                 <Row style={{marginLeft:'0px'}}>
                 <a
                   style={{ width: "0px", height: "0px", marginLeft:'0px'}}
