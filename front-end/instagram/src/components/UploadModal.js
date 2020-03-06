@@ -5,7 +5,7 @@ import { useModal } from "../context/modal";
 import { useAuth } from "../context/auth";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import { updateProfile } from "../modules/UserService";
+import { updateProfilePic } from "../modules/UserService";
 
 const UploadModal = ({ type, user }) => {
   const { showPicModal } = useModal();
@@ -23,11 +23,14 @@ const UploadModal = ({ type, user }) => {
   const handleImageChange = e => {};
 
   const handleSubmit = e => {
-    console.log(picture);
     e.preventDefault();
     const fileField = document.querySelector('input[type="file"]');
-    const data = { profile_picture: fileField.files[0] };
-    updateProfile(authTokens, data);
+
+    let data = new FormData();
+    data.append("profile_picture", fileField.files[0]);
+
+    setShowPicModal();
+    updateProfilePic(authTokens, data);
 
     if (submitted) {
       return <Redirect to="/profile"></Redirect>;
@@ -60,17 +63,7 @@ const UploadModal = ({ type, user }) => {
               >
                 Upload a photo
               </h1>
-              {/* <br></br>
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Caption"
-                id="content"
-                value={content}
-                onChange={handleChange}
-                required
-              />
-              <br></br> */}
+
               <div className="input-group">
                 <div className="custom-file">
                   <input
