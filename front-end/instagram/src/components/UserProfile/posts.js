@@ -3,7 +3,7 @@ import React from "react";
 const Posts = ({ posts }) => {
   return (
     <div>
-      <p className="posts">Posts: {posts}</p>
+      <p style={{fontWeight: "bold"}} className="posts"> {posts} Posts</p>
     </div>
   );
 };
