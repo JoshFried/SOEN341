@@ -2,13 +2,9 @@ matrix:
 include:
 - language: python
 python: "3.8.1"
-before_script:
--cd back-end
--cd src
--env\Scripts\activate
+
 #dependencies
 install:
-- pip env install
 - pip install autopep8
 - pip install django
 - pip install djangorestframework
@@ -20,11 +16,14 @@ install:
 - pip install pytz
 - pip install sqlparse
 - pip install virtualenv
-- pip install -q Django == $DJANGO_VERSION
 - python setup.py -q install
 env: 
 - DJANGO_VERSION = 3.0.2
+before_script:
+-cd back-end
+-cd src
 script:
+-env\Scripts\activate
 manage.py test
 - language: node_js
 node_js:
