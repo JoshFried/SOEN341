@@ -13,7 +13,6 @@ const INITIAL_STATE = {
 
 const Registration = () => {
   //   const RegistrationForm = styled.Form``;
-
   const authenticateUser = async () => {
     const {
       email,
