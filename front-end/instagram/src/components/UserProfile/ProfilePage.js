@@ -42,7 +42,7 @@ const ProfilePage = () => {
       } else {
         setName(name);
 
-        setVisitor(name.toLowerCase !== username.toLowerCase);
+        setVisitor(name.toLowerCase() !== username.toLowerCase());
       }
     });
   }, [username, visitor]);
@@ -105,49 +105,23 @@ const ProfilePage = () => {
   return (
     <div>
       {is404 && <Redirect to="/error/404"></Redirect>}
-      <Row className="justify-content-md-center " md={10}>
-        <Card style={{ width: "50%", borderColor:'white'}}>
+
+      <Row className="justify-content-md-center " md={10} >
+      <Card style={{ width: "50%", borderColor:'white'}}>
           <CardGroup>
-            <Card style={{  borderColor:'white'}}>
-              <ProfilePic profilePicture={profile.profilePicture}></ProfilePic>
+            <Card style={{ borderColor:'white'}}>
+              <ProfilePic  profilePicture={profile.profilePicture}></ProfilePic>
             </Card>
-            <Card>
-              <Username style={{fontWeight:'17px'}} username={profile.username}></Username>
+            <Card style={{ borderColor:'white'}}>
+              <Username username={profile.username}></Username>
+
               <Bio about={profile.about}></Bio>
               {!visitor && (
                 <Link to="/editprofile" role="button" variant="dark">
                   Edit Profile
                 </Link>
               )}
-              <CardGroup>
-                <Card>
-                  <a
-                    style={{ cursor: "pointer" }}
-                    role="button"
-                    onClick={() => {
-                      setShowModal();
-                      setTypeModal("followers");
-                      setModalData(profile.allFollowers);
-                    }}
-                  >
-                    {profile.nbOfFollowers} Followers
-                  </a>
-                </Card>
-                <Card>
-                  <a
-                    style={{ cursor: "pointer" }}
-                    role="button"
-                    onClick={() => {
-                      setShowModal();
-                      console.log(showModal);
-                      setTypeModal("following");
-                      setModalData(profile.allFollowing);
-                    }}
-                  >
-                    {profile.nbOfFollowing} Following
-                  </a>
-                </Card>
-                {visitor && (
+              {visitor && (
                   <Card>
                     <Button
                       variant="dark"
@@ -162,12 +136,41 @@ const ProfilePage = () => {
                     </Button>
                   </Card>
                 )}
-                <Card>
+              <CardGroup >
+                <Card border="0" className="text-center">
                   <Posts posts={profile.nbOfPosts}></Posts>
+                </Card>
+                <Card border="0" className="text-center">
+                  <a
+                    style={{ cursor: "pointer", fontWeight: "bold" }}
+                    role="button"
+                    onClick={() => {
+                      setShowModal();
+                      setTypeModal("followers");
+                      setModalData(profile.allFollowers);
+                    }}
+                  >
+                    {profile.nbOfFollowers} Followers
+                  </a>
+                </Card>
+                <Card border="0" className="text-center">
+                  <a
+                    style={{ cursor: "pointer" , fontWeight:"bold"}}
+                    role="button"
+                    onClick={() => {
+                      setShowModal();
+                      console.log(showModal);
+                      setTypeModal("following");
+                      setModalData(profile.allFollowing);
+                    }}
+                  >
+                    {profile.nbOfFollowing} Following
+                  </a>
                 </Card>
               </CardGroup>
             </Card>
           </CardGroup>
+          <hr></hr>
           {profile.allPosts && (
             <div>
               {profile.allPosts.map(item => (

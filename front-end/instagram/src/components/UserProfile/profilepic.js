@@ -9,7 +9,6 @@ const ProfilePic = props => {
         style={{borderRadius:'50%', width:'170px', height:'170px', marginLeft:'60px', marginTop:'40px'}}
         className="profilePic"
         src="./img/kobe.jpg"
-       
         alt="ProfilePicture"
       />
     </Figure>

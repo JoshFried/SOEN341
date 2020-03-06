@@ -4,6 +4,7 @@ import useFormValidation from "../register/useFormValidation";
 import { updateProfile } from "../../modules/UserService";
 import { useAuth } from "../../context/auth";
 import { getUsername, getInfo } from "../../modules/UserService";
+import { Redirect } from "react-router-dom";
 
 const UpdateProfile = () => {
   const { authTokens } = useAuth();
@@ -54,6 +55,10 @@ const UpdateProfile = () => {
     updateProfile(authTokens, values);
     setSubmitting(true);
   };
+
+  if(isSubmitting){
+    return <Redirect to="/profile"></Redirect>
+  }
 
   return (
     <div>

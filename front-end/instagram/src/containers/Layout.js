@@ -68,7 +68,7 @@ const CustomLayout = props => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <div style={{width:'500px'}}>
-          <div
+          <div 
             className="active-cyan-1 mb-1"
             style={{ marginLeft: "10%", paddingTop: "10px", width: "250px" }}
           >
@@ -82,6 +82,7 @@ const CustomLayout = props => {
                 placeholder="Search"
                 aria-label="Search"
               ></input>
+
             <button style={{display:'none'}}onClick={e => handleSearch(e)}>Search</button>
             </form>
           </div>
