@@ -105,11 +105,11 @@ const ProfilePage = () => {
   return (
     <div>
       {is404 && <Redirect to="/error/404"></Redirect>}
-      <Row className="justify-content-md-center " md={10}>
+      <Row className="justify-content-md-center " md={10} border="dark">
         <Card style={{ width: "50%" }}>
           <CardGroup>
             <Card>
-              <ProfilePic profilePicture={profile.profilePicture}></ProfilePic>
+              <ProfilePic  profilePicture={profile.profilePicture}></ProfilePic>
             </Card>
             <Card>
               <Username username={profile.username}></Username>

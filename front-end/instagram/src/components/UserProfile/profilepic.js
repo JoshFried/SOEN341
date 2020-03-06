@@ -6,8 +6,7 @@ const ProfilePic = props => {
   return (
     <Figure>
       <FigureImage
-        width={171}
-        height={180}
+        style={{borderRadius:'50%', width:'200px', height:'200px'}}
         className="profilePic"
         src="./img/kobe.jpg"
         roundedCircle
