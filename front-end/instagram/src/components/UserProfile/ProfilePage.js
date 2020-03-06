@@ -105,6 +105,7 @@ const ProfilePage = () => {
   return (
     <div>
       {is404 && <Redirect to="/error/404"></Redirect>}
+
       <Row className="justify-content-md-center " md={10} >
       <Card style={{ width: "50%", borderColor:'white'}}>
           <CardGroup>
@@ -113,6 +114,7 @@ const ProfilePage = () => {
             </Card>
             <Card style={{ borderColor:'white'}}>
               <Username username={profile.username}></Username>
+
               <Bio about={profile.about}></Bio>
               {!visitor && (
                 <Link to="/editprofile" role="button" variant="dark">

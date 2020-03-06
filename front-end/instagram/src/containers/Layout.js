@@ -82,7 +82,8 @@ const CustomLayout = props => {
                 placeholder="Search"
                 aria-label="Search"
               ></input>
-              <button style={{display:'none'}}onClick={e => handleSearch(e)}>Search</button>
+
+            <button style={{display:'none'}}onClick={e => handleSearch(e)}>Search</button>
             </form>
           </div>
           </div>
