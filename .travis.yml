@@ -1,17 +1,13 @@
 matrix:
 include:
-- language: node_js
+  - language: node_js
 node_js:
-- "13.7.0"
+  - "13.7.0"
 addons:
 chrome: stable
 before_script:
-- cd front-end/instagram
-- npm install
+  - cd front-end/instagram
+  - npm install
 script:
-- npm test
-include:
-- language: python
-python: "3.8.1"
-script:
-manage.py test
+  - npm test
+  - manage.py test
