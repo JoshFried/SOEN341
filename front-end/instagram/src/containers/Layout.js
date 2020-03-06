@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import Logo from "../images/header/instagram.svg";
 import upload from "../images/header/upload.svg";
@@ -6,15 +6,37 @@ import profile from "../images/header/profile.svg";
 import feed from "../images/header/feed.svg";
 import "../App.css";
 import { useAuth } from "../context/auth";
+import { Redirect, Link, useLocation, useHistory } from "react-router-dom";
 
 // Layout // Whatever is wrapped in CustomLayout will display ( props.children )
 const CustomLayout = props => {
   const { setAuthTokens } = useAuth();
+  const [changeLoc, setLoc] = useState("/");
+  const [enter, setEnter] = useState(false);
+  const [url, seturl] = useState("");
+  let history = useHistory();
+  let location = useLocation();
 
   function logOut() {
     setAuthTokens();
   }
-  
+
+  // location.pathname(url);
+
+  const [query, setQuery] = useState("");
+  const handleSearch = e => {
+    e.preventDefault();
+    console.log(query);
+    history.push("/" + query);
+    setQuery("");
+  };
+  const _handleKeyDown = event => {
+    if (event.key === "Enter") {
+      console.log(query);
+      history.push("/" + query);
+      setQuery("");
+    }
+  };
   return (
     <Fragment>
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -49,12 +71,18 @@ const CustomLayout = props => {
             className="active-cyan-1 mb-1"
             style={{ marginLeft: "10%", paddingTop: "10px", width: "250px" }}
           >
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-            ></input>
+            <form>
+              <input
+                className="form-control"
+                type="text"
+                onChange={e => setQuery(e.target.value)}
+                name="query"
+                value={query}
+                placeholder="Search"
+                aria-label="Search"
+              ></input>
+              <button onClick={e => handleSearch(e)}>Search</button>
+            </form>
           </div>
           <Nav className="mr-auto"></Nav>
           <Nav className="menu" style={{ marginRight: "48px" }}>
@@ -66,7 +94,7 @@ const CustomLayout = props => {
               ></img>
             </Nav.Link>
             &nbsp;&nbsp;
-            <Nav.Link href="upload">
+            <Nav.Link href="/upload">
               <img
                 src={upload}
                 alt=""
@@ -74,7 +102,7 @@ const CustomLayout = props => {
               ></img>
             </Nav.Link>
             &nbsp;&nbsp;
-            <Nav.Link href="profile">
+            <Nav.Link href="/profile">
               <img
                 src={profile}
                 alt=""
