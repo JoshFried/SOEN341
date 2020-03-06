@@ -14,8 +14,9 @@ include:
 - language: python
 python: "3.8.1"
 
-#dependencies
-install:
+before_script:
+- cd back-end
+- cd src
 - pip install autopep8
 - pip install django
 - pip install djangorestframework
@@ -28,10 +29,6 @@ install:
 - pip install sqlparse
 - pip install virtualenv
 - python setup.py -q install
-
-before_script:
--cd back-end
--cd src
 script:
 -env\Scripts\activate
 manage.py test
