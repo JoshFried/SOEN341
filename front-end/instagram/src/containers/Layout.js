@@ -49,7 +49,7 @@ const CustomLayout = props => {
           href="login"
           style={{
             fontSize: "30px",
-            marginLeft: "23%",
+            marginLeft: "23.6%",
             padding: "10px",
             fontFamily: "Grand Hotel",
             fontWeight: "500"
@@ -67,6 +67,7 @@ const CustomLayout = props => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
+          <div style={{width:'500px'}}>
           <div
             className="active-cyan-1 mb-1"
             style={{ marginLeft: "10%", paddingTop: "10px", width: "250px" }}
@@ -81,11 +82,12 @@ const CustomLayout = props => {
                 placeholder="Search"
                 aria-label="Search"
               ></input>
-              <button onClick={e => handleSearch(e)}>Search</button>
+            <button style={{display:'none'}}onClick={e => handleSearch(e)}>Search</button>
             </form>
           </div>
+          </div>
           <Nav className="mr-auto"></Nav>
-          <Nav className="menu" style={{ marginRight: "48px" }}>
+          <Nav className="menu" style={{ marginRight: "448px" }}>
             <Nav.Link href="feed">
               <img
                 src={feed}
