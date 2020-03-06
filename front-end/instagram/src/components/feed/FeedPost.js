@@ -126,7 +126,7 @@ const Post = ({ post, user }) => {
                 />
                 <Row style={{marginLeft:'0px'}}>
                 <a
-                  style={{ width: "26px", height: "26px", marginLeft: "4px" }}
+                  style={{ width: "0px", height: "0px", marginLeft:'0px'}}
                   onClick={() => {
                     likePost(JSON.parse(authTokens), post.id);
                     setLiked(!liked);
@@ -137,6 +137,7 @@ const Post = ({ post, user }) => {
                     <img
                       src={redHeart}
                       style={{
+                        cursor: 'pointer',
                         marginLeft: "15px",
                         width: "26px",
                         height: "26px"
@@ -148,6 +149,7 @@ const Post = ({ post, user }) => {
                     <img
                       src={outlineHeart}
                       style={{
+                        cursor: 'pointer',
                         marginLeft: "15px",
                         width: "26px",
                         height: "26px"
@@ -156,7 +158,7 @@ const Post = ({ post, user }) => {
                     ></img>
                   )}
                 </a>
-                <a 
+                <a style={{marginLeft:'50px' }}
                   role="button"
                   onClick={() => {
                     setShowModal();
@@ -165,7 +167,7 @@ const Post = ({ post, user }) => {
                     setModalData(post.all_likes);
                   }}
                 >
-                 <span style={{marginLeft:'20px', fontWeight:'500', fontSize:'14px'}}>{post.likes} likes</span> 
+                 <span style={{fontWeight:'500', fontSize:'14px', cursor: 'pointer'}}>{post.likes} likes</span> 
                 </a>
                 </Row>
                 <Card.Body style={{ paddingTop: "4px", marginLeft: "0px" }}>
