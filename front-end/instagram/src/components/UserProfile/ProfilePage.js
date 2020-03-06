@@ -94,7 +94,15 @@ const ProfilePage = () => {
         setVisitorProfile({ ...person });
       });
     }
-  }, [username, visitor, usernameParam, isFollower, showModal, token]);
+  }, [
+    username,
+    visitor,
+    usernameParam,
+    isFollower,
+    showModal,
+    showPicModal,
+    token
+  ]);
 
   useEffect(() => {
     {
