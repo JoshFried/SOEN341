@@ -96,7 +96,7 @@ const Post = ({ post, user }) => {
     <Fragment>
       <Container
         style={{
-          maxWidth: "660px",
+          maxWidth: "800px",
           marginLeft: "auto",
           marginRight: "auto",
           paddingTop: "5%"
@@ -117,8 +117,8 @@ const Post = ({ post, user }) => {
                 </Card.Header>
                 <Figure.Image
                   style={{
-                    height: "600px",
-                    width: "660px"
+                    height: "750px",
+                    width: "800px"
                   }}
                   className="posts"
                   src={"http://127.0.0.1:8000".concat(post.picture)}

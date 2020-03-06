@@ -17,7 +17,7 @@ const PostForm = () => {
 
   const handleSubmit = e =>{
     e.preventDefault();
-    let form_data = new FormData();
+    let form_data = new FormData();  
     form_data.append("picture", picture, picture.name);
     form_data.append("caption", content);
     let url = "http://127.0.0.1:8000/api/post/create";
