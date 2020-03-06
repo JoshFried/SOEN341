@@ -1,8 +1,11 @@
 matrix:
 include:
-  - language: node_js
+  - language: node_js & python
+  
 node_js:
   - "13.7.0"
+python:
+-"3.8.1"
 addons:
 chrome: stable
 before_script:
@@ -10,4 +13,8 @@ before_script:
   - npm install
 script:
   - npm test
+before_script:
+-cd back-end
+-cd src
+script:
   - manage.py test
