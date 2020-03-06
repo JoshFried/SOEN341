@@ -61,8 +61,6 @@ def profile_view(request, username):
 @api_view(['PUT',])
 @permission_classes((IsAuthenticated,))
 def update_account_view(request):
-    print(request.data)
-
     try:
         account = request.user
     except Account.DoesNotExist:

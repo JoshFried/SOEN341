@@ -64,11 +64,9 @@ class AccountInformationSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True,
                          'min_length': 8},
-            'username': {'required': False},
+            'username': {'min_length': 3},
             'about': {'required': False},
             'profile_picture' : {'required': False},
-            'first_name' : {'required': False},
-            'last_name' : {'required': False},
             'email' : {'required': False}
         }
 

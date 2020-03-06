@@ -32,14 +32,9 @@ const App = () => {
     setNewLike(newLike => !newLike);
   };
   const [showModal, setShowModal] = useState(false);
-  const [showPicModal, setShowPicModal] = useState(false);
 
   const setModal = () => {
     setShowModal(showModal => !showModal);
-  };
-
-  const setPicModal = () => {
-    setShowPicModal(showPicModal => !showPicModal);
   };
 
   return (
@@ -52,14 +47,7 @@ const App = () => {
           setNewLike: setLike
         }}
       >
-        <ModalContext.Provider
-          value={{
-            showModal,
-            setShowModal: setModal,
-            showPicModal,
-            setShowPicModal: setPicModal
-          }}
-        >
+        <ModalContext.Provider value={{ showModal, setShowModal: setModal }}>
           <Router>
             <div className="App">
               <CustomLayout>
