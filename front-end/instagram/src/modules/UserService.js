@@ -30,12 +30,14 @@ export const getUsername = async token => {
 };
 
 export const updateProfile = async (token, data) => {
+  console.log(data);
   try {
     const apiRes = await fetch(
       "http://127.0.0.1:8000/api/account/information/update",
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-type":
+            "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
 
           Authorization: "Token " + JSON.parse(token)
         },

@@ -12,6 +12,12 @@ from django.db import models
 # Token Authentication imports
 # This import is also used to implement the following/followers relationship
 
+def upload_location(instance, filename):
+    file_path = 'profile/{account_id}/{filename}'.format(
+        account_id=str(instance.id), filename=filename
+    )
+    print(file_path)
+    return file_path
 
 class MyAccountManager(BaseUserManager):
 
@@ -66,7 +72,7 @@ class Account(AbstractBaseUser):
     last_name = models.CharField(max_length=20)
     about = models.TextField(max_length=250, blank=True)
     profile_picture = models.ImageField(
-        upload_to=profile_pic_location, blank=True)
+        upload_to=upload_location, blank=True)
 
     # Mandatory fields for Django's AbstractBaseUser class (email is also one)
     date_joined = models.DateTimeField(

@@ -17,6 +17,7 @@ import { getUsername, getInfo } from "../../modules/UserService";
 import { followAccount } from "../../actions/Follow";
 import ListModal from "./ListModal/ListModal";
 import { Link } from "react-router-dom";
+import UploadModal from "../UploadModal";
 
 const ProfilePage = () => {
   const [visitor, setVisitor] = useState(true);
@@ -26,6 +27,8 @@ const ProfilePage = () => {
   const [modalData, setModalData] = useState([]);
 
   const [name, setName] = useState("");
+  const { showPicModal } = useModal();
+  const { setShowPicModal } = useModal();
   const { showModal } = useModal();
   const { setShowModal } = useModal();
   const usernameParam = useParams().username;
@@ -41,8 +44,7 @@ const ProfilePage = () => {
         setUsername(name);
       } else {
         setName(name);
-
-        setVisitor(name.toLowerCase !== username.toLowerCase);
+        setVisitor(name.toLowerCase() !== username.toLowerCase());
       }
     });
   }, [username, visitor]);
@@ -85,6 +87,7 @@ const ProfilePage = () => {
         setProfile({ ...person });
       });
     }
+
     if (visitor) {
       getInfo(name).then(person => {
         setVisitorProfile({ ...person });
@@ -110,6 +113,16 @@ const ProfilePage = () => {
           <CardGroup>
             <Card>
               <ProfilePic profilePicture={profile.profilePicture}></ProfilePic>
+              <button
+                className="btn-sm"
+                onClick={() => {
+                  setShowPicModal();
+                  setTypeModal("Profile Picture");
+                  console.log(showPicModal);
+                }}
+              >
+                Upload Pic
+              </button>
             </Card>
             <Card>
               <Username username={profile.username}></Username>
@@ -183,6 +196,11 @@ const ProfilePage = () => {
               type={typeModal}
               user={visitor ? visitorProfile : profile}
             ></ListModal>
+          </div>
+        )}
+        {showPicModal && (
+          <div>
+            <UploadModal type={typeModal} user={profile}></UploadModal>
           </div>
         )}
       </Row>
