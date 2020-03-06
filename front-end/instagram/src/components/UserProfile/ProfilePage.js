@@ -17,19 +17,23 @@ import { getUsername, getInfo } from "../../modules/UserService";
 import { followAccount } from "../../actions/Follow";
 import ListModal from "./ListModal/ListModal";
 import { Link } from "react-router-dom";
+import UploadModal from "../UploadModal";
 
 const ProfilePage = () => {
   const [visitor, setVisitor] = useState(true);
   const [username, setUsername] = useState(useParams().username);
+  const [name, setName] = useState("");
+  const usernameParam = useParams().username;
+  const token = localStorage.getItem("token");
 
   const [typeModal, setTypeModal] = useState("");
   const [modalData, setModalData] = useState([]);
-
-  const [name, setName] = useState("");
   const { showModal } = useModal();
   const { setShowModal } = useModal();
-  const usernameParam = useParams().username;
-  const token = localStorage.getItem("token");
+  const { showPicModal } = useModal();
+
+  const { setShowPicModal } = useModal();
+
   const [is404, set404] = useState(false);
 
   if (username != usernameParam && usernameParam != undefined) {
@@ -106,13 +110,23 @@ const ProfilePage = () => {
     <div>
       {is404 && <Redirect to="/error/404"></Redirect>}
 
-      <Row className="justify-content-md-center " md={10} >
-      <Card style={{ width: "50%", borderColor:'white'}}>
+      <Row className="justify-content-md-center " md={10}>
+        <Card style={{ width: "50%", borderColor: "white" }}>
           <CardGroup>
-            <Card style={{ borderColor:'white'}}>
-              <ProfilePic  profilePicture={profile.profilePicture}></ProfilePic>
+            <Card style={{ borderColor: "white" }}>
+              <ProfilePic profilePicture={profile.profilePicture}></ProfilePic>
+              <button
+                className="btn-sm"
+                onClick={() => {
+                  setShowPicModal();
+                  setTypeModal("Profile Picture");
+                  console.log(showPicModal);
+                }}
+              >
+                Upload Pic
+              </button>
             </Card>
-            <Card style={{ borderColor:'white'}}>
+            <Card style={{ borderColor: "white" }}>
               <Username username={profile.username}></Username>
 
               <Bio about={profile.about}></Bio>
@@ -122,21 +136,21 @@ const ProfilePage = () => {
                 </Link>
               )}
               {visitor && (
-                  <Card>
-                    <Button
-                      variant="dark"
-                      type="submit"
-                      onClick={() => {
-                        followAccount(JSON.parse(token), username);
-                        setFollower(!isFollower);
-                      }}
-                    >
-                      {!isFollower && "follow"}
-                      {isFollower && "unfollow"}
-                    </Button>
-                  </Card>
-                )}
-              <CardGroup >
+                <Card>
+                  <Button
+                    variant="dark"
+                    type="submit"
+                    onClick={() => {
+                      followAccount(JSON.parse(token), username);
+                      setFollower(!isFollower);
+                    }}
+                  >
+                    {!isFollower && "follow"}
+                    {isFollower && "unfollow"}
+                  </Button>
+                </Card>
+              )}
+              <CardGroup>
                 <Card border="0" className="text-center">
                   <Posts posts={profile.nbOfPosts}></Posts>
                 </Card>
@@ -155,7 +169,7 @@ const ProfilePage = () => {
                 </Card>
                 <Card border="0" className="text-center">
                   <a
-                    style={{ cursor: "pointer" , fontWeight:"bold"}}
+                    style={{ cursor: "pointer", fontWeight: "bold" }}
                     role="button"
                     onClick={() => {
                       setShowModal();
@@ -186,6 +200,11 @@ const ProfilePage = () => {
               type={typeModal}
               user={visitor ? visitorProfile : profile}
             ></ListModal>
+          </div>
+        )}
+        {showPicModal && (
+          <div>
+            <UploadModal type={typeModal} user={profile}></UploadModal>
           </div>
         )}
       </Row>
