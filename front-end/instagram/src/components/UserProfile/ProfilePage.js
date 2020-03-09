@@ -8,7 +8,7 @@ import Post from "./post";
 import Bio from "./bio";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import { useAuth } from "../../context/auth";
 import { useModal } from "../../context/modal";
@@ -17,19 +17,23 @@ import { getUsername, getInfo } from "../../modules/UserService";
 import { followAccount } from "../../actions/Follow";
 import ListModal from "./ListModal/ListModal";
 import { Link } from "react-router-dom";
+import UploadModal from "../UploadModal";
 
 const ProfilePage = () => {
   const [visitor, setVisitor] = useState(true);
   const [username, setUsername] = useState(useParams().username);
+  const [name, setName] = useState("");
+  const usernameParam = useParams().username;
+  const token = localStorage.getItem("token");
 
   const [typeModal, setTypeModal] = useState("");
   const [modalData, setModalData] = useState([]);
-
-  const [name, setName] = useState("");
   const { showModal } = useModal();
   const { setShowModal } = useModal();
-  const usernameParam = useParams().username;
-  const token = localStorage.getItem("token");
+  const { showPicModal } = useModal();
+
+  const { setShowPicModal } = useModal();
+
   const [is404, set404] = useState(false);
 
   if (username != usernameParam && usernameParam != undefined) {
@@ -90,7 +94,15 @@ const ProfilePage = () => {
         setVisitorProfile({ ...person });
       });
     }
-  }, [username, visitor, usernameParam, isFollower, showModal, token]);
+  }, [
+    username,
+    visitor,
+    usernameParam,
+    isFollower,
+    showModal,
+    showPicModal,
+    token
+  ]);
 
   useEffect(() => {
     {
@@ -103,16 +115,32 @@ const ProfilePage = () => {
   }, [profile]);
 
   return (
-    <div>
+    <Container    style={{
+      maxWidth: "100%",
+      paddingTop: "5%"
+    }}>
       {is404 && <Redirect to="/error/404"></Redirect>}
-
-      <Row className="justify-content-md-center " md={10} >
-      <Card style={{ width: "50%", borderColor:'white'}}>
+      <Row className="justify-content-md-center " md={10}>
+        <Card style={{ width: "50%", borderColor: "white" }}>
           <CardGroup>
-            <Card style={{ borderColor:'white'}}>
-              <ProfilePic  profilePicture={profile.profilePicture}></ProfilePic>
+            <Card style={{ borderColor: "white" }}>
+              <ProfilePic profilePicture={profile.profilePicture}></ProfilePic>
+              {!visitor && (
+              <Button 
+                variant="secondary"
+                style={{width:'100px'}}
+                className="btn-sm"
+                onClick={() => {
+                  setShowPicModal();
+                  setTypeModal("Profile Picture");
+                  console.log(showPicModal);
+                }}
+              >
+                Upload Pic
+              </Button>
+              )}
             </Card>
-            <Card style={{ borderColor:'white'}}>
+            <Card style={{ borderColor: "white", marginRight:'50px' }}>
               <Username username={profile.username}></Username>
 
               <Bio about={profile.about}></Bio>
@@ -122,25 +150,25 @@ const ProfilePage = () => {
                 </Link>
               )}
               {visitor && (
-                  <Card>
-                    <Button
-                      variant="dark"
-                      type="submit"
-                      onClick={() => {
-                        followAccount(JSON.parse(token), username);
-                        setFollower(!isFollower);
-                      }}
-                    >
-                      {!isFollower && "follow"}
-                      {isFollower && "unfollow"}
-                    </Button>
-                  </Card>
-                )}
-              <CardGroup >
-                <Card border="0" className="text-center">
+                <Card>
+                  <Button
+                    variant="dark"
+                    type="submit"
+                    onClick={() => {
+                      followAccount(JSON.parse(token), username);
+                      setFollower(!isFollower);
+                    }}
+                  >
+                    {!isFollower && "follow"}
+                    {isFollower && "unfollow"}
+                  </Button>
+                </Card>
+              )}
+              <CardGroup>
+                <Card border="0" >
                   <Posts posts={profile.nbOfPosts}></Posts>
                 </Card>
-                <Card border="0" className="text-center">
+                <Card border="0" >
                   <a
                     style={{ cursor: "pointer", fontWeight: "bold" }}
                     role="button"
@@ -153,9 +181,9 @@ const ProfilePage = () => {
                     {profile.nbOfFollowers} Followers
                   </a>
                 </Card>
-                <Card border="0" className="text-center">
+                <Card border="0" >
                   <a
-                    style={{ cursor: "pointer" , fontWeight:"bold"}}
+                    style={{ cursor: "pointer", fontWeight: "bold" }}
                     role="button"
                     onClick={() => {
                       setShowModal();
@@ -174,7 +202,7 @@ const ProfilePage = () => {
           {profile.allPosts && (
             <div>
               {profile.allPosts.map(item => (
-                <Post post={item.picture} key={item.picture}></Post>
+                <Post  post={item.picture} key={item.picture}></Post>
               ))}
             </div>
           )}
@@ -188,8 +216,14 @@ const ProfilePage = () => {
             ></ListModal>
           </div>
         )}
+        {showPicModal && (
+          <div>
+            <UploadModal type={typeModal} user={profile}></UploadModal>
+          </div>
+        )}
       </Row>
-    </div>
+      </Container>
+    
   );
 };
 

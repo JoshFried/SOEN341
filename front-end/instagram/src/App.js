@@ -14,27 +14,36 @@ import { ModalContext } from "./context/modal";
 import Feed from "./components/feed/Feed";
 import PrivateRoute from "./PrivateRoute";
 import { NoMatchPage } from "./404";
+
 const App = () => {
   const [authTokens, setAuthTokens] = useState(
     localStorage.getItem("token") || ""
   );
+
   const setTokens = data => {
     localStorage.setItem("token", JSON.stringify(data));
     setAuthTokens(data);
   };
 
+  const [showPicModal, setShowPicModal] = useState(false);
   const [createdComment, setCreatedComment] = useState(false);
   const [newLike, setNewLike] = useState(false);
   const setComment = () => {
     setCreatedComment(!createdComment);
   };
+
   const setLike = () => {
     setNewLike(newLike => !newLike);
   };
+
   const [showModal, setShowModal] = useState(false);
 
   const setModal = () => {
     setShowModal(showModal => !showModal);
+  };
+
+  const setPicModal = () => {
+    setShowPicModal(showPicModal => !showPicModal);
   };
 
   return (
@@ -47,7 +56,15 @@ const App = () => {
           setNewLike: setLike
         }}
       >
-        <ModalContext.Provider value={{ showModal, setShowModal: setModal }}>
+        <ModalContext.Provider
+          value={{
+            showModal,
+            setShowModal: setModal,
+            showPicModal,
+            setShowPicModal: setPicModal
+          }}
+        >
+          {" "}
           <Router>
             <div className="App">
               <CustomLayout>

@@ -3,19 +3,19 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 const PostForm = () => {
-  const [content,setContent] = useState('');
-  const [picture,setPicture] = useState(null);
-  const [submitted,setSubmitted] = useState(false)
+  const [content, setContent] = useState("");
+  const [picture, setPicture] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = e => {
     setContent(e.target.value);
-  }
+  };
 
   const handleImageChange = e => {
     setPicture(e.target.files[0]);
-  }
+  };
 
-  const handleSubmit = e =>{
+  const handleSubmit = e => {
     e.preventDefault();
     let form_data = new FormData();  
     form_data.append("picture", picture, picture.name);
@@ -26,7 +26,7 @@ const PostForm = () => {
       .post(url, form_data, {
         headers: {
           "content-type": "multipart/form-data",
-         "Authorization": `Token ${token}`
+          Authorization: `Token ${token}`
         }
       })
       .then(res => {
@@ -34,15 +34,15 @@ const PostForm = () => {
         setSubmitted(true);
       })
       .catch(err => console.log(err));
-  }
+  };
 
   if (submitted) {
     return <Redirect to="/feed"></Redirect>;
   }
 
   return (
-      <div>
-        <form 
+    <div>
+      <form
         onSubmit={handleSubmit}
         style={{
           width: "100%",
@@ -54,8 +54,8 @@ const PostForm = () => {
           marginTop: "100px",
           boxShadow: " 5px 5px 5px 0px #888888"
         }}
-        >
-          <h1
+      >
+        <h1
           className="h3 mb-3 font-weight-normal"
           style={{ textAlign: "center" }}
         >
@@ -63,37 +63,38 @@ const PostForm = () => {
           Upload a photo
         </h1>
         <br></br>
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Caption"
-              id="content"
-              value={content}
-              onChange={handleChange}
-              required
-            />
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Caption"
+          id="content"
+          value={content}
+          onChange={handleChange}
+          required
+        />
         <br></br>
         <div className="input-group">
-            <div className="custom-file">
-                <input 
-                  type="file" 
-                  className="custom-file-input" 
-                  id="myInput" 
-                  aria-describedby="myInput"
-                  accept="image/png, image/jpeg"
-                  onChange={handleImageChange}
-                  required
-                  />
-                <label className="custom-file-label" htmlFor="myInput">Choose file</label>
-            </div>
-            <div className="input-group-append"> 
-            </div>
+          <div className="custom-file">
+            <input
+              type="file"
+              className="custom-file-input"
+              id="myInput"
+              aria-describedby="myInput"
+              accept="image/png, image/jpeg"
+              onChange={handleImageChange}
+              required
+            />
+            <label className="custom-file-label" htmlFor="myInput">
+              Choose file
+            </label>
+          </div>
+          <div className="input-group-append"></div>
         </div>
         <br></br>
-          <input type="submit" className="btn btn-lg btn-primary btn-block"/>
-        </form>
-        <br></br>
-      </div>
-    )
+        <input type="submit" className="btn btn-lg btn-primary btn-block" />
+      </form>
+      <br></br>
+    </div>
+  );
 };
 export default PostForm;

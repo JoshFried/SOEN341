@@ -36,13 +36,33 @@ export const updateProfile = async (token, data) => {
       {
         headers: {
           "Content-Type": "application/json",
-
           Authorization: "Token " + JSON.parse(token)
         },
 
         mode: "cors",
         method: "PUT",
         body: JSON.stringify(data)
+      }
+    );
+
+    const resJSON = await apiRes.json();
+    console.log(resJSON);
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateProfilePic = async (token, data) => {
+  console.log(data);
+  try {
+    const apiRes = await fetch(
+      "http://127.0.0.1:8000/api/account/information/update",
+      {
+        headers: {
+          Authorization: "Token " + JSON.parse(token)
+        },
+        method: "PUT",
+        body: data
       }
     );
 

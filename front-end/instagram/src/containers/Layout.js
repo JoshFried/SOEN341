@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import Logo from "../images/header/instagram.svg";
 import upload from "../images/header/upload.svg";
-import profile from "../images/header/profile.svg";
+import profile from "../images/header/user.svg";
 import feed from "../images/header/feed.svg";
 import "../App.css";
 import { useAuth } from "../context/auth";
@@ -39,7 +39,7 @@ const CustomLayout = props => {
   };
   return (
     <Fragment>
-      <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <Navbar  fixed="top" collapseOnSelect expand="lg" bg="light" variant="light" style={{height:'65px'} }>
         <link
           href="https://fonts.googleapis.com/css?family=Grand+Hotel&display=swap"
           rel="stylesheet"
@@ -48,7 +48,7 @@ const CustomLayout = props => {
           className="title"
           href="login"
           style={{
-            fontSize: "30px",
+            fontSize: "28px",
             marginLeft: "23.6%",
             padding: "10px",
             fontFamily: "Grand Hotel",
@@ -93,7 +93,7 @@ const CustomLayout = props => {
               <img
                 src={feed}
                 alt=""
-                style={{ width: "23px", height: "23px" }}
+                style={{ width: "20px", height: "20px" }}
               ></img>
             </Nav.Link>
             &nbsp;&nbsp;
@@ -101,7 +101,7 @@ const CustomLayout = props => {
               <img
                 src={upload}
                 alt=""
-                style={{ width: "23px", height: "23px" }}
+                style={{ width: "20px", height: "20px" }}
               ></img>
             </Nav.Link>
             &nbsp;&nbsp;
@@ -109,7 +109,7 @@ const CustomLayout = props => {
               <img
                 src={profile}
                 alt=""
-                style={{ width: "23px", height: "23px" }}
+                style={{ width: "20px", height: "20px" }}
               ></img>
             </Nav.Link>
             <Nav.Link href="/login">
