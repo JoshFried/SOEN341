@@ -31,6 +31,7 @@ const ProfilePage = () => {
   const { showModal } = useModal();
   const { setShowModal } = useModal();
   const { showPicModal } = useModal();
+
   const { setShowPicModal } = useModal();
 
   const [is404, set404] = useState(false);
@@ -123,6 +124,7 @@ const ProfilePage = () => {
         <Card style={{ width: "50%", borderColor: "white" }}>
           <CardGroup>
             <Card style={{ borderColor: "white" }}>
+
               <ProfilePic  
                 profilePicture={profile.profilePicture}
               >  
@@ -168,6 +170,7 @@ const ProfilePage = () => {
                   >
                     {isFollower && "unfollow"}
                     {!isFollower && "follow"}
+
                   </Button>
                 </Card>
               )}
