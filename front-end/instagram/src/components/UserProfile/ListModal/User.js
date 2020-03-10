@@ -11,27 +11,34 @@ const User = ({ username, following }) => {
   const { authTokens } = useAuth();
   const [isFollowing, setFollowing] = useState(following);
   const { setShowModal } = useModal();
+  const profile = {username};
+
+
+
   return (
     <div>
       <CardGroup>
         <Card>
-          <Link
-            to={url}
-            style={{ fontWeight: "bold", color: "black" }}
-            onClick={setShowModal}
-          >
-            {username}
-          </Link>
-          <Button
-            type="submit"
-            onClick={() => {
-              followAccount(JSON.parse(authTokens), username);
-              setFollowing(!isFollowing);
-            }}
-          >
-            {isFollowing && "Unfollow"}
-            {!isFollowing && "Follow"}
-          </Button>
+          <Card.Body >
+            <Link
+              to={url}
+              style={{ fontWeight: "bold", color: "black" }}
+              onClick={setShowModal}
+            >
+              {username}
+            </Link>
+            <Button 
+              className="float-right"
+              type="submit"
+              onClick={() => {
+                followAccount(JSON.parse(authTokens), username);
+                setFollowing(!isFollowing);
+              }}
+            >
+              {isFollowing && "Unfollow"}
+              {!isFollowing && "Follow"}
+            </Button>
+          </Card.Body>
         </Card>
       </CardGroup>
     </div>

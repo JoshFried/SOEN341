@@ -3,6 +3,7 @@ import { Button, Modal, ModalTitle } from "react-bootstrap";
 import User from "./User";
 import { Link } from "react-router-dom";
 import { useModal } from "../../../context/modal";
+import ProfilePic from "../profilepic";
 
 const ProfileModal = ({ data, type, user }) => {
   const { showModal } = useModal();
@@ -14,6 +15,7 @@ const ProfileModal = ({ data, type, user }) => {
       <Link to={url} style={{ fontWeight: "bold", color: "black" }}></Link>
     );
   };
+  
   return (
     <div>
       <Modal size="lg" show={showModal}>

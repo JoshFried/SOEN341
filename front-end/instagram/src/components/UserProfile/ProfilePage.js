@@ -31,7 +31,6 @@ const ProfilePage = () => {
   const { showModal } = useModal();
   const { setShowModal } = useModal();
   const { showPicModal } = useModal();
-
   const { setShowPicModal } = useModal();
 
   const [is404, set404] = useState(false);
@@ -124,7 +123,10 @@ const ProfilePage = () => {
         <Card style={{ width: "50%", borderColor: "white" }}>
           <CardGroup>
             <Card style={{ borderColor: "white" }}>
-              <ProfilePic profilePicture={profile.profilePicture}></ProfilePic>
+              <ProfilePic  
+                profilePicture={profile.profilePicture}
+              >  
+              </ProfilePic>
               {!visitor && (
               <Button 
                 variant="secondary"
@@ -141,14 +143,19 @@ const ProfilePage = () => {
               )}
             </Card>
             <Card style={{ borderColor: "white", marginRight:'50px' }}>
-              <Username username={profile.username}></Username>
-
+              <Card.Body>
+                <Username username={profile.username}></Username>
+                
+                {!visitor && (
+                  <Link to="/editprofile" role="button" variant="dark">
+                    Edit Profile
+                  </Link>
+                )}
+                
+ 
+              </Card.Body>
+              
               <Bio about={profile.about}></Bio>
-              {!visitor && (
-                <Link to="/editprofile" role="button" variant="dark">
-                  Edit Profile
-                </Link>
-              )}
               {visitor && (
                 <Card>
                   <Button
@@ -159,8 +166,8 @@ const ProfilePage = () => {
                       setFollower(!isFollower);
                     }}
                   >
-                    {!isFollower && "follow"}
                     {isFollower && "unfollow"}
+                    {!isFollower && "follow"}
                   </Button>
                 </Card>
               )}
