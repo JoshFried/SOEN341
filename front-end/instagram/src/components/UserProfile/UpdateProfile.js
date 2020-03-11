@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import useFormValidation from "../register/useFormValidation";
 import { updateProfile } from "../../modules/UserService";
 import { useAuth } from "../../context/auth";
@@ -61,7 +61,11 @@ const UpdateProfile = () => {
   }
 
   return (
-    <div>
+    <Container    style={{
+      maxWidth: "50%",
+      paddingTop: "5%"
+    }}>
+  
       {user && (
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="Username">
@@ -115,7 +119,7 @@ const UpdateProfile = () => {
           </Button>
         </Form>
       )}
-    </div>
+    </Container>
   );
 };
 
