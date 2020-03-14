@@ -21,6 +21,7 @@ matrix:
         - cd back-end
         - pip install -r requirements.txt
         - cd src
+        - mysql -e 'CREATE DATABASE IF NOT EXISTS instaDatabase;'
       script:
         - python manage.py test
       
