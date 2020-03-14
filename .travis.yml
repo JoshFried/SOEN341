@@ -10,3 +10,17 @@ matrix:
         - npm install
       script:
         - npm test
+    - language: python
+      python:
+        - "stable"
+      services:
+        - mysql
+      env:
+        -DJANGO=3.0.2 DB=mysql
+      before_script:
+        - cd back-end
+        - pip install -r requirements.txt
+        - cd src
+      script:
+        - python manage.py test
+      
