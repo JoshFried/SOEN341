@@ -21,6 +21,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
     caption = models.TextField(max_length=500)
+    img_filter = models.TextField(max_length=500, blank=True)
     # This is how we are able to set up the relationship between accounts and posts
     # using on_delete=models.CASCADE will result in all posts by a user being deleted if that users accoutn is deleted
     account = models.ForeignKey(
@@ -29,6 +30,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.caption
+        
+    def __str__(self):
+        return self.img_filter
     
     def get_number_of_likes(self):
         if self.likes.count():

@@ -96,7 +96,7 @@ const Post = ({ post, user }) => {
     <Fragment>
       <Container
           style={{
-            maxWidth: "800px",
+            maxWidth: "750px",
           
             paddingTop: "5%"
           }}
@@ -117,9 +117,10 @@ const Post = ({ post, user }) => {
                   <Figure.Image
                     style={{
                       height: "1000",
-                      width: "800"
+                      width: "750"
                     }}
                     className="posts"
+                    className= {post.img_filter}
                     src={"http://127.0.0.1:8000".concat(post.picture)}
                     alt="Posts"
                   />

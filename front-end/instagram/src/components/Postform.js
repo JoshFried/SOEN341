@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 const PostForm = () => {
   const [preview, setPreview] = useState(null);
   const [content, setContent] = useState("");
+  const [filter, setFilter] = useState("");
   const [picture, setPicture] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
@@ -22,6 +23,7 @@ const PostForm = () => {
     let form_data = new FormData();  
     form_data.append("picture", picture, picture.name);
     form_data.append("caption", content);
+    form_data.append("img_filter", filter);
     let url = "http://127.0.0.1:8000/api/post/create";
     const token = localStorage.getItem("token").replace(/\"/g, "");
     axios
@@ -94,8 +96,20 @@ const PostForm = () => {
         </div>
         <br></br>
         <div>
-          <img src={preview} style={{width:'300px', height:'200px'}}></img>
+          <img src={preview} class = {filter} style={{width:'300px', height:'200px'}}></img>
         </div>
+        <button type="button" onClick={() => {
+           setFilter('filter_original');
+        }}>original</button>
+        <button type="button" onClick={() => {
+           setFilter('filter_grayscale');
+        }}>grayscale</button>
+        <button type="button" onClick={() => {
+           setFilter('filter_blur');
+        }}>blur</button>
+         <button type="button" onClick={() => {
+           setFilter('filter_invert');
+        }}>invert</button>
         <br></br>
         <input type="submit" className="btn btn-lg btn-primary btn-block" />
       </form>

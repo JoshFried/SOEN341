@@ -78,7 +78,7 @@ class AccountPostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['picture', 'caption', 'updated_at', 'all_comments', 'likes', 'all_likes']
+        fields = ['picture', 'caption', 'img_filter', 'updated_at', 'all_comments', 'likes', 'all_likes']
     
     def get_all_comments(self, obj):
         return Comment.objects.filter(post=obj).count()
@@ -162,7 +162,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['picture', 'caption', 'updated_at', 'post_comments', 'likes', 'account', 'id', 'all_likes']
+        fields = ['picture', 'caption', 'img_filter', 'updated_at', 'post_comments', 'likes', 'account', 'id', 'all_likes']
 
     def get_all_comments(self, obj):
         comments = obj.post_comments.all()
