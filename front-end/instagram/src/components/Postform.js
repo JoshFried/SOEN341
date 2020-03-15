@@ -3,6 +3,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 const PostForm = () => {
+  const [preview, setPreview] = useState(null);
   const [content, setContent] = useState("");
   const [picture, setPicture] = useState(null);
   const [submitted, setSubmitted] = useState(false);
@@ -13,6 +14,7 @@ const PostForm = () => {
 
   const handleImageChange = e => {
     setPicture(e.target.files[0]);
+    setPreview(URL.createObjectURL(e.target.files[0]))
   };
 
   const handleSubmit = e => {
@@ -89,6 +91,10 @@ const PostForm = () => {
             </label>
           </div>
           <div className="input-group-append"></div>
+        </div>
+        <br></br>
+        <div>
+          <img src={preview} style={{width:'300px', height:'200px'}}></img>
         </div>
         <br></br>
         <input type="submit" className="btn btn-lg btn-primary btn-block" />
