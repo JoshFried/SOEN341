@@ -44,3 +44,24 @@ PostComment.js
 #deleteButton:hover {
     color: rgb(219, 12, 5);
   }
+
+
+  /* 
+  Add filters to img's
+  */
+
+  .filter_original {
+    filter: none;
+  }
+
+  .filter_grayscale {
+    filter: grayscale(100%);
+  }
+
+  .filter_blur {
+    filter: blur(1px);
+  }
+
+  .filter_invert {
+    filter: invert(100%);
+  }

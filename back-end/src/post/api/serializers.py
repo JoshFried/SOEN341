@@ -25,7 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['picture', 'caption', 'updated_at', 'post_comments', 'likes']
+        fields = ['picture', 'caption', 'img_filter', 'updated_at', 'post_comments', 'likes']
 
     def get_all_comments(self, obj):
         comments = obj.post_comments.all()
