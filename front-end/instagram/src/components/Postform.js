@@ -99,18 +99,27 @@ const PostForm = () => {
           <img src={preview} class = {filter} style={{width:'300px', height:'200px'}}></img>
         </div>
         <button type="button" onClick={() => {
-           setFilter('filter_original');
+          setFilter('filter_original');
         }}>original</button>
         <button type="button" onClick={() => {
-           setFilter('filter_grayscale');
+          setFilter('filter_grayscale');
         }}>grayscale</button>
         <button type="button" onClick={() => {
-           setFilter('filter_blur');
-        }}>blur</button>
-         <button type="button" onClick={() => {
-           setFilter('filter_invert');
+          setFilter('filter_invert');
         }}>invert</button>
-        <br></br>
+        <br></br><br></br>
+
+        <button type="button" onClick={() => {
+          setFilter('filter_brightness');
+        }}>brightness</button>
+        <button type="button" onClick={() => {
+          setFilter('filter_opacity');
+        }}>opacity</button>
+        <button type="button" onClick={() => {
+          setFilter('filter_blur');
+        }}>blur</button>
+
+        <br></br><br></br>
         <input type="submit" className="btn btn-lg btn-primary btn-block" />
       </form>
       <br></br>
