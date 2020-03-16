@@ -9,6 +9,21 @@ const PostForm = () => {
   const [picture, setPicture] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    var selectBox = document.getElementById("grayscaleDropdown");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    console.log(selectedValue);
+    if(selectedValue =='25'){
+      setFilter('filter_grayscale50');
+    }
+    if(selectedValue == '50'){
+      setFilter('filter_grayscale100');
+    }
+    else{
+      setFilter('filter_original');
+    }
+  });
+
   const handleChange = e => {
     setContent(e.target.value);
   };
@@ -101,9 +116,12 @@ const PostForm = () => {
         <button type="button" onClick={() => {
           setFilter('filter_original');
         }}>original</button>
-        <button type="button" onClick={() => {
-          setFilter('filter_grayscale');
-        }}>grayscale</button>
+        <select id="grayscaleDropdown">
+          <option value = '25'>25% </option>
+          <option value = '50'>50%</option>
+          <option value = '75'>75%</option>
+          <option value = '100'>100%</option>
+        </select>
         <button type="button" onClick={() => {
           setFilter('filter_invert');
         }}>invert</button>

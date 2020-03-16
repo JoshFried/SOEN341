@@ -54,7 +54,19 @@ PostComment.js
     filter: none;
   }
 
-  .filter_grayscale {
+  .filter_grayscale25 {
+    filter: grayscale(25%);
+  }
+
+  .filter_grayscale50 {
+    filter: grayscale(50%);
+  }
+
+  .filter_grayscale75 {
+    filter: grayscale(75%);
+  }
+
+  .filter_grayscale100 {
     filter: grayscale(100%);
   }
 
