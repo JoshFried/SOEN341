@@ -124,7 +124,6 @@ const ProfilePage = () => {
         <Card style={{ width: "50%", borderColor: "white" }}>
           <CardGroup>
             <Card style={{ borderColor: "white" }}>
-
               <ProfilePic  
                 profilePicture={profile.profilePicture}
               >  
@@ -147,16 +146,12 @@ const ProfilePage = () => {
             <Card style={{ borderColor: "white", marginRight:'50px' }}>
               <Card.Body>
                 <Username username={profile.username}></Username>
-                
                 {!visitor && (
                   <Link to="/editprofile" role="button" variant="dark">
                     Edit Profile
                   </Link>
-                )}
-                
- 
-              </Card.Body>
-              
+                )}            
+              </Card.Body>      
               <Bio about={profile.about}></Bio>
               {visitor && (
                 <Card>
@@ -170,7 +165,6 @@ const ProfilePage = () => {
                   >
                     {isFollower && "unfollow"}
                     {!isFollower && "follow"}
-
                   </Button>
                 </Card>
               )}
@@ -212,7 +206,7 @@ const ProfilePage = () => {
           {profile.allPosts && (
             <div>
               {profile.allPosts.map(item => (
-                <Post  post={item.picture} key={item.picture}></Post>
+                <Post  post={item.picture} key={item.picture} img_filter={item.img_filter}></Post>
               ))}
             </div>
           )}
@@ -233,7 +227,6 @@ const ProfilePage = () => {
         )}
       </Row>
       </Container>
-    
   );
 };
 
