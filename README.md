@@ -17,16 +17,11 @@ For this project we are required to develop a simplified version of Instagram th
 
 ## **Team Members**
 
-Josh Fried - 40065326 --> Github username: JoshFried 
-
-Sarah Papadopoli - 26629598 --> Github username: Salander24
-
-Shashank Patel - 40094236 --> Github username: shash3 
-
-Sacha Elkaim  - 29779698 --> Github username: sachaelkaim
-
-Fahim Bhuiyan - 40091942 --> Github username: fahimbhuiyan
-
-Mike Stephane Kanyarushatsi - 26423086 --> Github username: mkanyar
+* Josh Fried
+* Sarah Papadopoli
+* Shashank Patel
+* Sacha Elkaim
+* Fahim Bhuiyan
+* Mike Stephane Kanyarushatsi 
 
 
