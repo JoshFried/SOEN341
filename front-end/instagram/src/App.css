@@ -46,22 +46,105 @@ PostComment.js
   }
 
 
-  /* 
-  Add filters to img's
-  */
+/* 
+Add filters to img's
+*/
 
-  .filter_original {
-    filter: none;
-  }
+/*
+original filter
+*/
+.filter_original {
+  filter: none;
+}
 
-  .filter_grayscale {
-    filter: grayscale(100%);
-  }
+/*
+grayscale filter
+*/
+.filter_grayscale25 {
+  filter: grayscale(25%);
+}
 
-  .filter_blur {
-    filter: blur(1px);
-  }
+.filter_grayscale50 {
+  filter: grayscale(50%);
+}
 
-  .filter_invert {
-    filter: invert(100%);
-  }
+.filter_grayscale75 {
+  filter: grayscale(75%);
+}
+
+.filter_grayscale100 {
+  filter: grayscale(100%);
+}
+
+.filter_blur {
+  filter: blur(1px);
+}
+
+/*
+invert filter
+*/
+.filter_invert25 {
+  filter: invert(25%);
+}
+
+.filter_invert50 {
+  filter: invert(50%);
+}
+
+.filter_invert75 {
+  filter: invert(75%);
+}
+
+.filter_invert100 {
+  filter: invert(100%);
+}
+
+/*
+brightness filter
+*/
+.filter_brightness25{
+  filter: brightness(25%);
+}
+
+.filter_brightness50{
+  filter: brightness(50%);
+}
+
+.filter_brightness75{
+  filter: brightness(75%);
+}
+
+/*
+opacity filter
+*/
+.filter_opacity{
+  filter: opacity(50%);
+}
+
+/*
+hue-rotate filter
+*/
+.filter_hue-rotate90{
+  filter: hue-rotate(90deg);
+}
+.filter_hue-rotate180{
+  filter: hue-rotate(180deg);
+}
+.filter_hue-rotate270{
+  filter: hue-rotate(270deg);
+}
+.filter_hue-rotate360{
+  filter: hue-rotate(300deg);
+}
+/*
+opacity filter
+*/
+.filter_opacity25{
+  filter: opacity(25%)
+}
+.filter_opacity50{
+  filter: opacity(50%)
+}
+.filter_opacity75{
+  filter: opacity(75%)
+}

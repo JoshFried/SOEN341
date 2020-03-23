@@ -4,13 +4,12 @@ import CardGroup from "react-bootstrap/CardGroup";
 import Card from "react-bootstrap/Card";
 
 const Post = picture => {
-  const url = "http://127.0.0.1:8000" + Object.values(picture);
+  const url = "http://127.0.0.1:8000" + Object.values([picture.post]);
   return (
     <Figure
       style={{
         height: "310px",
         width: "310px"
-        
       }}
     >
       <CardGroup>
@@ -28,6 +27,7 @@ const Post = picture => {
               objectFit: 'cover'
             }}
             className="posts"
+            className= {picture.img_filter}
             src={url}
             alt="Posts"
           />
