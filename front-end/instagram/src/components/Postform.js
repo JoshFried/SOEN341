@@ -9,79 +9,6 @@ const PostForm = () => {
   const [picture, setPicture] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
-  //grayscale filter 
-  useEffect(() => {
-    var selectBox = document.getElementById("grayscaleDropdown");
-    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-    console.log(selectedValue);
-    if(selectedValue =='25'){
-      setFilter('filter_grayscale25');
-    }
-    if(selectedValue == '50'){
-      setFilter('filter_grayscale50');
-    }
-    if(selectedValue == '75'){
-      setFilter('filter_grayscale75');
-    }
-    if(selectedValue == '100'){
-      setFilter('filter_grayscale100');
-    }
-  });
-
-  //invert filter
-  useEffect(() => {
-    var selectBox = document.getElementById("invertDropdown");
-    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-    console.log(selectedValue);
-    if(selectedValue =='25'){
-      setFilter('filter_invert25');
-    }
-    if(selectedValue == '50'){
-      setFilter('filter_invert50');
-    }
-    if(selectedValue == '75'){
-      setFilter('filter_invert75');
-    }
-    if(selectedValue == '100'){
-      setFilter('filter_invert100');
-    }
-  });
-
-    //hue-rotate filter
-    useEffect(() => {
-      var selectBox = document.getElementById("hue-rotateDropdown");
-      var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-      console.log(selectedValue);
-      if(selectedValue =='90'){
-        setFilter('filter_hue-rotate90');
-      }
-      if(selectedValue == '180'){
-        setFilter('filter_hue-rotate180');
-      }
-      if(selectedValue == '270'){
-        setFilter('filter_hue-rotate270');
-      }
-      if(selectedValue == '360'){
-        setFilter('filter_hue-rotate360');
-      }
-    });
-
-    //brightness filter
-    useEffect(() => {
-      var selectBox = document.getElementById("brightnessDropdown");
-      var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-      console.log(selectedValue);
-      if(selectedValue =='25'){
-        setFilter('filter_brightness25');
-      }
-      if(selectedValue == '50'){
-        setFilter('filter_brightness50');
-      }
-      if(selectedValue == '75'){
-        setFilter('filter_brightness75');
-      }
-    });
-
   const handleChange = e => {
     setContent(e.target.value);
   };
@@ -171,47 +98,45 @@ const PostForm = () => {
         <div>
           <img src={preview} class = {filter} style={{width:'300px', height:'200px'}}></img>
         </div>
-        <button type="button" onClick={() => {
-          setFilter('filter_original');
-        }}>original</button>
-        <select id="grayscaleDropdown">
+        <form class="form-inline">
+        <select className="form-control form-control-sm" onChange={event => setFilter(event.target.value)}>
           <option selected>Grayscale</option>
-          <option value = '25'>25% </option>
-          <option value = '50'>50%</option>
-          <option value = '75'>75%</option>
-          <option value = '100'>100%</option>
+          <option value = 'filter_grayscale25'>25% </option>
+          <option value = 'filter_grayscale50'>50%</option>
+          <option value = 'filter_grayscale75'>75%</option>
+          <option value = 'filter_grayscale100'>100%</option>
         </select>
-        <select id="invertDropdown">
+        &nbsp;
+        <select className="form-control form-control-sm"  onChange={event => setFilter(event.target.value)}>
           <option selected>Invert</option>
-          <option value = '25'>25% </option>
-          <option value = '50'>50%</option>
-          <option value = '75'>75%</option>
-          <option value = '100'>100%</option>
+          <option value = 'filter_invert25 '>25% </option>
+          <option value = 'filter_invert50 '>50%</option>
+          <option value = 'filter_invert75 '>75%</option>
+          <option value = 'filter_invert100 '>100%</option>
         </select>
-        <select id="hue-rotateDropdown">
+        &nbsp;
+        <select className="form-control form-control-sm"  onChange={event => setFilter(event.target.value)}>
           <option selected>Hue-rotate</option>
-          <option value = '90'>90 degree </option>
-          <option value = '180'>180 degree</option>
-          <option value = '270'>270 degree</option>
-          <option value = '360'>360 degree</option>
+          <option value = 'filter_hue-rotate90'>90 degree </option>
+          <option value = 'filter_hue-rotate180'>180 degree</option>
+          <option value = 'filter_hue-rotate270'>270 degree</option>
+          <option value = 'filter_hue-rotate360'>360 degree</option>
         </select>
-        <button type="button" onClick={() => { setFilter()}}>set</button>
-        <br></br><br></br>
-
-        <select id="brightnessDropdown">
+        <select className="form-control form-control-sm"  onChange={event => setFilter(event.target.value)}>
           <option selected>brightness</option>
-          <option value = '25'>25% </option>
-          <option value = '50'>50%</option>
-          <option value = '75'>75%</option>
+          <option value = 'filter_brightness25'>25% </option>
+          <option value = 'filter_brightness50'>50%</option>
+          <option value = 'filter_brightness75'>75%</option>
         </select>
-        <button type="button" onClick={() => {
-          setFilter('filter_opacity');
-        }}>opacity</button>
-        <button type="button" onClick={() => {
-          setFilter('filter_blur');
-        }}>blur</button>
-
-        <br></br><br></br>
+        &nbsp;
+        <select className="form-control form-control-sm"  onChange={event => setFilter(event.target.value)}>
+          <option selected>Opacity</option>
+          <option value = 'filter_opacity25'>25% </option>
+          <option value = 'filter_opacity50'>50%</option>
+          <option value = 'filter_opacity75'>75%</option>
+        </select>
+        </form>
+        <br></br>
         <input type="submit" className="btn btn-lg btn-primary btn-block" />
       </form>
       <br></br>
