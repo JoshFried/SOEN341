@@ -24,4 +24,46 @@ For this project we are required to develop a simplified version of Instagram th
 * Fahim Bhuiyan
 * Mike Stephane Kanyarushatsi 
 
+## **System In Operation**
+![](https://i.imgur.com/SpftKXE.png)
+Create/Register an account.
 
+
+![](https://i.imgur.com/90DUfY4.png)
+Logging into account.
+
+
+![](https://i.imgur.com/dy75Xnu.png)
+Profile page after logging into new account.
+
+
+![](https://i.imgur.com/qEPXMVt.png)
+Uploading a profile picture.
+
+
+![](https://i.imgur.com/bEO94NN.png)
+Edit profile 
+
+
+![](https://i.imgur.com/Hxv397G.png)
+Upload photo with caption and optional filters(50% grayscale in this case).
+
+
+![](https://i.imgur.com/5y3jRws.png)
+Redirects to feed. Posting comments on image created.
+
+
+![](https://i.imgur.com/uWc8f9a.png)
+Follow user using the search bar(searched for account kevin).
+
+
+![](https://i.imgur.com/hVP7XJA.png)
+After clicking follow, successfully following user.
+
+
+![](https://i.imgur.com/nfFkpjk.png)
+Profile after uploading a photo, editing/uploading profile picture and following a user.
+
+
+![](https://i.imgur.com/uE8c8sV.png)
+Feed after following a user. We can see their posts and write/edit/delete comments.
