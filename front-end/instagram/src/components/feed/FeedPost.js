@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import "../../App.css";
 import Figure from "react-bootstrap/Figure";
 import CardGroup from "react-bootstrap/CardGroup";
-import likePost from "../../actions/Like";
-import { createComment } from "..//../actions/Comment";
+import likePost from "../../modules/actions/Like";
+import { createComment } from "..//../modules/actions/Comment";
 import PostComment from "./PostComment";
 import { useAuth } from "../../context/auth";
 import { useComment } from "../../context/comment";
@@ -95,80 +95,89 @@ const Post = ({ post, user }) => {
   return (
     <Fragment>
       <Container
-          style={{
-            maxWidth: "750px",
-          
-            paddingTop: "5%"
-          }}
-        >
-          <Row>
-            <Col>
-              <CardGroup>
-                <Card
+        style={{
+          maxWidth: "750px",
+
+          paddingTop: "5%"
+        }}
+      >
+        <Row>
+          <Col>
+            <CardGroup>
+              <Card
+                style={{
+                  marginBottom: "0"
+                }}
+              >
+                <Card.Header style={{ fontWeight: "bold", fontSize: "14px" }}>
+                  <Link to={url} style={{ fontWeight: "bold", color: "black" }}>
+                    {Capitalize(post.account.username)}{" "}
+                  </Link>
+                </Card.Header>
+                <Figure.Image
                   style={{
-                    marginBottom: '0'
+                    height: "1000",
+                    width: "750"
                   }}
-                >
-                  <Card.Header style={{ fontWeight: "bold", fontSize: "14px" }}>
-                    <Link to={url} style={{ fontWeight: "bold", color: "black" }}>
-                      {Capitalize(post.account.username)}{" "}
-                    </Link>
-                  </Card.Header>
-                  <Figure.Image
-                    style={{
-                      height: "1000",
-                      width: "750"
+                  className="posts"
+                  className={post.img_filter}
+                  src={"http://127.0.0.1:8000".concat(post.picture)}
+                  alt="Posts"
+                />
+                <Row style={{ marginLeft: "0px" }}>
+                  <a
+                    style={{ width: "0px", height: "0px", marginLeft: "0px" }}
+                    onClick={() => {
+                      likePost(JSON.parse(authTokens), post.id);
+                      setLiked(!liked);
+                      setNewLike();
                     }}
-                    className="posts"
-                    className= {post.img_filter}
-                    src={"http://127.0.0.1:8000".concat(post.picture)}
-                    alt="Posts"
-                  />
-                <Row style={{marginLeft:'0px'}}>
-                <a
-                  style={{ width: "0px", height: "0px", marginLeft:'0px'}}
-                  onClick={() => {
-                    likePost(JSON.parse(authTokens), post.id);
-                    setLiked(!liked);
-                    setNewLike();
-                  }}
-                >
-                  {liked && (
-                    <img
-                      src={redHeart}
+                  >
+                    {liked && (
+                      <img
+                        src={redHeart}
+                        style={{
+                          cursor: "pointer",
+                          marginLeft: "15px",
+                          width: "26px",
+                          height: "26px"
+                        }}
+                        alt=""
+                      ></img>
+                    )}
+                    {!liked && (
+                      <img
+                        src={outlineHeart}
+                        style={{
+                          cursor: "pointer",
+                          marginLeft: "15px",
+                          width: "26px",
+                          height: "26px"
+                        }}
+                        alt=""
+                      ></img>
+                    )}
+                  </a>
+                  <a
+                    style={{ marginLeft: "50px" }}
+                    role="button"
+                    onClick={() => {
+                      setShowModal();
+                      setModalID(post.id);
+                      setTypeModal("likes");
+                      setModalData(post.all_likes);
+                    }}
+                  >
+                    <span
                       style={{
-                        cursor: 'pointer',
-                        marginLeft: "15px",
-                        width: "26px",
-                        height: "26px"
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        cursor: "pointer"
                       }}
-                      alt=""
-                    ></img>
-                  )}
-                  {!liked && (
-                    <img
-                      src={outlineHeart}
-                      style={{
-                        cursor: 'pointer',
-                        marginLeft: "15px",
-                        width: "26px",
-                        height: "26px"
-                      }}
-                      alt=""
-                    ></img>
-                  )}
-                </a>
-                <a style={{marginLeft:'50px' }}
-                  role="button"
-                  onClick={() => {
-                    setShowModal();
-                    setModalID(post.id);
-                    setTypeModal("likes");
-                    setModalData(post.all_likes);
-                  }}
-                >
-                 <span style={{fontWeight:'500', fontSize:'14px', cursor: 'pointer'}}>{post.likes} likes</span> 
-                </a>
+                    >
+                      {post.likes} likes
+                    </span>
+                  </a>
                 </Row>
                 <Card.Body style={{ paddingTop: "4px", marginLeft: "0px" }}>
                   <Card.Text
