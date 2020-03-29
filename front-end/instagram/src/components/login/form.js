@@ -112,7 +112,7 @@ const LoginForm = () => {
         <br></br>
 
         <button
-          className="btn btn-lg btn-success btn-block"
+          className="btn btn-lg btn-primary btn-block"
           type="submit"
           disabled={isSubmitting}
         >

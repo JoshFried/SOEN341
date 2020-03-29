@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { Card, Button } from "react-bootstrap";
-
 // take state of data  from fetching in profilelistview and display
 const Posts = props => {
   return (
