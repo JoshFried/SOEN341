@@ -3,8 +3,7 @@ import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { getUsername } from "../../modules/UserService";
-import { deleteComment } from "../../actions/Comment";
-import { editComment } from "../../actions/Comment";
+import { deleteComment, editComment } from "../../modules/actions/Comment";
 import { useComment } from "../../context/comment";
 import "../../App.css";
 
