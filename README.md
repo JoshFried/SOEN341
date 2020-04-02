@@ -24,20 +24,25 @@ For this project we are required to develop a simplified version of Instagram th
 * Fahim Bhuiyan
 * Mike Stephane Kanyarushatsi 
 
-## **Setting Up Your Environment**
-* Run XAMP program and start Apache and mySQL
+## **Getting Started**
+1. Clone/download SOEN341 Project
+2. Run the XAMPP program and start Apache and mySQL
+3. Both back-end and front-end needs its own Command Prompt
+
 Back-end
-* Head to SOEN341/back-end
-* Create your virtual environment using virtualenv env in your Command Prompt
-* Then activate your virtual environment by using env\Scripts\activate
-* Install dependencies using pip install -r requirements.txt
-* Head over to SOEN341/back-end/src
-* Start the back-end using python manage.py runserver in your Command Prompt
+1. Open Command Prompt
+2. Head to SOEN341/back-end
+2. Create your virtual environment typing `virtualenv env`
+3. Activate your virtual environment by typing `env\Scripts\activate`
+4. Install dependencies typing `pip install -r requirements.txt`
+5. Head over to SOEN341/back-end/src
+6. Start the back-end typing `python manage.py runserver` 
 
 Front-end
-* Head over to /SOEN341/front-end/instagram
-* Install dependencies using npm install in your Command Prompt
-* Start the front-end using npm start
+1. Open the other Command Prompt
+2. Head over to SOEN341/front-end/instagram
+3. Install dependencies typing `npm install` 
+4. Start the front-end typing `npm start`
 
 ## **System In Operation**
 ![](https://i.imgur.com/SpftKXE.png)
