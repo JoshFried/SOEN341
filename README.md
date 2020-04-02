@@ -17,16 +17,73 @@ For this project we are required to develop a simplified version of Instagram th
 
 ## **Team Members**
 
-Josh Fried - 40065326 --> Github username: JoshFried 
+* Josh Fried
+* Sarah Papadopoli
+* Shashank Patel
+* Sacha Elkaim
+* Fahim Bhuiyan
+* Mike Stephane Kanyarushatsi 
 
-Sarah Papadopoli - 26629598 --> Github username: Salander24
+## **Getting Started**
+1. Clone/download SOEN341 Project
+2. Run the XAMPP program and start Apache and mySQL
+3. Both back-end and front-end needs its own Command Prompt
 
-Shashank Patel - 40094236 --> Github username: shash3 
+Back-end
+1. Open Command Prompt
+2. Head to SOEN341/back-end
+2. Create your virtual environment typing `virtualenv env`
+3. Activate your virtual environment by typing `env\Scripts\activate`
+4. Install dependencies typing `pip install -r requirements.txt`
+5. Head over to SOEN341/back-end/src
+6. Start the back-end typing `python manage.py runserver` 
 
-Sacha Elkaim  - 29779698 --> Github username: sachaelkaim
+Front-end
+1. Open the other Command Prompt
+2. Head over to SOEN341/front-end/instagram
+3. Install dependencies typing `npm install` 
+4. Start the front-end typing `npm start`
 
-Fahim Bhuiyan - 40091942 --> Github username: fahimbhuiyan
+## **System In Operation**
+![](https://i.imgur.com/SpftKXE.png)
+Create/Register an account.
 
-Mike Stephane Kanyarushatsi - 26423086 --> Github username: mkanyar
+
+![](https://i.imgur.com/90DUfY4.png)
+Logging into account.
 
 
+![](https://i.imgur.com/dy75Xnu.png)
+Profile page after logging into new account.
+
+
+![](https://i.imgur.com/qEPXMVt.png)
+Uploading a profile picture.
+
+
+![](https://i.imgur.com/bEO94NN.png)
+Edit profile 
+
+
+![](https://i.imgur.com/Hxv397G.png)
+Upload photo with caption and optional filters(50% grayscale in this case).
+
+
+![](https://i.imgur.com/5y3jRws.png)
+Redirects to feed. Posting comments on image created.
+
+
+![](https://i.imgur.com/uWc8f9a.png)
+Follow user using the search bar(searched for account kevin).
+
+
+![](https://i.imgur.com/hVP7XJA.png)
+After clicking follow, successfully following user.
+
+
+![](https://i.imgur.com/nfFkpjk.png)
+Profile after uploading a photo, editing/uploading profile picture and following a user.
+
+
+![](https://i.imgur.com/uE8c8sV.png)
+Feed after following a user. We can see their posts and write/edit/delete comments.

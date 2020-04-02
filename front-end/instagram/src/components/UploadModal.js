@@ -12,9 +12,7 @@ const UploadModal = ({ type, user }) => {
   const { setShowPicModal } = useModal();
   const { authTokens } = useAuth();
   const [content, setContent] = useState("");
-  const [picture, setPicture] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const [url, setUrl] = useState("");
 
   const handleChange = e => {
     setContent(e.target.value);
