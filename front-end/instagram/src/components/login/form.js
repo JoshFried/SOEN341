@@ -28,6 +28,7 @@ const LoginForm = () => {
         body: JSON.stringify(values)
       });
       const resJSON = await apiRes.json();
+      console.log(resJSON);
       setAuthTokens(resJSON.token);
       setLoggedIn(authTokens);
     } catch (error) {

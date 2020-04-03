@@ -14,6 +14,7 @@ export const createComment = async (token, id, text) => {
     );
     const resJSON = await apiRes.json();
     console.log(resJSON);
+    return resJSON;
   } catch (error) {
     console.log(error);
   }
