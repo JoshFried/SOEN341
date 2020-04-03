@@ -12,6 +12,7 @@ export const followAccount = async (token, username) => {
     );
     const resJSON = await apiRes.json();
     console.log(resJSON);
+    return resJSON;
   } catch (error) {
     console.log(error);
   }
