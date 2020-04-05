@@ -1,8 +1,8 @@
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
-import React, { useState, useEffect } from "../../../node_modules/react";
+import React, { useState } from "../../../node_modules/react";
 import { Fragment } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const INITIAL_STATE = {
   email: "",
