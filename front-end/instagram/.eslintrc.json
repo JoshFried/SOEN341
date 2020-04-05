@@ -22,5 +22,8 @@
         "react"
     ],
     "rules": {
+        "semi": "error",
+        "semi-spacing": ["error", {"before": false, "after": true}],
+        "comma-spacing": ["error", { "before": false, "after": true }]
     }
 }

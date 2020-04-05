@@ -15,7 +15,7 @@ const PostForm = () => {
 
   const handleImageChange = e => {
     setPicture(e.target.files[0]);
-    setPreview(URL.createObjectURL(e.target.files[0]))
+    setPreview(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleSubmit = e => {
