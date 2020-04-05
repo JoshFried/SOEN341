@@ -21,7 +21,7 @@ urlpatterns = [
     path('<id>/like', like_view, name="like"),
     path('<id>/delete', delete_post_view, name="delete"),
     path('create', create_post_view, name="create"),
-    path('<id>/comment/create', create_comment_view, name="create"),
+    path('<id>/comment/create', create_comment_view, name="create_comment"),
     path('comment/<id>/update', update_comment_view, name="update"),
     path('comment/<id>/delete', delete_comment_view, name="delete"),
 ]
