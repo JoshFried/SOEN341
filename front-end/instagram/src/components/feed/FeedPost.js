@@ -1,8 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-
 import { Card, Row, Col, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import "../../App.css";
 import Figure from "react-bootstrap/Figure";
 import CardGroup from "react-bootstrap/CardGroup";
