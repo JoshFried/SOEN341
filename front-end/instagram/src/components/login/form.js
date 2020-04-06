@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "../../../node_modules/react";
+import React, { useState } from "../../../node_modules/react";
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
 import { useAuth } from "../../context/auth";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Fragment } from "react";
 
 const INITIAL_STATE = {
