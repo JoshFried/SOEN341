@@ -96,45 +96,64 @@ const PostForm = () => {
         </div>
         <br></br>
         <div>
-          <img src={preview} className={filter} style={{width:'300px', height:'200px'}}></img>
+        <img
+            src={preview}
+            class={filter}
+            style={{ width: "300px", height: "200px" }}
+          ></img>
         </div>
-        <form className="form-inline">
-        <select className="form-control form-control-sm" onChange={event => setFilter(event.target.value)}>
-          <option selected>Grayscale</option>
-          <option value='filter_grayscale25'>25% </option>
-          <option value='filter_grayscale50'>50%</option>
-          <option value='filter_grayscale75'>75%</option>
-          <option value='filter_grayscale100'>100%</option>
-        </select>
-        &nbsp;
-        <select className="form-control form-control-sm"  onChange={event => setFilter(event.target.value)}>
-          <option selected>Invert</option>
-          <option value='filter_invert25 '>25% </option>
-          <option value='filter_invert50 '>50%</option>
-          <option value='filter_invert75 '>75%</option>
-          <option value='filter_invert100 '>100%</option>
-        </select>
-        &nbsp;
-        <select className="form-control form-control-sm"  onChange={event => setFilter(event.target.value)}>
-          <option selected>Hue-rotate</option>
-          <option value='filter_hue-rotate90'>90 degree </option>
-          <option value='filter_hue-rotate180'>180 degree</option>
-          <option value='filter_hue-rotate270'>270 degree</option>
-          <option value='filter_hue-rotate360'>360 degree</option>
-        </select>
-        <select className="form-control form-control-sm"  onChange={event => setFilter(event.target.value)}>
-          <option selected>brightness</option>
-          <option value='filter_brightness25'>25% </option>
-          <option value='filter_brightness50'>50%</option>
-          <option value='filter_brightness75'>75%</option>
-        </select>
-        &nbsp;
-        <select className="form-control form-control-sm"  onChange={event => setFilter(event.target.value)}>
-          <option selected>Opacity</option>
-          <option value='filter_opacity25'>25% </option>
-          <option value='filter_opacity50'>50%</option>
-          <option value='filter_opacity75'>75%</option>
-        </select>
+        <form class="form-inline">
+          <select
+            className="form-control form-control-sm"
+            onChange={(event) => setFilter(event.target.value)}
+          >
+            <option selected>Grayscale</option>
+            <option value="filter_grayscale25">25% </option>
+            <option value="filter_grayscale50">50%</option>
+            <option value="filter_grayscale75">75%</option>
+            <option value="filter_grayscale100">100%</option>
+          </select>
+          &nbsp;
+          <select
+            className="form-control form-control-sm"
+            onChange={(event) => setFilter(event.target.value)}
+          >
+            <option selected>Invert</option>
+            <option value="filter_invert25 ">25% </option>
+            <option value="filter_invert50 ">50%</option>
+            <option value="filter_invert75 ">75%</option>
+            <option value="filter_invert100 ">100%</option>
+          </select>
+          &nbsp;
+          <select
+            className="form-control form-control-sm"
+            onChange={(event) => setFilter(event.target.value)}
+          >
+            <option selected>Hue-rotate</option>
+            <option value="filter_hue-rotate90">90 degree </option>
+            <option value="filter_hue-rotate180">180 degree</option>
+            <option value="filter_hue-rotate270">270 degree</option>
+            <option value="filter_hue-rotate360">360 degree</option>
+          </select>
+          <select
+            className="form-control form-control-sm"
+            onChange={(event) => setFilter(event.target.value)}
+          >
+            <option selected>brightness</option>
+            <option value="filter_brightness25">25% </option>
+            <option value="filter_brightness50">50%</option>
+            <option value="filter_brightness75">75%</option>
+          </select>
+          &nbsp;
+          <select
+            className="form-control form-control-sm"
+            onChange={(event) => setFilter(event.target.value)}
+          >
+            <option selected>Opacity</option>
+            <option value="filter_opacity25">25% </option>
+            <option value="filter_opacity50">50%</option>
+            <option value="filter_opacity75">75%</option>
+          </select>
         </form>
         <br></br>
         <input type="submit" className="btn btn-lg btn-primary btn-block" />
