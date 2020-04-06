@@ -96,7 +96,7 @@ const PostForm = () => {
         </div>
         <br></br>
         <div>
-        <img
+          <img
             src={preview}
             class={filter}
             style={{ width: "300px", height: "200px" }}
