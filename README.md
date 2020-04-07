@@ -14,7 +14,8 @@ For this project we are required to develop a simplified version of Instagram th
 ### **Back-End** ###
 * Django 
 * MySQL
-### **Name Conventions** ###
+
+## **Name Conventions** 
 * [React naming conventions ](https://github.com/airbnb/javascript/tree/master/react)
 * [Django naming conventions ](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/)
 * [Python naming conventions ](https://www.python.org/dev/peps/pep-0008/)
