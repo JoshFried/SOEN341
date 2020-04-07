@@ -82,7 +82,6 @@ const CustomLayout = props => {
                 placeholder="Search"
                 aria-label="Search"
               ></input>
-
             <button style={{display:'none'}}onClick={e => handleSearch(e)}>Search</button>
             </form>
           </div>
@@ -112,10 +111,9 @@ const CustomLayout = props => {
                 style={{ width: "20px", height: "20px" }}
               ></img>
             </Nav.Link>
-            <Nav.Link href="/login">
-              <a variant="outline-dark" onClick={logOut}>
-                Logout
-              </a>
+            <Nav.Link 
+              href="/login" variant="outline-dark" onClick={logOut}>
+              Logout
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
@@ -129,5 +127,4 @@ const CustomLayout = props => {
     </Fragment>
   );
 };
-
 export default CustomLayout;
