@@ -37,6 +37,9 @@ describe('PostForm', () => {
     wrapper.find('form').at(0).simulate('submit', {
     preventDefault: () => {},
     })
+    /* Our image file and caption are in the right format and working correctly or else formData in Postform would through an error
+    after clicking submit and going into handleSubmit().
+    */
     expect(axios.post).toHaveBeenCalled()
   })
 })

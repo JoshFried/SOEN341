@@ -113,7 +113,8 @@ const CustomLayout = props => {
             </Nav.Link>
             <Nav.Link 
               href="/login" variant="outline-dark" onClick={logOut}>
-            Logout</Nav.Link>
+              Logout
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
