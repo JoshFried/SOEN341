@@ -61,7 +61,25 @@ class CommentTestCase(TestCase):
         res = self.client.post(url, data)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
     
+class DeleteCommentTestCase(TestCase):
+    def test_delete_comment(self):
+        acc=create_account(username="dawg")
+        post = create_post(account=acc)
+        postID = post.id
+        client = APIClient()
+        comment = create_comment(account=acc, post=post)
+        url = reverse('post:delete_comment', args=[str(comment.id)])
+        token, created = Token.objects.get_or_create(user=acc)                
+        self.client = Client(HTTP_AUTHORIZATION='Token ' + token.key)
+        data = {'post': str(postID)}
+        res = self.client.delete(url, data, content_type='application/json')
+        self.assertEqual(res.data['success'], "delete successful")
 
+
+
+
+def create_comment(account, post):
+    return Comment.objects.create(text="text", post=post, account=account)
 
 def create_post(account):
     return Post.objects.create(picture=get_image_file(), caption="test", account=account)    
