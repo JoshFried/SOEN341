@@ -15,6 +15,12 @@ from rest_framework.test import force_authenticate
 
 # Create your tests here.
 
+def data_for_registration(username, email="josh@josh.com", pw2 = False):
+    data = {'email': email, 'username': username, 'first_name': "josh", 'last_name': "fried", 'password': "password"}
+    if pw2:
+        data['password2'] = "password"
+    return data
+
 class PostTestCase(TestCase):
     url = reverse('post:create')
     print(url)
@@ -32,7 +38,8 @@ class PostTestCase(TestCase):
   
 
 def create_account(username, email="josh@josh.com"):
-    return Account.objects.create_user(email=email, username=username, first_name="josh", last_name="fried", password="password")
+    data = data_for_registration(username=username, email=email)
+    return Account.objects.create_user(**data)
 
 def get_image_file(name='test.png', ext='png', size=(50, 50), color=(256, 0, 0)):
     file_obj = BytesIO()
@@ -91,4 +98,24 @@ class SignInTestCase(TestCase):
         token, created = Token.objects.get_or_create(user=acc)                
         res = self.client.post(url, data)
         self.assertEqual(res.data['token'], token.key)
+
+class RegistrationTestCase(TestCase):
+    def test_registration(self):
+        data = data_for_registration(username="josh", pw2=True)
+        client = APIClient()
+        url = reverse('account:register')
+        res = self.client.post(url, data)
+        self.assertEqual(res.data['response'], 'successfully registered a new user')
+
+class FeedTestCase(TestCase):
+    def test_feed(self):
+        acc = create_account(username="dawg")
+        acc2 = create_account(username="josh", email="josh2@josh.com")
+        post = create_post(account=acc)
+        client = APIClient()
+        token, created = Token.objects.get_or_create(user=acc)                
+        url = reverse('account:feed')
+        self.client = Client(HTTP_AUTHORIZATION='Token ' + token.key)
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
 
