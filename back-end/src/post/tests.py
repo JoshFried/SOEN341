@@ -23,7 +23,6 @@ def data_for_registration(username, email="josh@josh.com", pw2 = False):
 
 class PostTestCase(TestCase):
     url = reverse('post:create')
-    print(url)
     def test_create_post(self):
         acc = create_account(username="dawg")
         image = get_image_file()
@@ -76,7 +75,19 @@ class DeleteCommentTestCase(TestCase):
         self.assertEqual(res.data['success'], "delete successful")
 
 
-
+class UpdateCommentTestCase(TestCase):
+    def test_update_comment(self):
+        acc=create_account(username="dawg")
+        post = create_post(account=acc)
+        postID = post.id
+        client = APIClient()
+        comment = create_comment(account=acc, post=post)
+        url = reverse('post:update_comment', args=[str(comment.id)])
+        token, created = Token.objects.get_or_create(user=acc)                
+        self.client = Client(HTTP_AUTHORIZATION='Token ' + token.key)
+        data = {'post': str(postID), 'text':"dsajfhdsiuof"}
+        res = self.client.put(url, data, content_type='application/json')
+        self.assertEqual(res.data['success'], "updated successful")
 
 def create_comment(account, post):
     return Comment.objects.create(text="text", post=post, account=account)
