@@ -24,7 +24,7 @@ def registration_view(request):
         data = {}
         if serializer.is_valid():
             account = serializer.save()  # calls overided save method to save account to DB
-            data['response'] = "successfully registed a new user."
+            data['response'] = "successfully registered a new user"
             data['email'] = account.email
             data['username'] = account.username
             token = Token.objects.get(user=account).key
@@ -138,4 +138,4 @@ def get_feed_view(request):
       
     if request.method == 'GET':
         serializer = FeedSerializer(account)
-        return Response(serializer.data)
+        return Response(serializer.data, status = status.HTTP_200_OK)

@@ -40,7 +40,7 @@ const ProfilePage = () => {
     setUsername(usernameParam);
   }
   useEffect(() => {
-    getUsername(token).then(name => {
+    getUsername(token).then((name) => {
       if (username == undefined || username == "undefined") {
         setUsername(name);
       } else {
@@ -64,7 +64,7 @@ const ProfilePage = () => {
     nbOfFollowers: 0,
     allFollowers: [],
     nbOfFollowing: 0,
-    allFollowing: []
+    allFollowing: [],
   });
 
   const [visitorProfile, setVisitorProfile] = useState({
@@ -79,18 +79,18 @@ const ProfilePage = () => {
     nbOfFollowers: 0,
     allFollowers: [],
     nbOfFollowing: 0,
-    allFollowing: []
+    allFollowing: [],
   });
 
   useEffect(() => {
     if (username != undefined) {
-      getInfo(username).then(person => {
+      getInfo(username).then((person) => {
         if (person === "404 error") set404(true);
         setProfile({ ...person });
       });
     }
     if (visitor) {
-      getInfo(name).then(person => {
+      getInfo(name).then((person) => {
         setVisitorProfile({ ...person });
       });
     }
@@ -101,15 +101,16 @@ const ProfilePage = () => {
     isFollower,
     showModal,
     showPicModal,
-    token
+    token,
   ]);
 
   useEffect(() => {
     {
       profile.allFollowers &&
         setFollower(
-          profile.allFollowers.filter(e => e.username !== JSON.stringify(name))
-            .length > 0
+          profile.allFollowers.filter(
+            (e) => e.username !== JSON.stringify(name)
+          ).length > 0
         );
     }
   }, [profile]);
@@ -118,7 +119,7 @@ const ProfilePage = () => {
     <Container
       style={{
         maxWidth: "100%",
-        paddingTop: "5%"
+        paddingTop: "5%",
       }}
     >
       {is404 && <Redirect to="/error/404"></Redirect>}
@@ -204,7 +205,7 @@ const ProfilePage = () => {
           <hr></hr>
           {profile.allPosts && (
             <div>
-              {profile.allPosts.map(item => (
+              {profile.allPosts.map((item) => (
                 <Post
                   post={item.picture}
                   key={item.picture}
