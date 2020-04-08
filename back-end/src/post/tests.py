@@ -82,4 +82,13 @@ class LikeTestCase(TestCase):
         res = self.client.post(url, data)
         self.assertEqual(res.data['response'], "Like added")
         
-    
+class SignInTestCase(TestCase):
+    def test_sign_in(self):
+        acc = create_account(username="josh")
+        client = APIClient()
+        url = reverse('account:login')
+        data = {'username': 'josh@josh.com', 'password': 'password'}
+        token, created = Token.objects.get_or_create(user=acc)                
+        res = self.client.post(url, data)
+        self.assertEqual(res.data['token'], token.key)
+
